@@ -1,7 +1,6 @@
 <?php
 class Request extends AppModel {
 	var $name = 'Request';
-	var $displayField = 'id';
 	var $validate = array(
 		'roomid' => array(
 			'numeric' => array(

@@ -1,7 +1,7 @@
 <?php
 class Log extends AppModel {
 	var $name = 'Log';
-	var $displayField = 'id';
+	
 	var $validate = array(
 		'id' => array(
 			'q' => array(

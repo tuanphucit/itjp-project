@@ -1,7 +1,7 @@
 <?php
 class Room extends AppModel {
 	var $name = 'Room';
-	var $displayField = 'name';
+	
 	var $validate = array(
 		'name' => array(
 			'notempty' => array(
