@@ -1,13 +1,14 @@
 -- phpMyAdmin SQL Dump
--- version 3.2.4
+-- version 3.4.10.1
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Mar 07, 2012 at 10:23 AM
+-- Generation Time: Mar 08, 2012 at 05:20 AM
 -- Server version: 5.1.41
--- PHP Version: 5.3.1
+-- PHP Version: 5.3.10
 
 SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
+SET time_zone = "+00:00";
 
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -18,6 +19,29 @@ SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 --
 -- Database: `it2`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `companies`
+--
+
+CREATE TABLE IF NOT EXISTS `companies` (
+  `id` smallint(6) NOT NULL AUTO_INCREMENT,
+  `code` varchar(3) NOT NULL,
+  `name` varchar(200) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `code` (`code`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
+
+--
+-- Dumping data for table `companies`
+--
+
+INSERT INTO `companies` (`id`, `code`, `name`) VALUES
+(1, 'NEC', 'NEC Japan'),
+(2, 'LTT', 'Lifetimetech Ltd,.Co'),
+(3, 'FPT', 'FPT Viet Nam');
 
 -- --------------------------------------------------------
 
@@ -37,11 +61,6 @@ CREATE TABLE IF NOT EXISTS `equipments` (
   UNIQUE KEY `code_UNIQUE` (`code`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
---
--- Dumping data for table `equipments`
---
-
-
 -- --------------------------------------------------------
 
 --
@@ -57,11 +76,6 @@ CREATE TABLE IF NOT EXISTS `logs` (
   PRIMARY KEY (`id`),
   KEY `fk_logs_users1` (`userid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
-
---
--- Dumping data for table `logs`
---
-
 
 -- --------------------------------------------------------
 
@@ -80,11 +94,6 @@ CREATE TABLE IF NOT EXISTS `positions_of_equipments` (
   KEY `fk_positions_of_equipments_rooms1` (`roomid`),
   KEY `fk_positions_of_equipments_equipments1` (`equipmentid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
-
---
--- Dumping data for table `positions_of_equipments`
---
-
 
 -- --------------------------------------------------------
 
@@ -107,11 +116,6 @@ CREATE TABLE IF NOT EXISTS `requests` (
   KEY `fk_requests_rooms1` (`roomid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
---
--- Dumping data for table `requests`
---
-
-
 -- --------------------------------------------------------
 
 --
@@ -127,11 +131,6 @@ CREATE TABLE IF NOT EXISTS `request_details` (
   PRIMARY KEY (`id`),
   KEY `fk_request_details_requests1` (`requestid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
-
---
--- Dumping data for table `request_details`
---
-
 
 -- --------------------------------------------------------
 
@@ -152,11 +151,6 @@ CREATE TABLE IF NOT EXISTS `rooms` (
   KEY `fk_rooms_room_types1` (`typeid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
---
--- Dumping data for table `rooms`
---
-
-
 -- --------------------------------------------------------
 
 --
@@ -170,11 +164,6 @@ CREATE TABLE IF NOT EXISTS `room_types` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
---
--- Dumping data for table `room_types`
---
-
-
 -- --------------------------------------------------------
 
 --
@@ -187,25 +176,18 @@ CREATE TABLE IF NOT EXISTS `users` (
   `email` varchar(45) NOT NULL,
   `password` varchar(64) NOT NULL,
   `fullname` varchar(45) NOT NULL,
-  `company` varchar(45) NOT NULL,
+  `company_id` smallint(45) NOT NULL,
   `phone` varchar(45) NOT NULL,
   `local_phone` varchar(45) NOT NULL,
   `created_time` datetime NOT NULL,
   `last_booked` datetime NOT NULL,
   `last_access` datetime NOT NULL,
   `ws_critical` tinyint(4) NOT NULL,
-  `role` enum('adm','mem') NOT NULL DEFAULT 'mem',
+  `role` tinyint(4) NOT NULL,
+  `status` tinyint(4) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `usercode_UNIQUE` (`usercode`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
-
---
--- Dumping data for table `users`
---
-
-INSERT INTO `users` (`id`, `usercode`, `email`, `password`, `fullname`, `company`, `phone`, `local_phone`, `created_time`, `last_booked`, `last_access`, `ws_critical`, `role`) VALUES
-(1, 'ABXC12', 'toan@gmail.com', '123456', '1231', '1231', '1231', '1231', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
-(2, 'MBC003', 'nguyen@gai.com', '123456', 'Nguyen Toan', 'Micro Back Cracket', '01654-1254-7789', '158', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, 'adm');
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
 
 --
 -- Constraints for dumped tables
