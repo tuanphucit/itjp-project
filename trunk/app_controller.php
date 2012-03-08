@@ -32,7 +32,7 @@
  */
 class AppController extends Controller {
 	var $components = array('Auth','Session');
-/*
+
 	function beforeFilter() {
 		$this->Auth->fields = array ('username' => 'email', 'password' => 'password' );
 		
@@ -51,7 +51,7 @@ class AppController extends Controller {
 			$this->Auth->userScope = array('User.user_type'=>0);
 			
 			$this->Auth->autoRedirect = true;
-			$this->Auth->loginRedirect = array('controller'=>'users','action'=>'admin_dashboard');
+			$this->Auth->loginRedirect = array('controller'=>'users','action'=>'admin_index');
 		}
 		else {
 			if (!$isUser){
@@ -76,7 +76,7 @@ class AppController extends Controller {
 			$this->Auth->userScope = array('User.user_type >'=>0);
 			
 			$this->Auth->autoRedirect = true;
-			$this->Auth->loginRedirect = array('controller'=>'users','action'=>'dashboard');
+			$this->Auth->loginRedirect = array('controller'=>'users','action'=>'index');
 		}
 		
 		
@@ -84,6 +84,6 @@ class AppController extends Controller {
 		$this->Auth->logoutRedirect = array('controller' => 'pages', 'action' => 'display', 'home');
 		
 	}
-*/
+
 }
 

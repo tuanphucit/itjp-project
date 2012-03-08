@@ -27,6 +27,7 @@ echo $this->Html->meta('icon');
 //echo $this->Html->css('cake.generic');
 
 echo $this->Html->css('login_style');
+echo $this->Html->css('default_style');
 
 if(isset($website_head)) echo $website_head;
 echo $scripts_for_layout;
