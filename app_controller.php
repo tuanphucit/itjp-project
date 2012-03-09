@@ -34,6 +34,8 @@ class AppController extends Controller {
 	var $components = array('Auth','Session');
 
 	function beforeFilter() {
+		$this->Auth->allow(array('controller'=>'pages', 'action'=>'display'));
+	
 		$this->Auth->fields = array ('username' => 'email', 'password' => 'password' );
 		
 		$isUser = $this->Session->read('isUser');

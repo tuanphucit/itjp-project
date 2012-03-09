@@ -125,6 +125,7 @@ class UsersController extends AppController {
 							//debug();
 						}
 						*/
+						$this->redirect('index');
 					}
 					
 
