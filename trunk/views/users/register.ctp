@@ -1,5 +1,5 @@
 <div id="header">
-	<p id="title">Welcome to FreeWeb</p>
+	<p id="title">Welcome to Room Booking System</p>
 </div>
 
 <div id="login_box">
