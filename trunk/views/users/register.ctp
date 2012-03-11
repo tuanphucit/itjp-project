@@ -44,8 +44,8 @@
 				$options[$company['Company']['id']]=$company['Company']['name'];
 			}
 		}
-		$options['0']='Enter Company name';
-		//debug($options);
+		$options['0']='Other Company';
+		debug($options);
 	?>
 	<td><?php echo $this->Form->select('company_id', $options, null, array('empty'=>'-Select-'));?></td>
 	
