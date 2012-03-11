@@ -21,7 +21,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <?php echo $this->Html->charset(); ?>
-<title><?php __('Free Web'); ?> <?php echo $title_for_layout; ?>
+<title><?php __('T09'); ?> <?php echo $title_for_layout; ?>
 </title>
 <?php
 //echo $this->Html->meta('icon');
@@ -47,20 +47,10 @@ echo $scripts_for_layout;
 	
 	
 	<div id="header">
-	<div id="header-left"><p id="title">WeVina Administrator</p></div>
+	<div id="header-left"><p id="title">Room Booking Administrator</p></div>
 	
 	<div id="header-right">
 		<div class="item-panel">
-		<div class="item">
-			<div class="top-item"></div>
-			<div class="icon">
-				<a
-					href="<?php echo $this->Html->url(array('controller'=>'users','action'=>'admin_dashboard'))?>"
-					class="dashboard"> <?php echo $this->Html->image( 'dashboard-icon.png',array('alt'=>'Dashboard')) ?>
-					<span>Dashboard</span> </a>
-			</div>
-			<div class="bottom-item"></div>
-		</div>
 		<div class="item">
 			<div class="top-item"></div>
 			<div class="icon">
@@ -76,12 +66,12 @@ echo $scripts_for_layout;
 	</div>
 	<div id="menu">
 	<ul>
-		<li><?php echo $this->Html->link('User Management', array( 'controller'=>'users', 'action'=>'admin_index'));?></li>
-		<li><?php echo $this->Html->link('Website Management', array('controller'=>'websites','action'=>'admin_index'));?></li>
-		<li><?php echo $this->Html->link('Client Management', array('action'=>'#'));?></li>
-		<li><?php echo $this->Html->link('Template Management', array('controller'=>'templates', 'action'=>'admin_index'));?></li>
-		<li><?php echo $this->Html->link('Category Management', array('controller'=>'categories', 'action'=>'admin_index'));?></li>
-		<li><?php echo $this->Html->link('Report Management', array('action'=>'#'));?></li>
+		<li><?php echo $this->Html->link('Users Management', array( 'controller'=>'users', 'action'=>'admin_index'));?></li>
+		<li><?php echo $this->Html->link('Booking Management', array('controller'=>'requests','action'=>'admin_index'));?></li>
+		<li><?php echo $this->Html->link('Rooms Management', array('controller'=>'rooms', 'action'=>'admin_index'));?></li>
+		<li><?php echo $this->Html->link('Equipments Management', array('controller'=>'equipments', 'action'=>'admin_index'));?></li>
+		<li><?php echo $this->Html->link('Logs Management', array('controller'=>'logs', 'action'=>'admin_index'));?></li>
+		<li><?php echo $this->Html->link('Statistic', array('action'=>'#'));?></li>
 		
 		
 	</ul>
@@ -90,7 +80,7 @@ echo $scripts_for_layout;
 	<?php echo $content_for_layout; ?>
 	<div id="footer">
  	<?php
-		__ ( 'Copyright(C) SEO - FreeWeb All Rights Reserved' )?>
+		__ ( 'Copyright(C) Team 09 - IT Japanese All Rights Reserved' )?>
  	</div>
 
 	</div>
