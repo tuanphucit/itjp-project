@@ -2,7 +2,7 @@
 class UsersController extends AppController {
 
 	var $name = 'Users';
-	var $helpers = array('Ajax', 'Javascript');
+	var $helpers = array('Ajax', 'Javascript', 'Csv');
 	var $uses = array('Company', 'User');
 	var $_limit = 3;
 	function beforeFilter(){
@@ -403,5 +403,13 @@ class UsersController extends AppController {
 		}
 		$this->Session->setFlash(__('User was not deleted', true));
 		$this->redirect(array('action' => 'index'));
+	}
+	
+	function admin_export(){
+		$this->layout = 'ajax';
+		$result = $this->User->find('all');
+		$this->log($result,'log');
+		$this->set ('rs', $result);
+	
 	}
 }
