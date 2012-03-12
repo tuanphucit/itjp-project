@@ -38,6 +38,7 @@ class AppController extends Controller {
 	
 		$this->Auth->fields = array ('username' => 'email', 'password' => 'password' );
 		
+		/*
 		$isUser = $this->Session->read('isUser');
 		
 		//debug($this->params);
@@ -50,7 +51,7 @@ class AppController extends Controller {
 			$this->layout = 'admin';
 			$this->Session->write('isUser', false);
 			
-			$this->Auth->userScope = array('User.user_type'=>0);
+			$this->Auth->userScope = array('User.role'=>0);
 			
 			$this->Auth->autoRedirect = true;
 			$this->Auth->loginRedirect = array('controller'=>'users','action'=>'admin_index');
@@ -66,6 +67,7 @@ class AppController extends Controller {
 				$this->Session->destroy();
 				$this->Session->setFlash('You have been disable or deleted!');
 			}
+			
 			elseif (isset($status) && $status >= 2 ){
 				$this->Auth->allow = 'confirm';
 				$this->Session->destroy();
@@ -75,14 +77,14 @@ class AppController extends Controller {
 			
 			$isUser = true;
 			$this->Session->write('isUser', true);
-			$this->Auth->userScope = array('User.user_type >'=>0);
+			$this->Auth->userScope = array('User.role >'=>0);
 			
 			$this->Auth->autoRedirect = true;
 			$this->Auth->loginRedirect = array('controller'=>'users','action'=>'index');
 		}
 		
 		
-		
+		*/
 		$this->Auth->logoutRedirect = array('controller' => 'pages', 'action' => 'display', 'home');
 		
 	}
