@@ -3,7 +3,7 @@
 		<div id="tit">User Management</div>
 		
 		<div id="csv2">
-			<?php $url=array('controller'=>'users', 'action'=>'#');?>
+			<?php $url=array('controller'=>'users', 'action'=>'admin_export');?>
 			<form method="post" 
 			action="<?php echo $this->Html->url($url);?>">
 			<input type="submit" value="CSV Export"/>
@@ -192,7 +192,12 @@
 	
 	</div>
 </div>
+<div class="actions">
+	<h3><?php __('Actions'); ?></h3>
+	<ul>
+		<li><?php echo $this->Html->link(__('New User', true), array('action' => 'add')); ?></li>
+	</ul>
+</div>
 
 </div>
 </div>
- 
