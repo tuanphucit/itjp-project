@@ -3,7 +3,11 @@ class PositionsOfEquipmentsController extends AppController {
 
 	var $name = 'PositionsOfEquipments';
 	var $helpers = array('Ajax', 'Javascript', 'Time');
-	var $uses = array('PositionsOfEquipments','Equipment1');
+	var $uses = array('PositionsOfEquipments','Equipment1', "Room");
+	
+	function BeforeFilter(){
+		$this->Auth->allow('index','add','delete','view','edit');
+	}
 	
 	function index() {
 		$this->PositionsOfEquipment->recursive = 0;
@@ -19,8 +23,10 @@ class PositionsOfEquipmentsController extends AppController {
 	}
 
 	function add() {
-		$options = $this->Equipment1->find('list', array('fields'=>array('Equipment1.id')));
-		$this->set('options', $options);
+		$roomids = $this->Room->find('list', array('fields'=>array('Room.id')));
+		$equipmentids = $this->Equipment1->find('list', array('fields'=>array('Equipment1.id')));
+		$this->set('roomids', $roomids);
+		$this->set('equipmentids', $equipmentids);
 		if (!empty($this->data)) {
 			$this->PositionsOfEquipment->create();
 			if ($this->PositionsOfEquipment->save($this->data)) {

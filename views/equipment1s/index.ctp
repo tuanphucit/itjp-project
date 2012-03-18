@@ -18,7 +18,7 @@
 
 	<!-- Here's where we loop through our $posts array, printing out post info -->
 
-	<?php foreach ($equipments as $post): ?>
+	<?php foreach ($equipment1s as $post): ?>
 	<tr>
 		<td><?php echo $post['Equipment1']['id']; ?></td>
 		<td><?php echo $post['Equipment1']['code']; ?></td>
