@@ -8,7 +8,12 @@ class Equipment1sController extends AppController{
 	}
 	
 	function index(){
-		$this->set('equipments',$this->Equipment1->find('all'));
+		$this->set('equipment1s',$this->Equipment1->find('all'));
+	}
+	
+	function view($id){
+		$this->Equipment1->id = $id;
+		$this->set('equipment1s', $this->Equipment1->read());
 	}
 	
 	function add(){
@@ -17,11 +22,6 @@ class Equipment1sController extends AppController{
 			$this->Equipment1->save($this->data);
 			$this->redirect('index');
 		}
-	}
-	
-	function view($id){
-		$this->Equipment1->id = $id;
-		$this->set('equipment', $this->Equipment1->read());
 	}
 	
 	function delete( $id ){

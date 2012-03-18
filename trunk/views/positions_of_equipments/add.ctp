@@ -5,8 +5,8 @@
 		<?php __('Add Positions Of Equipment'); ?>
 		</legend>
 		<?php
-		echo $this->Form->input('roomid');
-		echo $this->Form->select('equipmentid',$options, null, array());
+		echo $this->Form->select('roomid', $roomids, null, array());
+		echo $this->Form->select('equipmentid',$equipmentids, null, array());
 		echo $this->Form->input('quantity');
 		echo $this->Form->input('move_time');
 		echo $this->Form->input('note');
