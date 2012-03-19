@@ -187,7 +187,10 @@ class UsersController extends AppController {
 
 	}
 	
-	
+	function admin_logout(){
+		$this->Session->destroy();
+		$this->redirect('login');
+	}
 	function admin_index() {
 		$this->layout = "admin";
 		$page = 1;
