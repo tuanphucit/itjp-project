@@ -33,4 +33,26 @@ class Request extends AppModel {
 			),
 		),
 	);
+	
+	var $belongsTo = array(
+		'User' => array(
+			'className' => 'User',
+			'foreignKey'=> 'create_by',
+			'dependent' => true,
+			'conditions' => '',
+			'fields' => '',
+		)
+	);
+	var $hasMany = array(
+		'RequestDetail' => array(
+			'className' => 'RequestDetail',
+			'foreignKey' => 'requestid',
+			'dependent' => true,
+			'limit' => '',
+			'offset' => '',
+			'exclusive' => '',
+			'finderQuery' => '',
+			'counterQuery' => ''
+		)
+	);
 }

@@ -14,4 +14,16 @@ class RoomType extends AppModel {
 			),
 		),
 	);
+	var $hasMany = array(
+		'Room' => array(
+			'className' => 'Room',
+			'foreignKey' => 'typeid',
+			'dependent' => true,
+			'limit' => '',
+			'offset' => '',
+			'exclusive' => '',
+			'finderQuery' => '',
+			'counterQuery' => ''
+		)
+	);
 }
