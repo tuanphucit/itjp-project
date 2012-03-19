@@ -1,5 +1,5 @@
 <div id="header">
-	<p id="title" align="center">WeVina Administrator</p>
+	<p id="title" align="center">T09 Administrator</p>
 </div>
 
 <div id="login_box">

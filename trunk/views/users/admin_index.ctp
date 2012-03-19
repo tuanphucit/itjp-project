@@ -13,7 +13,7 @@
 			<?php $url=array('controller'=>'users', 'action'=>'#');?>
 			<form enctype="multipart/form-data" method="post" 
 			action="<?php echo $this->Html->url($url);?>">
-			Import CSV
+			<?php echo __('Import CSV')?>
 			<input type="file" name="file" />
 			<input type="submit" value="Upload" />
 			</form>
@@ -48,7 +48,7 @@
 		</p>
 		
 		<p>
-		Text search 
+		<?php echo 'Text search'; ?>
 		<?php echo $this->Form->text('email', array('br'=>false)); ?>
 		<?php echo $this->Form->end(array('label'=>'Refresh and View', 'div'=>false));?>
 		
@@ -96,7 +96,7 @@
 			
 			<th><?php echo $this->Paginator->sort('last_booked');?></th>
 			<th><?php echo $this->Paginator->sort('status');?></th>
-			<th><?php echo $this->Paginator->sort('Critical', 'ws_critical');?></th>
+			<th><?php echo $this->Paginator->sort('Local phone', 'local_phone');?></th>
 			<th><?php echo __('No of booking');?></th>
 			<th><?php echo __('Edit');?></th>
 			
@@ -144,21 +144,11 @@
 		?>&nbsp;</td>
 		
 		<td>
-			<?php
-			if (isset($user['User']['ws_critical'])){
-				$flag_id=$user['User']['ws_critical'];
-				if ($flag_id == 1)
-					$flag = 'Good';
-				elseif ($flag_id==0)
-					$flag = 'Normal';
-				else $flag = 'Bad';
-			}else $flag = 'Good/Normal/Bad';
-			echo $flag; 
-			?>
+			<?php echo $user['User']['local_phone'];?>
 			
 		</td>
 		
-		<td>Chua lam&nbsp;</td>
+		<td><?php echo count($user['Request']);?>&nbsp;</td>
 		<td><?php echo $this->Html->image('user_edit.png', array('width'=>18, 'border'=>0, 
 		'url'=>array('controller'=>'users', 'action'=>'admin_edit', $id)));?></td>
 		
@@ -192,7 +182,7 @@
 	
 	</div>
 </div>
-
+<?php debug($users);?>
 
 </div>
 </div>
