@@ -68,7 +68,7 @@ echo $scripts_for_layout;
 		<li><?php echo $this->Html->link('Users Management', array( 'controller'=>'users', 'action'=>'admin_index'));?></li>
 		<li><?php echo $this->Html->link('Booking Management', array('controller'=>'requests','action'=>'admin_index'));?></li>
 		<li><?php echo $this->Html->link('Rooms Management', array('controller'=>'rooms', 'action'=>'admin_index'));?></li>
-		<li><?php echo $this->Html->link('Equipments Management', array('controller'=>'equipments', 'action'=>'admin_index'));?></li>
+		<li><?php echo $this->Html->link('Equipments Management', array('controller'=>'equipment1s', 'action'=>'admin_index'));?></li>
 		<li><?php echo $this->Html->link('Logs Management', array('controller'=>'logs', 'action'=>'admin_index'));?></li>
 		<li><?php echo $this->Html->link('Statistic', array('action'=>'#'));?></li>
 		
