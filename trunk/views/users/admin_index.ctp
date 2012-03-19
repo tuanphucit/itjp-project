@@ -94,7 +94,7 @@
 			
 			<th><?php echo $this->Paginator->sort('Created','created_time');?></th>
 			
-			<th><?php echo $this->Paginator->sort('last_access');?></th>
+			<th><?php echo $this->Paginator->sort('last_booked');?></th>
 			<th><?php echo $this->Paginator->sort('status');?></th>
 			<th><?php echo $this->Paginator->sort('Critical', 'ws_critical');?></th>
 			<th><?php echo __('No of booking');?></th>
@@ -126,7 +126,7 @@
 		
 		<td><?php echo $user['User']['created_time']; ?>&nbsp;</td>
 		
-		<td><?php echo $user['User']['last_access']; ?>&nbsp;</td>
+		<td><?php echo $user['User']['last_booked']; ?>&nbsp;</td>
 		<td><?php
 			switch ($status_id){
 				case 2:

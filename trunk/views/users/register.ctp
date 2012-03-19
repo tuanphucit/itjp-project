@@ -111,10 +111,12 @@
 		$options = array();
 		if(isset($companies)){
 			foreach ($companies as $company){
+				if ($company['Company']['id']==1)
+					continue;
 				$options[$company['Company']['id']]=$company['Company']['name'];
 			}
 		}
-		$options['0']='Other Company';
+		$options['1']='Other Company';
 		debug($options);
 	?>
 	<td><?php echo $this->Form->select('company_id', $options, null, array('empty'=>'-Select-'));?></td>

@@ -78,4 +78,26 @@ class User extends AppModel {
 			),
 		),
 	);
+	
+	var $hasMany = array(
+		'Request' => array(
+			'className' => 'Request',
+			'foreignKey' => 'create_by',
+			'dependent' => true,
+			'limit' => '',
+			'offset' => '',
+			'exclusive' => '',
+			'finderQuery' => '',
+			'counterQuery' => ''
+		)
+	);
+	var $belongsTo = array(
+		'Company' => array(
+			'className' => 'Company',
+			'foreignKey'=> 'company_id',
+			'dependent' => true,
+			'conditions' => '',
+			'fields' => '',
+		)
+	);
 }

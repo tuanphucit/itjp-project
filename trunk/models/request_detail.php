@@ -23,4 +23,13 @@ class RequestDetail extends AppModel {
 			),
 		),
 	);
+	var $belongsTo = array(
+		'Request' => array(
+			'className' => 'Request',
+			'foreignKey'=> 'requestid',
+			'dependent' => true,
+			'conditions' => '',
+			'fields' => '',
+		)
+	);
 }

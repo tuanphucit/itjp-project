@@ -64,4 +64,13 @@ class Room extends AppModel {
 			),
 		),
 	);
+	var $belongsTo = array(
+		'RoomType' => array(
+			'className' => 'RoomType',
+			'foreignKey'=> 'typeid',
+			'dependent' => true,
+			'conditions' => '',
+			'fields' => '',
+		)
+	);
 }

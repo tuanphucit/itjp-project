@@ -103,28 +103,29 @@ class UsersController extends AppController {
 			$confirm = $this->Auth->password ( $this->data ['User'] ['password_confirm'] );
 			if ($this->data ['User'] ['password']!= $this->Auth->password('')){
 				if ($this->data ['User'] ['password'] == $confirm) {
-					$this->data ['User'] ['create_time'] = date ( 'Y-m-d H:m:s' );
+					$this->data ['User'] ['created_time'] = date ( 'Y-m-d H:m:s' );
 					$this->data ['User'] ['last_access'] = date ( 'Y-m-d H:m:s' );
 					$this->data['User']['role'] = 1;
 					$this->data ['User'] ['status'] = 2;
+					$company_count = $this->User->find('count', array('condition'=>array('User.company_id'=>$this->data['User']['company_id'])));
+					$company_count = $company_count++;
+					debug($company_count);
+					$company_code = $this->Company->read('code', $this->data['User']['company_id']);
+					debug($company_code['Company']['code']);
+					
+					if ($company_count<9){
+						$this->data['User']['usercode']=$company_code['Company']['code'].'00'.$company_count;
+					}
+					elseif ($company_count<99){
+						$this->data['User']['usercode']=$company_code['Company']['code'].'0'.$company_count;
+					}
+					else{
+						$this->data['User']['usercode']=$company_code['Company']['code'].$company_count;
+					}
+
+					debug($this->data);
 					if ($this->User->save ( $this->data )) {
-							
-						/*	
-						$host = Router::url(array('controller' => 'users', 'action' => 'confirm'), true);
-						$link = $host.'?mail='.md5($this->data['User']['email']);
-							
-						$this->set('user', $this->data['User']['email']);
-						$this->set('link', $link);
-							
-						$mailInfo = $this->getMailConfig($this->readMailInfo('EmailConfiguration.txt'));
-						if($this->admin_sendmail($mailInfo[0], $mailInfo[1], $mailInfo[2], $mailInfo[3],
-						$mailInfo[4], $this->data['User']['email'], 'Active Acount Request', 'ActiveEmailTemplate'))
-						$this->Session->setFlash ( __ ( 'The user has been saved. Please login your email to confirm that!', true ) );
-						else {
-							$this->Session->setFlash ( __ ( 'Send email not successful!', true ) );
-							//debug();
-						}
-						*/
+						
 						$this->redirect('index');
 					}
 					
@@ -336,16 +337,16 @@ class UsersController extends AppController {
 	}
 
 	function admin_add() {
-
+		$this->layout = 'admin';
 		if (! empty ( $this->data )) {
 			$this->User->create ();
 			if (Validation::email($this->data['User']['email'])){
 			if ($this->data ['User'] ['password']!==$this->Auth->password ('')){
 				$confirm = $this->Auth->password ( $this->data ['User'] ['confirm'] );
 				if ($this->data ['User'] ['password'] == $confirm) {
-					$this->data ['User'] ['create_date'] = date ( 'Y-m-d H:m:s' );
-					$this->data ['User'] ['last_update'] = date ( 'Y-m-d H:m:s' );
-					$this->data ['User'] ['newsletter_flag'] = 1;
+					$this->data ['User'] ['created_time'] = date ( 'Y-m-d H:m:s' );
+					$this->data ['User'] ['last_access'] = date ( 'Y-m-d H:m:s' );
+					$this->data ['User'] ['ws_critical'] = 1;
 					if ($this->User->save ( $this->data )) {
 						$this->Session->setFlash ( __ ( 'The user has been saved', true ) );
 						$this->redirect ( array ('action' => 'index' ) );
@@ -359,6 +360,71 @@ class UsersController extends AppController {
 		}
 		
 
+
+	}
+	
+	function admin_edit($id = null) {
+		$this->layout = 'admin';
+		if (! $id && empty ( $this->data )) {
+			$this->Session->setFlash ( __ ( 'Invalid user', true ) );
+			$this->redirect ( array ('action' => 'index' ) );
+		}
+		if (! empty ( $this->data )) {
+			$error = false;
+			$page = $this->Session->read('page');
+			if ($this->data['User']['status'] == -1){
+				$this->admin_delete($id);
+
+				$this->Session->setFlash('User has been deleted!');
+				$this->redirect ( 'index' );
+				$this->Session->delete('page');
+			}
+			else{
+
+				$this->data ['User'] ['id'] = $id;
+				$this->data['User']['last_access'] = date('Y-m-d H:m:s');
+
+				if (empty($this->data['User']['password_change'])&& empty($this->data['User']['confirm'])){
+					$this->data ['User'] ['password'] = $this->Session->read('password');
+		
+				}
+				elseif ($this->data['User']['password_change']==$this->data['User']['confirm']){
+					$this->data ['User'] ['password'] = $this->Auth->password($this->data['User']['password_change']);
+				}
+				else {
+					$error = true;
+				}
+					
+				if (!$error){
+					$this->data['User']['last_access'] = date('Y-m-d H:m:s');
+					//debug($this->data);
+					if ($this->User->save ( $this->data )) {
+						$this->Session->setFlash ( __ ( 'The user has been saved', true ) );
+						$this->redirect ( 'index/page:'.$page );
+						$this->Session->delete('page');
+					} else {
+						$this->Session->setFlash ( __ ( 'The user could not be saved. Please, try again.', true ) );
+					}
+				}
+				else
+					echo $this->Session->setFlash('Password and Confirm Password not math. Try again!');
+			}
+		}
+
+		$this->data = $this->User->read ( null, $id );
+		$this->set('user', $this->User->read(null, $id));
+		$this->Session->write('password', $this->data ['User'] ['password']);
+		//$this->data ['User'] ['password'] = '';
+
+		$request_count = $this->Request->find('count', array('conditions'=>array('Request.create_by'=>$id)));
+		$this->set('numBookings',$request_count);
+
+		$page=1;
+		if (! empty ( $this->params ['named'] ['page'] )) {
+			$page = $this->params ['named'] ['page'];
+		}
+		$this->set ( 'page', $page );
+		$this->set ( 'limit', $this->_limit );
 
 	}
 	/*
