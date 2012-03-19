@@ -3,7 +3,7 @@ class UsersController extends AppController {
 
 	var $name = 'Users';
 	var $helpers = array('Ajax', 'Javascript', 'Csv');
-	var $uses = array('Company', 'User');
+	var $uses = array('Company', 'User', 'Request');
 	var $_limit = 3;
 	function beforeFilter(){
 		$this->Auth->allow ( 'register', 'confirm', 'forgotpswd', 'reset' );
@@ -315,6 +315,7 @@ class UsersController extends AppController {
 	}
 
 	function admin_view($id = null) {
+		$this->layout = 'admin';
 		if (! $id) {
 			$this->Session->setFlash ( __ ( 'Invalid user', true ) );
 			$this->redirect ( array ('action' => 'index' ) );
@@ -328,10 +329,9 @@ class UsersController extends AppController {
 		}
 		$this->set ( 'page', $page );
 		$this->set ( 'limit', $this->_limit );
-		$this->set('numWebs', count($this->data['Website']) );
-
-		$this->paginate = array('conditions'=>array('Website.user_id'=>$id, 'Website.status >'=> -1));
-		$this->set('websites', $this->paginate('Website'));
+		
+		$this->paginate = array('conditions'=>array('Request.update_by'=>$id));
+		$this->set('requests', $this->paginate('Request'));
 
 	}
 

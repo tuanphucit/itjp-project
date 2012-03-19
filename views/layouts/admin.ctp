@@ -34,7 +34,6 @@ echo $this->Html->script('jquery-1.5.1.js');
 
 echo $this->Html->script('jquery-ui.min.js');
 echo $this->Html->script('admin_check.js');
-echo $this->Html->script('custom.js'); 
 
 echo $scripts_for_layout;
 ?>
