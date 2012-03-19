@@ -51,7 +51,7 @@
 					
 					<tr>
 						<td><?php __('No of Booking');?></td>
-						<td><?php //echo ': '.count($user['']); ?></td>
+						<td><?php echo ': '.count($user['Request']); ?></td>
 					</tr>
 				</table>
 			</td>
@@ -73,7 +73,7 @@
 					echo 'Normal';
 				else echo 'Bad';
 			}
-			else echo 'Good/Normal/Bad';
+			else echo 'まだ';
 			?></td>
 		</tr>
 			
@@ -86,10 +86,12 @@
 				$status = $user['User']['status'];
 				if (isset($status)){
 					if ($status==1)
-						echo 'Active';
+						echo __('Active');
 					elseif ($status ==0)
-						echo 'Disable';
-					else echo 'Delete';
+						echo __('Disable');
+					elseif ($status ==2)
+						echo __('Registered');	
+					else echo __('Delete');
 				}
 				else echo 'Active/Disable';
 				?>
