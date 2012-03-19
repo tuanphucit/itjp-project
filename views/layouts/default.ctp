@@ -21,25 +21,39 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <?php echo $this->Html->charset(); ?>
+
 <title><?php echo $title_for_layout; ?></title>
 <?php
-echo $this->Html->meta('icon');
-//echo $this->Html->css('cake.generic');
+	echo $this->Html->meta('icon');
+	echo $this->Html->css(array(
+		'cur_style',
+		
+	));
+	
+	echo $this->Html->script(array(
+		'jquery',
+		'jquery.validate'
+		
+	));
+	if(isset($website_head)) echo $website_head;
+	echo $scripts_for_layout;
 
-echo $this->Html->css('login_style');
-
-if(isset($website_head)) echo $website_head;
-echo $scripts_for_layout;
 ?>
+
 </head>
 <body>
-	<div id="container">
-
-	<?php echo $this->Session->flash(); ?>
-
-	<?php echo $content_for_layout; ?>
-
-	</div>
-<?php //echo $this->element('sql_dump'); ?>
+	<?php echo $this->element('header'); ?>
+	
+        <div id="main">
+                <div id="content">
+                    <?php
+                        echo $this->Session->flash();
+                        //echo $this->Session->flash('auth');
+                        echo $content_for_layout;
+                    ?>
+                </div>
+        </div>
+	
+	<?php echo $this->element('footer'); ?>
 </body>
 </html>
