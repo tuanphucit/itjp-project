@@ -1,0 +1,3 @@
+2012-03-05 17:07:48 Debug: Notice (8): Undefined index: id in [C:\xampp\htdocs\it-nihongo-t09\japanit\cake\libs\model\model.php, line 1329]
+2012-03-05 22:00:22 Debug: Notice (8): Undefined index: id in [C:\xampp\htdocs\it-nihongo-t09\japanit\cake\libs\model\model.php, line 1329]
+2012-03-06 00:53:01 Debug: Notice (8): Undefined index: userid in [C:\xampp\htdocs\it-nihongo-t09\japanit\app\views\users\index.ctp, line 25]
