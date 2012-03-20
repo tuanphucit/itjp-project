@@ -32,17 +32,31 @@
             <?php echo $this->Form->end(array('label' => 'Refresh and View', 'div' => false)); ?>
         </p>
     </div>
-    <div id="user_add">
-        <?php echo $this->Html->link('Add request', array('controller' => 'requests', 'action' => 'admin_add')); ?>
-        <?php echo $this->Html->image('icon/add.png', array('width' => 15, 'border' => 0)); ?>
+
+    <div id="user">
+        <?php $url = array('controller' => 'users', 'action' => 'admin_action'); ?>
+        <form name="form1" action="<?php echo $this->Html->url($url); ?>" method="post">
+            <div id="submit_div">
+                <?php
+                $option = array('1' => 'Active', '2' => 'Disable', '3' => 'Delete', '4' => 'Send Mail');
+                //echo $this->Form->create('User', array('action'=>'admin_action', 'name'=>'form1','method'=>'post'));
+                echo $this->Form->select('User.action', $option, null, array('empty' => '-Select-'));
+                ?>
+                <input type="submit" value="Submit" onclick="return submitUserAction(form1);">
+                <div id="user_add">
+                    <?php echo $this->Html->link('Add request', array('controller' => 'requests', 'action' => 'admin_add')); ?>
+                    <?php echo $this->Html->image('icon/add.png', array('width' => 15, 'border' => 0)); ?>
+                </div>
+            </div>
+            <div id="search-result"></div>
+        </form>
     </div>
-    <div id="search-result"></div>
 </div>
 <script type="text/javascript">
     $(document).ready(function() {
         loadPiece("<?php echo $html->url(array('action' => 'admin_index')); ?>","#search-result");
     });
-    function loadPiece(href,divName) {    
+    function loadPiece(href,divName) {   
         $(divName).load(href, {}, function(){
             var divPaginationLinks = divName+" #pagination a";
             $(divPaginationLinks).click(function() {     
@@ -50,13 +64,23 @@
                 loadPiece(thisHref,divName);
                 return false;
             });
+            $('.sortLink a').click(function(){
+                var thisHref = $(this).attr("href");
+                loadPiece(thisHref,divName);
+                return false;
+            });
         });
     }
-    function changeNumberRecords(){
-        $("#search-result").load("<?php echo $html->url(array('action' => 'admin_index')); ?>", {'rd':$("#noRecord").val()}, function(){
+    function changeNumberRecords(href){
+        $("#search-result").load(href, {'rd':$("#noRecord").val()}, function(){
             $("#search-result #pagination a").click(function() {     
                 var thisHref = $(this).attr("href");
-                loadPiece(thisHref,"#search-result");
+                changeNumberRecords(thisHref);
+                return false;
+            });
+            $('.sortLink a').click(function(){
+                var thisHref = $(this).attr("href");
+                changeNumberRecords(thisHref);
                 return false;
             });
         });

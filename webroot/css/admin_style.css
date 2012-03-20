@@ -83,8 +83,8 @@ p#title {
 
 /*form box*/
 #tab_title {
-	margin-top: 20px;
-	margin-bottom: 10px;
+	margin-top: 10px;
+	margin-bottom: 5px;
 	height: 30px;
 	color: #41A317;
 	border-bottom: 5px solid #41A317;
@@ -136,7 +136,7 @@ p#title {
 }
 
 #user_add a {
-	color: #41A317;
+	color: #FFFFFF;
 }
 
 #user {
@@ -149,6 +149,7 @@ p#title {
 	padding: 2px 10px 5px 10px;
 	color: black;
 	margin-bottom: 5px;
+        margin-top: 5px; 
 }
 
 table {
@@ -196,7 +197,7 @@ td.email {
 #count {
 	background: #41A317;
 	padding: 2px 10px 2px 10px;
-	margin-top: 20px;
+	margin-top: 5px;
 	color: white;
 }
 
@@ -205,8 +206,8 @@ div.paging {
 	text-align: center;
 	background: #fff;
 	color: #ccc;
-	clear: both;
-	padding-top: 7px;
+        float: left;
+        margin-left: 42%;
 }
 
 div.paging span.disabled {
@@ -216,18 +217,18 @@ div.paging span.disabled {
 
 div.paging span.current {
 	color: #c73e14;
+        font-weight: bolder;
 }
 
 div.paging span a {
 	
 }
 div.show{
-	float: right;
+	float: left;
 	position: absolute;
-	right: 0;
 }
 #footer {
-	margin: 20px 10px 5px 10px;
+	margin: 40px 10px 5px 10px;
 	height: 30px;
 	background: #41A317;
 	color: #fff;
