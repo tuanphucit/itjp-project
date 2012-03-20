@@ -77,8 +77,8 @@ class RequestsController extends AppController {
         $this->Request->find('all');
         $limit = 1;
         if (isset($_REQUEST['rd'])) {
-            $this->paginate = array('limit' => (int) $_REQUEST['rd']);
             $limit = (int) $_REQUEST['rd'];
+            $this->paginate = array('limit' => $limit);
         }
         $this->set('requests', $this->paginate());
         $this->set('limit', $limit);
