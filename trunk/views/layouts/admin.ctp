@@ -28,12 +28,14 @@
 
 //echo $this->Html->css('cake.generic');
 echo $this->Html->css('admin_style.css');
-echo $this->Html->css('jquery-ui.css');
-
-echo $this->Html->script('jquery-1.5.1.js');
-
+echo $this->Html->css('aristo/jquery-ui');
+echo $this->Html->css('aristo/jquery-ui-timepicker-addon');
+echo $this->Html->script('jquery-1.5.1.min.js');
 echo $this->Html->script('jquery-ui.min.js');
 echo $this->Html->script('admin_check.js');
+echo $this->Html->script('jquery-ui-timepicker-addon');
+echo $this->Html->script('jquery-ui-sliderAccess');
+echo $this->Html->script('common');
 
 echo $scripts_for_layout;
 ?>
