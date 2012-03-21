@@ -476,9 +476,109 @@ class UsersController extends AppController {
 	
 	function admin_export(){
 		$this->layout = 'ajax';
-		$result = $this->User->find('all');
-		$this->log($result,'log');
-		$this->set ('rs', $result);
-	
+		$this->set ( 'rs', $this->Session->read ( 'result' ) );
+		//$this->redirect('index');
+	}
+		
+	function admin_import() {
+		$this->layout = 'flash';
+		$path = getcwd ();
+		//$path= C:\xampp\htdocs\Trunk\app\webroot
+
+		if (!empty( $_FILES ['file'] ['name'])){
+			$absolute_path = $path . '\\' . $_FILES ['file'] ['name'];
+			move_uploaded_file ( $_FILES ['file'] ['tmp_name'], $absolute_path );
+
+			App::import ( "Vendor", "parsecsv" );
+			$csv = new parseCSV ();
+			$file = $absolute_path;
+			$csv->auto ( $file );
+
+			//debug ( $csv->data );
+
+
+			$data = array ();
+			$i = 0;
+			$row = 0;
+			$c = count ( $csv->data );
+			while ( true ) {
+				$status = 1;
+				$found = false;
+				foreach ( $csv->data [$i] as $k => $val ) {
+					$key = strtolower ( $k );
+
+					switch ($key) {
+						case 'usercode' :
+							$usercode = $csv->data [$i] [$k];
+							break;
+						case 'email' :
+							$email = $csv->data [$i] [$k];
+							break;
+						case 'name' :
+							$name = $csv->data [$i] [$k];
+							break;
+						case 'created time' :
+							if (empty ( $csv->data [$i] [$k] )){
+								$register_date = date ( 'Y-m-d H:m:s' );
+							}
+							else
+							$register_date = $csv->data [$i] [$k];
+							break;
+						case 'last access' :
+							$last_access = $csv->data [$i] [$k];
+							break;
+						case 'status' :
+							if (strtolower ( $csv->data [$i] [$k] ) == 'disable')
+								$status = 0;
+							elseif (strtolower ( $csv->data [$i] [$k] ) == 'active')
+								$status = 1;
+							elseif (strtolower ( $csv->data [$i] [$k] ) == 'delete')
+								$status = -1;
+							elseif (strtolower ( $csv->data [$i] [$k] ) == 'registered')
+								$status = 2;
+							else {
+
+								$found = true;
+							}
+							break;
+						
+					}
+
+				}
+
+				if (! $found) {
+					$data ['User'] [$row] ['usercode'] = $usercode;
+					$data ['User'] [$row] ['password'] = 'a133cb607700eed8e06cd5ab5a12a482a7834055';
+					$data ['User'] [$row] ['name'] = $name;
+					$data ['User'] [$row] ['email'] = $email;
+					$data ['User'] [$row] ['created_time'] = $register_date;
+					$data ['User'] [$row] ['last_booked'] = $register_date;
+					$data ['User'] [$row] ['last_access'] = $last_access;
+					$data ['User'] [$row] ['status'] = $status;
+					$data ['User'] [$row] ['role'] = 1;
+					$row ++;
+				}
+				$i++;
+				if ($i == $c)
+				break;
+			}
+
+			debug ( $data );
+			$countResult = array ();
+			//$this->User->save($data['User'][0]);
+			$countResult = &$this->User->saveAll ( $data ['User'], array ('atomic' => false ) );
+			//$this->User->updateAll()
+			//		debug ( count ( $data ['User'] ) );
+
+			$count = 0;
+			for($i = 0; $i < count ( $countResult ); $i ++) {
+				if ($countResult [$i] == 1)
+				$count ++;
+			}
+			unlink ( $absolute_path );
+			$this->Session->setFlash ( "Imported successfully $count record(s)" );
+		}
+		else $this->Session->setFlash ( "You must select a file!" );
+		$this->redirect ( array ('action' => 'admin_index' ) );
 	}
 }
