@@ -10,7 +10,7 @@
 			</form>
 		</div>
 		<div id="csv">
-			<?php $url=array('controller'=>'users', 'action'=>'#');?>
+			<?php $url=array('controller'=>'users', 'action'=>'admin_import');?>
 			<form enctype="multipart/form-data" method="post" 
 			action="<?php echo $this->Html->url($url);?>">
 			<?php echo __('Import CSV')?>
@@ -49,7 +49,7 @@
 		
 		<p>
 		<?php echo 'Text search'; ?>
-		<?php echo $this->Form->text('email', array('br'=>false)); ?>
+		<?php echo $this->Form->text('email', array('br'=>false, 'class'=>'hasDatepicker')); ?>
 		<?php echo $this->Form->end(array('label'=>'Refresh and View', 'div'=>false));?>
 		
 		</p>
@@ -182,7 +182,6 @@
 	
 	</div>
 </div>
-<?php debug($users);?>
 
 </div>
 </div>
