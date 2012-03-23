@@ -1,90 +1,68 @@
 <?php
-/**
- *
- * PHP versions 4 and 5
- *
- * CakePHP(tm) : Rapid Development Framework (http://cakephp.org)
- * Copyright 2005-2010, Cake Software Foundation, Inc. (http://cakefoundation.org)
- *
- * Licensed under The MIT License
- * Redistributions of files must retain the above copyright notice.
- *
- * @copyright     Copyright 2005-2010, Cake Software Foundation, Inc. (http://cakefoundation.org)
- * @link          http://cakephp.org CakePHP(tm) Project
- * @package       cake
- * @subpackage    cake.cake.libs.view.templates.layouts
- * @since         CakePHP(tm) v 0.10.0.1076
- * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
- */
+/* @var $form FormHelper */
+/* @var $html HtmlHelper */
+/* @var $js JsHelper */
 ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<?php echo $html->docType(); ?>
 <html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-<?php echo $this->Html->charset(); ?>
-<title><?php __('T09'); ?> <?php echo $title_for_layout; ?>
-</title>
-<?php
-//echo $this->Html->meta('icon');
-
-//echo $this->Html->css('cake.generic');
-echo $this->Html->css('admin_style.css');
-echo $this->Html->css('aristo/jquery-ui');
-echo $this->Html->css('aristo/jquery-ui-timepicker-addon');
-echo $this->Html->script('jquery-1.5.1.min.js');
-echo $this->Html->script('jquery-ui.min.js');
-echo $this->Html->script('admin_check.js');
-echo $this->Html->script('jquery-ui-timepicker-addon');
-echo $this->Html->script('jquery-ui-sliderAccess');
-echo $this->Html->script('common');
-
-echo $scripts_for_layout;
-?>
-</head>
-<body>
-	
-	<div id="container">
-	
-	<?php echo $this->Session->flash(); ?>
-	
-	
-	<div id="header">
-	<div id="header-left"><p id="title">Room Booking Administrator</p></div>
-	
-	<div id="header-right">
-		<div class="item-panel">
-		<div class="item">
-			<div class="top-item"></div>
-			<div class="icon">
-				<a
-					href="<?php echo $this->Html->url(array('controller'=>'users','action'=>'admin_logout'))?>"
-					class="logout"> <?php echo $this->Html->image( 'logout-icon.png',array('alt'=>'Logout')) ?>
-					<span>Logout</span> </a>
-			</div>
-			<div class="bottom-item"></div>
-		</div>
-		</div>
-	</div>
-	</div>
-	<div id="menu">
-	<ul>
-		<li><?php echo $this->Html->link('Users Management', array( 'controller'=>'users', 'action'=>'admin_index'));?></li>
-		<li><?php echo $this->Html->link('Booking Management', array('controller'=>'requests','action'=>'admin_index'));?></li>
-		<li><?php echo $this->Html->link('Rooms Management', array('controller'=>'rooms', 'action'=>'admin_index'));?></li>
-		<li><?php echo $this->Html->link('Equipments Management', array('controller'=>'equipment1s', 'action'=>'admin_index'));?></li>
-		<li><?php echo $this->Html->link('Logs Management', array('controller'=>'logs', 'action'=>'admin_index'));?></li>
-		<li><?php echo $this->Html->link('Statistic', array('action'=>'#'));?></li>
-		
-		
-	</ul>
-	</div>
-
-	<?php echo $content_for_layout; ?>
-	<div id="footer">
- 	<?php
-		__ ( 'Copyright(C) Team 09 - IT Japanese All Rights Reserved' )?>
- 	</div>
-
-	</div>
-<?php //echo $this->element('sql_dump'); ?>
-</body>
+    <head>
+        <?php echo $html->charset(); ?>
+        <title><?php __('T09'); ?> <?php echo ' :: ' . $title_for_layout; ?>
+        </title>
+        <?php
+        echo $html->meta('icon');
+        echo $html->css('aristo/jquery-ui');
+        //echo $html->css('aristo/jquery-ui-timepicker-addon');
+        echo $html->css('admin_layout');
+        echo $html->script('jquery.js');
+        //echo $html->script('jquery-ui.min.js');
+        //echo $html->script('jquery-ui-timepicker-addon');
+        //echo $html->script('jquery-ui-sliderAccess');
+        echo $html->script('admin_check');
+        echo $html->script('common');
+        echo $scripts_for_layout;
+        ?>
+    </head>
+    <body>
+        <div id="header">
+            <h1 class="site_title">
+                <?php __('Website Admin'); ?>
+            </h1>
+            <h2 class="section_title">Room Booking Administrator</h2>
+            <div class="btn_view_site">
+                <?php echo $html->link(__('View Site', true), array('http://localhost/itjp-project/')); ?>
+            </div>
+        </div>
+        <div id="secondary_bar">
+            <div class="user">
+                <?php echo $html->para(null, __('Admin', true)); ?>
+                <?php echo $html->link(__('Logout', true), array('controller' => 'users', 'action' => 'admin_logout'), array('title' => __('Logout', true), 'class' => 'logout_user')); ?>
+            </div>
+            <div class="breadcrumbs_container">
+                <div class="breadcrumbs">
+                    <?php echo $html->getCrumbs('<div class="breadcrumb_divider"></div>', __('Website Admin', true)); ?>
+                </div>
+            </div>
+        </div>
+        <div id="sidebar" class="column" style="height: 1720px;">
+            <form class="quick_search">
+                <input type="text" value="Quick Search" />
+            </form>
+            <hr />
+            <?php echo $this->element('../layouts/sitebar'); ?>
+            <div id="footer">
+                <hr />
+                <p><strong><?php printf(__('Copyright &copy; %d Team 09 - IT Japanese',true), date('Y')); ?></strong></p>
+            </div>
+        </div>
+        <div id="main" class="column">
+            <?php if ($this->Session->flash()) : ?>
+                <h4 class="alert_info"><?php echo $this->Session->flash(); ?></h4>
+            <?php endif; ?>
+            <div id="content" class="module width_full">
+                <?php echo $content_for_layout; ?>
+            </div>
+        </div>
+        <?php //echo $this->element('sql_dump');  ?>
+    </body>
 </html>

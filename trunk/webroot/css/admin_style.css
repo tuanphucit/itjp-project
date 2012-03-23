@@ -1,5 +1,3 @@
-@CHARSET "UTF8";
-
 * {
 	margin: 0 auto;
 	padding: 0;
@@ -37,17 +35,17 @@ p#title {
 	font-size: 20pt;
 }
 
-#menu {
+#admin_navigator {
 	border: 1px solid #ccc;
 	height: 30px;
 	background: #41A317;
 }
 
-#menu ul {
+#admin_navigator ul {
 	
 }
 
-#menu ul li {
+#admin_navigator ul li {
 	list-style: none;
 	float: left;
 	height: 30px;
@@ -56,7 +54,7 @@ p#title {
 	border-right: 1px solid #d8d8d8;
 }
 
-#menu ul li a {
+#admin_navigator ul li a {
 	text-decoration: none;
 	color: #fff;
 	font-size: 12px;
@@ -69,7 +67,7 @@ p#title {
 	width: auto;
 }
 
-#menu ul li a:hover {
+#admin_navigator ul li a:hover {
 	text-decoration: underline;
 }
 
