@@ -3,9 +3,9 @@
 class RequestsController extends AppController {
 
     var $name = 'Requests';
-    var $helpers = array('Ajax', 'Javascript');
+    var $helpers = array('Ajax', 'Js');
     var $components = array('RequestHandler');
-    var $paginate = array('order' => array('Request.update_time' => 'desc'), 'limit' => '1');
+    var $paginate = array('order' => array('Request.update_time' => 'desc'), 'limit' => '10');
 
     /**
      * @var Request
@@ -18,8 +18,29 @@ class RequestsController extends AppController {
     var $RequestHandler;
 
     function index() {
-        $this->Request->recursive = 0;
-        $this->set('requests', $this->paginate());
+        //$this->layout = 'test';
+        //debug($this->data);
+        $conditions = array();
+        $limit = isset($this->params['named']['limit']) ? (int) $this->params['named']['limit'] : 10;
+        $sort = isset($this->params['named']['sort']) ? $this->params['named']['sort'] : 'update_time';
+        $direction = isset($this->params['named']['direction']) ? $this->params['named']['direction'] : 'desc';
+        $page = isset($this->params['named']['page']) ? (int) $this->params['named']['page'] : 1;
+        //$fields = array('id', 'order_date', 'update_time', 'user_id', 'customer_name', 'tel', 'sum', 'status');
+        $this->paginate = array(
+            //'fields' => $fields,
+            'conditions' => $conditions,
+            'limit' => $limit,
+            'order' => array($sort => $direction),
+            'page' => $page,
+            'recursives' => 0
+        );
+        $this->set('rdurl', 'http://localhost/itjp-project/requests/index/sort:' . $sort . '/direction:' . $direction . '/limit:');
+        $this->set('limit', $limit);
+        $this->set('list', $this->paginate());
+        if ($this->RequestHandler->isAjax()) {
+            $this->layout = 'ajax';
+            $this->render('list.ajax');
+        }
     }
 
     function view($id = null) {
@@ -74,18 +95,42 @@ class RequestsController extends AppController {
     }
 
     function admin_index() {
-        $this->Request->find('all');
-        $limit = 1;
-        if (isset($_REQUEST['rd'])) {
-            $limit = (int) $_REQUEST['rd'];
-            $this->paginate = array('limit' => $limit);
+        //debug($this->params);
+        $conditions = array();
+        if (isset($this->data['Request']) && !empty($this->data['Request'])) {
+            if (isset($this->data['Request']['room'])) {
+                $conditions['Room.name LIKE'] = '%' . $this->data['Request']['room'] . '%';
+            }
+            if (isset($this->data['Request']['fromtime'])) {
+                $conditions['Request.create_time >='] = $this->data['Request']['fromtime'];
+            }
+            if (isset($this->data['Request']['totime'])) {
+                $conditions['Request.create_time <='] = $this->data['Request']['totime'];
+            }
+            if (isset($this->data['Request']['status'])) {
+                $conditions['Request.statusid'] = $this->data['Request']['status'];
+            }
         }
-        $this->set('requests', $this->paginate());
+        $limit = isset($this->params['named']['limit']) && !empty($this->params['named']['limit']) ? (int) $this->params['named']['limit'] : 10;
+        $sort = isset($this->params['named']['sort']) && !empty($this->params['named']['sort']) ? $this->params['named']['sort'] : 'update_time';
+        $direction = isset($this->params['named']['direction']) && !empty($this->params['named']['direction']) ? $this->params['named']['direction'] : 'desc';
+        $page = isset($this->params['named']['page']) && !empty($this->params['named']['page']) ? (int) $this->params['named']['page'] : 1;
+        //$fields = array('id', 'order_date', 'update_time', 'user_id', 'customer_name', 'tel', 'sum', 'status');
+        $this->paginate = array(
+            //'fields' => $fields,
+            'conditions' => $conditions,
+            'limit' => $limit,
+            'order' => array($sort => $direction),
+            'page' => $page,
+            'recursives' => 0
+        );
+        $this->set('title_for_layout', __('Booking Management', true));
+        $this->set('rdurl', 'http://localhost/itjp-project/requests/index/sort:' . $sort . '/direction:' . $direction . '/limit:');
         $this->set('limit', $limit);
+        $this->set('list', $this->paginate());
         if ($this->RequestHandler->isAjax()) {
             $this->layout = 'ajax';
-
-            $this->render('/requests/admin_index.ajax');
+            $this->render('list.ajax');
         } else {
             $this->layout = 'admin';
         }

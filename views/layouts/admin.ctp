@@ -28,7 +28,7 @@
             <h1 class="site_title">
                 <?php __('Website Admin'); ?>
             </h1>
-            <h2 class="section_title">Room Booking Administrator</h2>
+            <h2 class="section_title"><?php echo $title_for_layout;?></h2>
             <div class="btn_view_site">
                 <?php echo $html->link(__('View Site', true), array('http://localhost/itjp-project/')); ?>
             </div>
@@ -44,7 +44,7 @@
                 </div>
             </div>
         </div>
-        <div id="sidebar" class="column" style="height: 1720px;">
+        <div id="sidebar" class="column">
             <form class="quick_search">
                 <input type="text" value="Quick Search" />
             </form>
@@ -56,10 +56,10 @@
             </div>
         </div>
         <div id="main" class="column">
-            <?php if ($this->Session->flash()) : ?>
-                <h4 class="alert_info"><?php echo $this->Session->flash(); ?></h4>
+            <?php if ($msg = $this->Session->flash()) : ?>
+                <h4 class="alert_info"><?php echo $msg; ?></h4>
             <?php endif; ?>
-            <div id="content" class="module width_full">
+            <div id="content">
                 <?php echo $content_for_layout; ?>
             </div>
         </div>
