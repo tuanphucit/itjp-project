@@ -1,23 +1,28 @@
- <div id="featured">
-				<div class="first">
+<div id="header">
+			<ul class="navigation">
+				<li class="selected first">
+					<a href="destinations.html">Cruises &amp; Destinations</a>
+				</li>
+				<li>
+					<a href="ships.html">Ships &amp; Activities</a>
+				</li>
+				<li>
+					<a href="cruises.html">Prepare for your Cruises</a>
+				</li>
+			</ul>
+		    <div id="featured">
+		
 					<ul>
 						<li class="selected first">
 							<a href="featured.html">Featured Destinations</a>
 							<div>
-								<a href="#"><img src="images/header_2a.jpg" width="630px" height= "341px"/></a>
+								<a href="featured.html"><img src="images/header_2a.jpg" width="630px" height= "341px"/></a>
 							</div>
 						</li>
-						<li>
-							<a href="#">Hot Deals</a>
+
+							<a href="offers.html">Special Offers</a>
 							<div>
-								<a href="deals.html"><img src="images/riverside.jpg" alt=""/></a>
-								<p>You can remove any link to our website from this website template, you're free to use this website template without linking back to us.</p>
-							</div>
-						</li>
-						<li>
-							<a href="#">Special Offers</a>
-							<div>
-								<a href="#"><img src="images/mountains.jpg" alt=""/></a>
+								<a href="offers.html"><img src="images/mountains.jpg" alt=""/></a>
 								<p>If you're having problems editing this website template, then don't hesitate to ask for help on the <a href="http://www.freewebsitetemplates.com/forum/">Forum</a>.</p>
 							</div>
 						</li>
@@ -58,10 +63,10 @@
 						</ul>
 					</div>
 				</div>
-			</div>	
-	
-	
-	<div id="content">
+			</div>
+		</div> 
+		
+		<div id="content">
 			<div>
 				<div class="first">
 					<h2>Hot Deals</h2>
@@ -97,7 +102,7 @@
 					</ul>
 					<a href="deals.html">View all</a>
 				</div>
-				<div class = "second">
+				<div>
 					<h2>Special Offers</h2>
 					<ul>
 						<li>
