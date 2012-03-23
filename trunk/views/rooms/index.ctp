@@ -1,3 +1,4 @@
+<?php debug($rooms);?>
 <div class="rooms index">
 	<h2><?php __('Rooms');?></h2>
 	<table cellpadding="0" cellspacing="0">
