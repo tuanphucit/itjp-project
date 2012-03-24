@@ -91,7 +91,7 @@ $stt = ($this->Paginator->current() - 1 ) * $limit;
     </div>
 </div>
 <?php
-$js->get("#RequestRd")->event('change', "$('#result_box').load('" . $rdurl . "'+this.value);");
+$js->get("#rd")->event('change', "$('#result_box').load('" . $rdurl . "'+this.value);");
 $js->get("a[href*=/sort:], a[href*=/page:]")->event('click', "$('#result_box').load($(this).attr('href'));");
 echo $js->writeBuffer();
 ?>
