@@ -4,6 +4,7 @@ class UsersController extends AppController {
 	var $name = 'Users';
 	var $helpers = array ('Ajax', 'Javascript', 'Csv' );
 	var $uses = array ('Company', 'User', 'Request' );
+	var $components = array('Email');
 	var $_limit = 3;
 	function beforeFilter() {
 		$this->Auth->allow ( 'register', 'confirm', 'forgotpassword', 'reset' );
@@ -155,6 +156,7 @@ class UsersController extends AppController {
 						$this->set ( 'user', $email_post );
 						$this->set ( 'password', $password );
 						$mailInfo = $this->getMailConfig ( $this->readMailInfo ( 'EmailConfiguration.txt' ) );
+						debug($mailInfo);
 						
 						if ($this->admin_sendmail ( $mailInfo [0], $mailInfo [1], $mailInfo [2], $mailInfo [3], $mailInfo [4], $email_post, 'Recover Lost Password', 'ForgotPasswordEmailTemplate' )) {
 							$this->User->saveField ( 'password', $this->Auth->password ( $password ) );
@@ -225,17 +227,17 @@ class UsersController extends AppController {
 	
 	function admin_sendmail($host, $username, $password, $port, $timeout, $to, $subject, $template) {
 		/* SMTP Options */
-		$this->Email->smtpOptions = array ('port' => $port, 'timeout' => $timeout, 'host' => $host, 'username' => $username, 'password' => $password, 'client' => 'smtp_hello_hostname' );
+		$this->Email->smtpOptions = array ('port' => $port, 'timeout' => $timeout, 'host' => $host, 'username' => $username, 'password' => $password,);
 		$this->Email->template = $template;
 		$this->Email->sendAs = 'both';
 		
 		$from = $this->makeFromMail ( $host, $username );
-		$this->Email->from = $from;
+		$this->Email->from = $username;
 		$this->Email->to = $to;
 		$this->Email->replyTo = 'noreply';
 		$this->Email->subject = $subject;
 		$this->Email->delivery = 'smtp';
-		
+		debug($this->Email);
 		$result = $this->Email->send ();
 		return $result;
 	
