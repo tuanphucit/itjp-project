@@ -44,7 +44,7 @@
 <body>
 	<?php echo $this->element('header'); ?>
 	
-        <div id="main">
+       
                 <div class="content">
                     <?php
                         echo $this->Session->flash();
@@ -52,7 +52,7 @@
                         echo $content_for_layout;
                     ?>
                 </div>
-        </div>
+      
 	
 	<?php echo $this->element('footer'); ?>
 </body>
