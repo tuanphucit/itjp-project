@@ -58,8 +58,7 @@
         </div>
         <div id="main" class="column">
             <?php if ($msg = $this->Session->flash()) : ?>
-                <h4 class="alert_info"><?php echo $msg; ?></h4>
-            <?php endif; ?>
+                <?php echo $msg; ?><?php endif; ?>
             <div id="content">
                 <?php echo $content_for_layout; ?>
             </div>
