@@ -278,7 +278,7 @@ div#main {
     margin: 8px 20px;
 }
 /* Flash Message */
-#main h4.alert_info {
+#main div.alert_info {
     display: block;
     width: 98%;
     margin: 10px 1% 0 1%;
@@ -293,7 +293,7 @@ div#main {
     text-indent: 40px;
     font-size: 12px;
 }
-#main h4.alert_warning {
+#main div.alert_warning {
     display: block;
     width: 98%;
     margin: 10px 1% 0 1%;
@@ -308,7 +308,7 @@ div#main {
     text-indent: 40px;
     font-size: 12px;
 }
-#main h4.alert_error {
+#main div.alert_error {
     display: block;
     width: 98%;
     margin: 10px 1% 0 1%;
