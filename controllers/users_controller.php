@@ -247,8 +247,8 @@ class UsersController extends AppController {
 		$this->layout = 'admin_login';
 		if (! empty ( $this->data )) {
 			if (isset ( $this->data ['User'] ['email'] )) {
-				$user = &$this->User->find ( 'first', array ('conditions' => array ('User.email' => $this->data ['User'] ['email'], 'User.role' => 0 ), 'fields' => array ('User.role' ) ) );
-				if (! empty ( $user ) && ($user ['User'] ['role'] == 0)) {
+				$user = &$this->User->find ( 'first', array ('conditions' => array ('User.email' => $this->data ['User'] ['email'], 'User.role' => USER_ROLE_ADMIN ), 'fields' => array ('User.role' ) ) );
+				if (! empty ( $user ) && ($user ['User'] ['role'] == USER_ROLE_ADMIN)) {
 					if ($this->Auth->login ( $this->data )) {
 						$this->redirect ( $this->referer () );
 						//$this->redirect('website');
@@ -304,8 +304,8 @@ class UsersController extends AppController {
 			$this->set ( 'show', $this->_limit );
 			//$this->User->recursive = -1;
 			$conditions = array ();
-			$conditions ['User.role >'] = 0;
-			$conditions ['User.status >'] = - 1;
+			$conditions ['User.role >'] = USER_ROLE_ADMIN;
+			$conditions ['User.status >'] = USER_STATUS_DELETE;
 			
 			$this->paginate = array ('conditions' => $conditions, 'limit' => $this->_limit );
 			$users = &$this->paginate ( 'User' );
@@ -365,8 +365,8 @@ class UsersController extends AppController {
 				if ($this->data ['User'] ['email'] != '') {
 					$conditions ['User.email LIKE'] = "%" . $this->data ['User'] ['email'] . "%";
 				}
-				$conditions ['User.role >'] = 0;
-				$conditions ['User.status >'] = - 1;
+				$conditions ['User.role >'] = USER_ROLE_ADMIN;
+				$conditions ['User.status >'] = USER_STATUS_DELETE;
 				$this->set ( 'data', 0 );
 				
 				if ($this->data ['User'] ['website_count'] != '') {
@@ -452,7 +452,7 @@ class UsersController extends AppController {
 		if (! empty ( $this->data )) {
 			$error = false;
 			$page = $this->Session->read ( 'page' );
-			if ($this->data ['User'] ['status'] == - 1) {
+			if ($this->data ['User'] ['status'] == USER_STATUS_DELETE) {
 				$this->admin_delete ( $id );
 				
 				$this->Session->setFlash ( 'User has been deleted!' );
@@ -603,13 +603,13 @@ class UsersController extends AppController {
 							break;
 						case 'status' :
 							if (strtolower ( $csv->data [$i] [$k] ) == 'disable')
-								$status = 0;
+								$status = USER_STATUS_DISABLE;
 							elseif (strtolower ( $csv->data [$i] [$k] ) == 'active')
-								$status = 1;
+								$status = USER_STATUS_ACTIVE;
 							elseif (strtolower ( $csv->data [$i] [$k] ) == 'delete')
-								$status = - 1;
+								$status = USER_STATUS_DELETE;
 							elseif (strtolower ( $csv->data [$i] [$k] ) == 'registered')
-								$status = 2;
+								$status = USER_STATUS_REGISTERED;
 							else {
 								
 								$found = true;
@@ -629,7 +629,7 @@ class UsersController extends AppController {
 					$data ['User'] [$row] ['last_booked'] = $register_date;
 					$data ['User'] [$row] ['last_access'] = $last_access;
 					$data ['User'] [$row] ['status'] = $status;
-					$data ['User'] [$row] ['role'] = 1;
+					$data ['User'] [$row] ['role'] = USER_ROLE_NORMAL_USER;
 					$row ++;
 				}
 				$i ++;
