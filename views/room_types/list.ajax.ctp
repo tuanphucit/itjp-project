@@ -20,7 +20,7 @@ $stt = ($this->Paginator->current() - 1 ) * $limit;
             echo $form->button('Submit', array('type' => 'button'));
             ?>
             <ul class="tabs">
-                <li class="mod_hea_bt"><?php echo $html->link(__('Add Room Types', true), array('action' => 'admin_add'), array('title' => __('Add', true))); ?></li>
+                <li><?php echo $html->link(__('Add Room Types', true), array('action' => 'admin_add'), array('title' => __('Add', true))); ?></li>
             </ul>
         </div>
     </div>
