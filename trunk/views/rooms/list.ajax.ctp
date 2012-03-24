@@ -5,33 +5,38 @@
 /* @var $limit int */
 /* @var $data array */
 /* @var $rdurl String */
-$stt = 0;
+$stt = ($this->Paginator->current() - 1 ) * $limit;
 //$this->Paginator->options(array(
 //    'update' => '#result_box',
 //    'evalScripts' => true
 //));
 ?>
-<div id="action_box">
-    <?php
-    echo $form->create();
-    echo $form->select('itemaction', array(), null, array('empty' => '--Select--'));
-    echo $form->button('Submit', array('type' => 'button'));
-    ?>
-</div>
-<div id="list_box">
-    <table cellpadding="1" cellspacing="1">
-        <tr>
-            <th style="width: 3%"><?php __("#"); ?></th>
-            <th style="width: 3%"><?php echo $this->Form->checkbox('allbox', array('onclick' => 'checkAll()')); ?></th>
-            <th style="width: 5%" class="sortLink"><?php echo $this->Paginator->sort(__('Room', true), 'name'); ?></th>
-            <th style="width: 10%" class="sortLink"><?php echo $this->Paginator->sort(__('Type', true), 'RoomType.name'); ?></th>
-            <th style="width: 8%" class="sortLink"><?php echo $this->Paginator->sort(__('Quantity Seat', true), 'quantity_seat'); ?></th>
-            <th style="width: 10%" class="sortLink"><?php echo $this->Paginator->sort(__('Renting Fee', true), 'renting_fee'); ?></th>
-            <th style="width: 8%" class="sortLink"><?php echo $this->Paginator->sort(__('Description', true), 'description'); ?></th>
-            <th style="width: 35%" class="sortLink"><?php echo $this->Paginator->sort(__('Status', true), 'status'); ?></th>
-            <th style="width: 10%" class="sortLink"><?php echo $this->Paginator->sort(__('Image', true), 'image'); ?></th>
-            <th style="width: 8%" class="actions"><?php __('Actions'); ?></th>
-        </tr>
+<form name="form1" action="" method="post">
+    <div class="module_header">
+        <div class="header_action">
+            <?php
+            echo $form->select('itemaction', array(), null, array('empty' => '--Select--'));
+            echo $form->button('Submit', array('type' => 'button'));
+            ?>
+            <ul class="tabs">
+                <li><?php echo $html->link(__('Add Room', true), array('action' => 'admin_add'), array('title' => __('Add', true))); ?></li>
+            </ul>
+        </div>
+    </div>
+    <table class="tablesorter" cellpadding="0" cellspacing="0">
+        <thead>
+            <tr>
+                <?php //TODO : chinh lai cho dung ten cac truong ?>
+                <th style="width: 5%" class="tableheader"><?php __("#"); ?></th>
+                <th style="width: 5%" class="tableheader"><?php echo $this->Form->checkbox('allbox', array('onclick' => 'checkAll()')); ?></th>
+                <th style="width: 10%" class="tableheader"><?php echo $this->Paginator->sort(__('Room', true), 'name'); ?></th>
+                <th style="width: 10%" class="tableheader"><?php echo $this->Paginator->sort(__('Type', true), 'RoomType.name'); ?></th>
+                <th style="width: 10%" class="tableheader"><?php echo $this->Paginator->sort(__('Quantity Seat', true), 'quantity_seat'); ?></th>
+                <th style="width: 10%" class="tableheader"><?php echo $this->Paginator->sort(__('Renting Fee', true), 'renting_fee'); ?></th>
+                <th style="width: 35%" class="tableheader"><?php echo $this->Paginator->sort(__('Description', true), 'description'); ?></th>
+                <th style="width: 15%" class="tableheader"><?php __('Actions'); ?></th>
+            </tr>
+        </thead>
         <?php foreach ($list as $item) : ?>
             <?php
             $class = null;
@@ -48,19 +53,18 @@ $stt = 0;
                 <td align="center"><?php echo $item['Room']['quantity_seat']; ?>&nbsp;</td>
                 <td align="left"><?php echo $item['Room']['renting_fee']; ?>&nbsp;</td>
                 <td align="center"><?php echo $item['Room']['description']; ?>&nbsp;</td>
-                <td align="left"><?php echo $item['Room']['status']; ?>&nbsp;</td>
-                <td align="center"><?php echo $item['Room']['image']; ?>&nbsp;</td>
                 <td align="center">
                     <?php
-                    echo $html->image('icon/Edit16.png', array('url' => array('action' => 'admin_edit', $item['Room']['id']), 'title' => __('Edit # ' . $stt, true), 'alt' => 'edit'));
-                    echo $html->image('icon/Delete16.png', array('url' => array('action' => 'admin_delete', $item['Room']['id']), 'title' => __('Delete # ' . $stt, true), 'alt' => 'delete'));
+                    echo $html->image('admin_layout/icn_aprove.gif', array('url' => array('action' => 'admin_view', $item['RoomType']['id']), 'title' => __('View # ' . $stt, true), 'alt' => 'view'));
+                    echo $html->image('admin_layout/icn_edit.png', array('url' => array('action' => 'admin_edit', $item['RoomType']['id']), 'title' => __('Edit # ' . $stt, true), 'alt' => 'edit'));
+                    echo $html->image('admin_layout/icn_trash.png', array('url' => array('action' => 'admin_delete', $item['RoomType']['id']), 'title' => __('Delete # ' . $stt, true), 'alt' => 'delete', 'onclick' => "return confirm('" . __('Are you sure to delete?', true) . "')"));
                     ?>
                 </td>
             </tr>
         <?php endforeach; ?>
     </table>
-</div>
-<div id="paging_box">
+</form>
+<div class="module_footer">
     <div id="limit">
         <?php
         $rdOption = array('5' => '5', '10' => '10', '15' => '15', '20' => '20', '25' => '25');
@@ -85,8 +89,7 @@ $stt = 0;
     </div>
 </div>
 <?php
-//$js->get(".cb_allItem")->event('click', "if(this.checked==false){this.checked=true}else{this.checked=false}");
-$js->get("#RequestRd")->event('change', "$('#result_box').load('" . $rdurl . "'+this.value);");
+$js->get("#rd")->event('change', "$('#result_box').load('" . $rdurl . "'+this.value);");
 $js->get("a[href*=/sort:], a[href*=/page:]")->event('click', "$('#result_box').load($(this).attr('href'));");
 echo $js->writeBuffer();
 ?>
