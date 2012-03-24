@@ -30,6 +30,7 @@
  * @package       cake
  * @subpackage    cake.app
  */
+require 'config/constant.php';
 class AppController extends Controller {
 	var $components = array('Auth','Session');
 
