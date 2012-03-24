@@ -73,4 +73,17 @@ class Room extends AppModel {
 			'fields' => '',
 		)
 	);
+	
+	 var $hasMany = array(
+        'Request' => array(
+            'className' => 'Request',
+            'foreignKey' => 'roomid',
+            'dependent' => true,
+            'limit' => '',
+            'offset' => '',
+            'exclusive' => '',
+            'finderQuery' => '',
+            'counterQuery' => ''
+        )
+    );
 }
