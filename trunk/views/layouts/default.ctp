@@ -45,7 +45,7 @@
 	<?php echo $this->element('header'); ?>
 	
         <div id="main">
-                <div id="content">
+                <div class="content">
                     <?php
                         echo $this->Session->flash();
                         //echo $this->Session->flash('auth');
