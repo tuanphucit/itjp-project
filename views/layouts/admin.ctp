@@ -21,6 +21,7 @@
          echo $html->script('common');
         echo $html->script('admin_check');
         echo $html->script('common');
+        echo $html->script('hideshow');
         echo $scripts_for_layout;
         ?>
     </head>
