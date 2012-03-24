@@ -21,7 +21,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <?php echo $this->Html->charset(); ?>
-<title><?php __('WeVina'); ?> <?php echo $title_for_layout; ?>
+<title><?php __('Room Booking'); ?> <?php echo $title_for_layout; ?>
 </title>
 <?php
 //echo $this->Html->meta('icon');
