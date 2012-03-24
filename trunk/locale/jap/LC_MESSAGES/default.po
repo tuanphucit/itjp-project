@@ -2853,254 +2853,254 @@ msgstr ""
 
 #: \controllers\logs_controller.php:14;34;69;89;14;34;69;89;14;34;69;89
 msgid "Invalid log"
-msgstr ""
+msgstr "ログが正しくないです。"
 
 #: \controllers\logs_controller.php:24;39;79;94;24;39;79;94;24;39;79;94
 msgid "The log has been saved"
-msgstr ""
+msgstr "ログが保存されました。"
 
 #: \controllers\logs_controller.php:27;42;82;97;27;42;82;97;27;42;82;97
 msgid "The log could not be saved. Please, try again."
-msgstr ""
+msgstr "ログが保存されできませんでした。も一度、やり直してください。"
 
 #: \controllers\logs_controller.php:52;107;52;107;52;107
 msgid "Invalid id for log"
-msgstr ""
+msgstr "ログのために、IDが正しくないです。"
 
 #: \controllers\logs_controller.php:56;111;56;111;56;111
 msgid "Log deleted"
-msgstr ""
+msgstr "ログが削除されました。"
 
 #: \controllers\logs_controller.php:59;114;59;114;59;114
 msgid "Log was not deleted"
-msgstr ""
+msgstr "ログが削除されませんでした。"
 
 #: \controllers\positions_of_equipments_controller.php:19;43;78;98;19;43;78;98;19;43;78;98
 msgid "Invalid positions of equipment"
-msgstr ""
+msgstr "設備の位置が正しくないです。"
 
 #: \controllers\positions_of_equipments_controller.php:33;48;88;103;33;48;88;103;33;48;88;103
 msgid "The positions of equipment has been saved"
-msgstr ""
+msgstr "設備の位置が保存されました。"
 
 #: \controllers\positions_of_equipments_controller.php:36;51;91;106;36;51;91;106;36;51;91;106
 msgid "The positions of equipment could not be saved. Please, try again."
-msgstr ""
+msgstr "設備の位置が保存されできません。もう一度、やり直してください。"
 
 #: \controllers\positions_of_equipments_controller.php:61;116;61;116;61;116
 msgid "Invalid id for positions of equipment"
-msgstr ""
+msgstr "設備の位置のために、IDが正しくないです。"
 
 #: \controllers\positions_of_equipments_controller.php:65;120;65;120;65;120
 msgid "Positions of equipment deleted"
-msgstr ""
+msgstr "設備の位置が削除されました。"
 
 #: \controllers\positions_of_equipments_controller.php:68;123;68;123;68;123
 msgid "Positions of equipment was not deleted"
-msgstr ""
+msgstr "設備の位置が削除されませんでした。"
 
 #: \controllers\request_details_controller.php:14;34;69;89;14;34;69;89;14;34;69;89
 msgid "Invalid request detail"
-msgstr ""
+msgstr "詳細要求が正しくないです。"
 
 #: \controllers\request_details_controller.php:24;39;79;94;24;39;79;94;24;39;79;94
 msgid "The request detail has been saved"
-msgstr ""
+msgstr "詳細要求が保存されました。"
 
 #: \controllers\request_details_controller.php:27;42;82;97;27;42;82;97;27;42;82;97
 msgid "The request detail could not be saved. Please, try again."
-msgstr ""
+msgstr "詳細要求が保存されできません。もう一度、やり直してください。"
 
 #: \controllers\request_details_controller.php:52;107;52;107;52;107
 msgid "Invalid id for request detail"
-msgstr ""
+msgstr "詳細要求のために、IDが正しくないです。"
 
 #: \controllers\request_details_controller.php:56;111;56;111;56;111
 msgid "Request detail deleted"
-msgstr ""
+msgstr "詳細要求が削除されます。"
 
 #: \controllers\request_details_controller.php:59;114;59;114;59;114
 msgid "Request detail was not deleted"
-msgstr ""
+msgstr "詳細要求が削除されませんでした。"
 
 #: \controllers\requests_controller.php:48;68;141;161;48;68;141;161;48;68;141;161
 msgid "Invalid request"
-msgstr ""
+msgstr "要求が正しくないです。"
 
 #: \controllers\requests_controller.php:58;73;151;166;58;73;151;166;58;73;151;166
 msgid "The request has been saved"
-msgstr ""
+msgstr "要求が保存されています。"
 
 #: \controllers\requests_controller.php:61;76;154;169;61;76;154;169;61;76;154;169
 msgid "The request could not be saved. Please, try again."
-msgstr ""
+msgstr "要求が保存できませんでした。もう一度やり直してください。"
 
 #: \controllers\requests_controller.php:86;179;86;179;86;179
 msgid "Invalid id for request"
-msgstr ""
+msgstr "要求のために、IDが正しくないです。"
 
 #: \controllers\requests_controller.php:90;183;90;183;90;183
 msgid "Request deleted"
-msgstr ""
+msgstr "要求を削除しました。"
 
 #: \controllers\requests_controller.php:93;186;93;186;93;186
 msgid "Request was not deleted"
-msgstr ""
+msgstr "要求が削除されませんでした。"
 
 #: \controllers\requests_controller.php:127;127;127
 #: \views\requests\admin_index.ctp:8;12;8;12;8;12
 msgid "Booking Management"
-msgstr ""
+msgstr "予約管理"
 
 #: \controllers\room_types_controller.php:14;34;69;89;14;34;69;89;14;34;69;89
 msgid "Invalid room type"
-msgstr ""
+msgstr "会議室タイプがただしくないです。"
 
 #: \controllers\room_types_controller.php:24;39;79;94;24;39;79;94;24;39;79;94
 msgid "The room type has been saved"
-msgstr ""
+msgstr "会議室タイプが保存されています。"
 
 #: \controllers\room_types_controller.php:27;42;82;97;27;42;82;97;27;42;82;97
 msgid "The room type could not be saved. Please, try again."
-msgstr ""
+msgstr "会議室タイプが保存できませんでした。もう一度やり直してください。"
 
 #: \controllers\room_types_controller.php:52;107;52;107;52;107
 msgid "Invalid id for room type"
-msgstr ""
+msgstr "会議室タイプのために、IDが正しくないです。"
 
 #: \controllers\room_types_controller.php:56;111;56;111;56;111
 msgid "Room type deleted"
-msgstr ""
+msgstr "会議室タイプが削除されます。"
 
 #: \controllers\room_types_controller.php:59;114;59;114;59;114
 msgid "Room type was not deleted"
-msgstr ""
+msgstr "会議室タイプが削除されませんでした。"
 
 #: \controllers\rooms_controller.php:16;36;93;113;16;36;93;113;16;36;93;113
 msgid "Invalid room"
-msgstr ""
+msgstr "会議室が正しくないです。"
 
 #: \controllers\rooms_controller.php:26;41;103;118;26;41;103;118;26;41;103;118
 msgid "The room has been saved"
-msgstr ""
+msgstr "会議室が保存されています。"
 
 #: \controllers\rooms_controller.php:29;44;106;121;29;44;106;121;29;44;106;121
 msgid "The room could not be saved. Please, try again."
-msgstr ""
+msgstr "会議室が保存できませんでした。もう一度やり直してください。"
 
 #: \controllers\rooms_controller.php:54;131;54;131;54;131
 msgid "Invalid id for room"
-msgstr ""
+msgstr "会議室のために、IDが正しくないです。"
 
 #: \controllers\rooms_controller.php:58;135;58;135;58;135
 msgid "Room deleted"
-msgstr ""
+msgstr "会議室が削除されました。"
 
 #: \controllers\rooms_controller.php:61;138;61;138;61;138
 msgid "Room was not deleted"
-msgstr ""
+msgstr "会議室が削除されませんでした。"
 
 #: \controllers\users_controller.php:19;39;403;449;19;39;403;449;19;39;403;449
 msgid "Invalid user"
-msgstr ""
+msgstr "ユーザが正しくないです。"
 
 #: \controllers\users_controller.php:29;44;432;479;29;44;432;479;29;44;432;479
 msgid "The user has been saved"
-msgstr ""
+msgstr "ユーザが保存されました。"
 
 #: \controllers\users_controller.php:32;47;483;32;47;483;32;47;483
 msgid "The user could not be saved. Please, try again."
-msgstr ""
+msgstr "ユーザが保存できませんでした。もう一度やり直してください。"
 
 #: \controllers\users_controller.php:57;540;57;540;57;540
 msgid "Invalid id for user"
-msgstr ""
+msgstr "ユーザのために、IDが正しくないです。"
 
 #: \controllers\users_controller.php:61;544;61;544;61;544
 msgid "User deleted"
-msgstr ""
+msgstr "ユーザが削除されました。"
 
 #: \controllers\users_controller.php:64;547;64;547;64;547
 msgid "User was not deleted"
-msgstr ""
+msgstr "ユーザが削除されませんでした。"
 
 #: \controllers\users_controller.php:78;78;78
 msgid "Email or password is invalid or not active yet!"
-msgstr ""
+msgstr "メールまたはパスワードかが正しくないか、アクティブではありません。"
 
 #: \controllers\users_controller.php:131;131;131
 msgid "Wrong of your password confirm! Try again"
-msgstr ""
+msgstr "確認パスワードが間違いました。もう一度やり直してください。"
 
 #: \controllers\users_controller.php:134;134;134
 msgid "Password must not be blank! Try again"
-msgstr ""
+msgstr "パスワードをブランクにすることはできません。もう一度やり直してください。"
 
 #: \controllers\users_controller.php:256;256;256
 msgid "Email or password is invalid."
-msgstr ""
+msgstr "メールまたはパスワードが正しくないです。"
 
 #: \controllers\users_controller.php:436;436;436
 msgid "Wrong of your password confirm. Please try again!"
-msgstr ""
+msgstr "確認パスワードが間違いました。もう一度やり直してください。"
 
 #: \controllers\users_controller.php:439;439;439
 msgid "Password must not be empty!"
-msgstr ""
+msgstr "パスワードが空ではいけません。"
 
 #: \controllers\users_controller.php:441;441;441
 msgid "Email must be valid format!"
-msgstr ""
+msgstr "メールが正しいフォーマットではいけません。"
 
 #: \views\elements\header.ctp:5;5;5
 msgid "Home"
-msgstr ""
+msgstr "ホーム"
 
 #: \views\elements\header.ctp:9;9;9
 msgid "Office"
-msgstr ""
+msgstr "事務所"
 
 #: \views\elements\header.ctp:13;13;13
 #: \views\layouts\sitebar.ctp:12;12;12
 msgid "Booking"
-msgstr ""
+msgstr "予約"
 
 #: \views\elements\header.ctp:17;17;17
 msgid "Contact"
-msgstr ""
+msgstr "連絡"
 
 #: \views\elements\header.ctp:21;21;21
 msgid "About us"
-msgstr ""
+msgstr "私たちについて"
 
 #: \views\elements\header.ctp:30;30;30
 msgid "User:"
-msgstr ""
+msgstr "ユーザ："
 
 #: \views\elements\header.ctp:32;32;32
 msgid "Profile"
-msgstr ""
+msgstr "プロフィール"
 
 #: \views\elements\header.ctp:34;34;34
 msgid "My booking"
-msgstr ""
+msgstr "自分予約"
 
 #: \views\layouts\admin.ctp:10;10;10
 msgid "T09"
-msgstr ""
+msgstr "T09"
 
 #: \views\layouts\admin.ctp:29;43;29;43;29;43
 msgid "Website Admin"
-msgstr ""
+msgstr "アドミンウェブサイト"
 
 #: \views\layouts\admin.ctp:33;33;33
 msgid "View Site"
-msgstr ""
+msgstr "ビューサイト"
 
 #: \views\layouts\admin.ctp:38;38;38
 #: \views\layouts\sitebar.ctp:40;40;40
 msgid "Admin"
-msgstr ""
+msgstr "アドミン"
 
 #: \views\layouts\admin.ctp:39;39;39;39;39;39
 #: \views\layouts\sitebar.ctp:48;48;48
@@ -3109,80 +3109,80 @@ msgstr ""
 #: \views\users\login.ctp:10;10;10
 #: \views\users\register.ctp:76;76;76
 msgid "Logout"
-msgstr ""
+msgstr "ログアウト"
 
 #: \views\layouts\admin.ctp:55;55;55
 msgid "Copyright &copy; %d Team 09 - IT Japanese"
-msgstr ""
+msgstr "著作権＆コーピ；%d　チーム０９　－IT日本語"
 
 #: \views\layouts\admin_login.ctp:24;24;24
 msgid "Room Booking"
-msgstr ""
+msgstr "会議室予約"
 
 #: \views\layouts\sitebar.ctp:4;4;4
 msgid "Management"
-msgstr ""
+msgstr "管理"
 
 #: \views\layouts\sitebar.ctp:9;33;9;33;9;33
 #: \views\rooms\index.ctp:3;3;3
 msgid "Rooms"
-msgstr ""
+msgstr "会議室"
 
 #: \views\layouts\sitebar.ctp:10;34;10;34;10;34
 #: \views\room_types\index.ctp:2;2;2
 msgid "Room Types"
-msgstr ""
+msgstr "会議室タイプ"
 
 #: \views\layouts\sitebar.ctp:11;35;11;35;11;35
 msgid "Equipments"
-msgstr ""
+msgstr "設備"
 
 #: \views\layouts\sitebar.ctp:17;17;17
 #: \views\users\index.ctp:2;2;2
 msgid "Users"
-msgstr ""
+msgstr "ユーザ"
 
 #: \views\layouts\sitebar.ctp:22;22;22
 msgid "Add New User"
-msgstr ""
+msgstr "新ユーザの追加"
 
 #: \views\layouts\sitebar.ctp:23;23;23
 #: \views\users\add.ctp:22;22;22
 #: \views\users\edit.ctp:24;24;24
 #: \views\users\view.ctp:56;56;56
 msgid "List Users"
-msgstr ""
+msgstr "ユーザ一覧"
 
 #: \views\layouts\sitebar.ctp:28;28;28
 msgid "Statistic"
-msgstr ""
+msgstr "統計"
 
 #: \views\layouts\sitebar.ctp:45;45;45
 msgid "Options"
-msgstr ""
+msgstr "選択"
 
 #: \views\layouts\sitebar.ctp:46;46;46
 msgid "Security"
-msgstr ""
+msgstr "セキュリティ"
 
 #: \views\layouts\sitebar.ctp:47;47;47
 msgid "Your Profile"
-msgstr ""
+msgstr "あなたのプロフィール"
 
 #: \views\logs\add.ctp:4;4;4
 msgid "Add Log"
-msgstr ""
+msgstr "ログ追加"
 
 #: \views\logs\add.ctp:18;18;18
 #: \views\logs\edit.ctp:20;20;20
 #: \views\logs\view.ctp:36;36;36
 msgid "List Logs"
-msgstr ""
+msgstr "ログ一覧"
 
 #: \views\logs\edit.ctp:4;4;4
 #: \views\logs\view.ctp:34;34;34
 msgid "Edit Log"
-msgstr ""
+msgstr "ログ編集"
 
 #: \views\logs\edit.ctp:19;19;19
 #: \views\logs\index.ctp:29;29;29
@@ -3205,20 +3205,20 @@ msgstr ""
 #: \views\users\index.ctp:37;37;37
 #: \views\users\view.ctp:55;55;55
 msgid "Are you sure you want to delete # %s?"
-msgstr ""
+msgstr "あなたが削除してもよろしですか。"
 
 #: \views\logs\index.ctp:2;2;2
 msgid "Logs"
-msgstr ""
+msgstr "ログ"
 
 #: \views\logs\index.ctp:51;51;51
 #: \views\logs\view.ctp:37;37;37
 msgid "New Log"
-msgstr ""
+msgstr "新しいログ"
 
 #: \views\logs\view.ctp:2;2;2
 msgid "Log"
-msgstr ""
+msgstr "ログ"
 
 #: \views\logs\view.ctp:4;4;4
 #: \views\positions_of_equipments\view.ctp:4;4;4
@@ -3228,187 +3228,187 @@ msgstr ""
 #: \views\rooms\view.ctp:4;4;4
 #: \views\users\view.ctp:4;4;4
 msgid "Id"
-msgstr ""
+msgstr "ID"
 
 #: \views\logs\view.ctp:9;9;9
 msgid "Code"
-msgstr ""
+msgstr "コード"
 
 #: \views\logs\view.ctp:14;14;14
 msgid "Userid"
-msgstr ""
+msgstr "ユーザID"
 
 #: \views\logs\view.ctp:19;19;19
 msgid "Time"
-msgstr ""
+msgstr "時間"
 
 #: \views\logs\view.ctp:24;24;24
 #: \views\room_types\view.ctp:14;14;14
 #: \views\rooms\list.ajax.ctp:30;30;30
 #: \views\rooms\view.ctp:39;39;39
 msgid "Description"
-msgstr ""
+msgstr "説明"
 
 #: \views\logs\view.ctp:35;35;35
 msgid "Delete Log"
-msgstr ""
+msgstr "ログ削除"
 
 #: \views\positions_of_equipments\add.ctp:5;5;5
 msgid "Add Positions Of Equipment"
-msgstr ""
+msgstr "設備の位置追加"
 
 #: \views\positions_of_equipments\add.ctp:23;23;23
 #: \views\positions_of_equipments\edit.ctp:21;21;21
 #: \views\positions_of_equipments\view.ctp:41;41;41
 msgid "List Positions Of Equipments"
-msgstr ""
+msgstr "設備の位置一覧表"
 
 #: \views\positions_of_equipments\edit.ctp:4;4;4
 #: \views\positions_of_equipments\view.ctp:39;39;39
 msgid "Edit Positions Of Equipment"
-msgstr ""
+msgstr "設備の位置編集"
 
 #: \views\positions_of_equipments\index.ctp:2;2;2
 msgid "Positions Of Equipments"
-msgstr ""
+msgstr "設備の位置"
 
 #: \views\positions_of_equipments\index.ctp:53;53;53
 #: \views\positions_of_equipments\view.ctp:42;42;42
 msgid "New Positions Of Equipment"
-msgstr ""
+msgstr "新しい設備の位置"
 
 #: \views\positions_of_equipments\view.ctp:2;2;2
 msgid "Positions Of Equipment"
-msgstr ""
+msgstr "設備の位置"
 
 #: \views\positions_of_equipments\view.ctp:9;9;9
 #: \views\requests\view.ctp:14;14;14
 msgid "Roomid"
-msgstr ""
+msgstr "会議室ID"
 
 #: \views\positions_of_equipments\view.ctp:14;14;14
 msgid "Equipmentid"
-msgstr ""
+msgstr "設備ID"
 
 #: \views\positions_of_equipments\view.ctp:19;19;19
 msgid "Quantity"
-msgstr ""
+msgstr "数量"
 
 #: \views\positions_of_equipments\view.ctp:24;24;24
 msgid "Move Time"
-msgstr ""
+msgstr "移動する時間"
 
 #: \views\positions_of_equipments\view.ctp:29;29;29
 #: \views\requests\view.ctp:29;29;29
 msgid "Note"
-msgstr ""
+msgstr "注意"
 
 #: \views\positions_of_equipments\view.ctp:40;40;40
 msgid "Delete Positions Of Equipment"
-msgstr ""
+msgstr "設備の位置削除"
 
 #: \views\request_details\add.ctp:4;4;4
 msgid "Add Request Detail"
-msgstr ""
+msgstr "詳細要求追加"
 
 #: \views\request_details\add.ctp:18;18;18
 #: \views\request_details\edit.ctp:20;20;20
 #: \views\request_details\view.ctp:36;36;36
 msgid "List Request Details"
-msgstr ""
+msgstr "詳細要求一覧表"
 
 #: \views\request_details\edit.ctp:4;4;4
 #: \views\request_details\view.ctp:34;34;34
 msgid "Edit Request Detail"
-msgstr ""
+msgstr "詳細要求編集"
 
 #: \views\request_details\index.ctp:2;2;2
 msgid "Request Details"
-msgstr ""
+msgstr "詳細要求"
 
 #: \views\request_details\index.ctp:51;51;51
 #: \views\request_details\view.ctp:37;37;37
 msgid "New Request Detail"
-msgstr ""
+msgstr "新しい詳細要求"
 
 #: \views\request_details\view.ctp:2;2;2
 msgid "Request Detail"
-msgstr ""
+msgstr "詳細要求"
 
 #: \views\request_details\view.ctp:9;9;9
 msgid "Requestid"
-msgstr ""
+msgstr "要求ID"
 
 #: \views\request_details\view.ctp:14;14;14
 msgid "Begin Time"
-msgstr ""
+msgstr "開始時間"
 
 #: \views\request_details\view.ctp:19;19;19
 msgid "End Time"
-msgstr ""
+msgstr "終了時間"
 
 #: \views\request_details\view.ctp:24;24;24
 msgid "Price"
-msgstr ""
+msgstr "値段"
 
 #: \views\request_details\view.ctp:35;35;35
 msgid "Delete Request Detail"
-msgstr ""
+msgstr "詳細要求削除"
 
 #: \views\requests\add.ctp:4;4;4
 #: \views\requests\list.ajax.ctp:23;23;23
 msgid "Add Request"
-msgstr ""
+msgstr "要求追加"
 
 #: \views\requests\add.ctp:21;21;21
 #: \views\requests\edit.ctp:23;23;23
 #: \views\requests\view.ctp:51;51;51
 msgid "List Requests"
-msgstr ""
+msgstr "要求一覧"
 
 #: \views\requests\edit.ctp:4;4;4
 #: \views\requests\view.ctp:49;49;49
 msgid "Edit Request"
-msgstr ""
+msgstr "要求編集"
 
 #: \views\requests\list.ajax.ctp:23;23;23
 msgid "Add"
-msgstr ""
+msgstr "追加"
 
 #: \views\requests\list.ajax.ctp:30;30;30
 #: \views\rooms\list.ajax.ctp:24;24;24
 #: \views\users\admin_index.ctp:91;91;91
 #: \views\users\admin_view.ctp:129;129;129
 msgid "#"
-msgstr ""
+msgstr "#"
 
 #: \views\requests\list.ajax.ctp:31;31;31
 msgid "Select all"
-msgstr ""
+msgstr "すべてを選択"
 
 #: \views\requests\list.ajax.ctp:32;32;32
 #: \views\rooms\list.ajax.ctp:26;26;26
 #: \views\rooms\view.ctp:2;2;2
 msgid "Room"
-msgstr ""
+msgstr "会議室"
 
 #: \views\requests\list.ajax.ctp:33;33;33
 msgid "Created By"
-msgstr ""
+msgstr "作成"
 
 #: \views\requests\list.ajax.ctp:34;34;34
 #: \views\users\admin_edit.ctp:79;79;79
 #: \views\users\admin_view.ctp:39;39;39
 msgid "Created Time"
-msgstr ""
+msgstr "作成時間"
 
 #: \views\requests\list.ajax.ctp:35;35;35
 msgid "Updated By"
-msgstr ""
+msgstr "更新"
 
 #: \views\requests\list.ajax.ctp:36;36;36
 msgid "Updated Time"
-msgstr ""
+msgstr "更新時間"
 
 #: \views\requests\list.ajax.ctp:37;37;37
 #: \views\requests\view.ctp:9;9;9
@@ -3417,328 +3417,327 @@ msgstr ""
 #: \views\users\admin_add.ctp:60;60;60
 #: \views\users\admin_index.ctp:30;30;30
 msgid "Status"
-msgstr ""
+msgstr "ステータス"
 
 #: \views\requests\list.ajax.ctp:71;71;71
 #: \views\rooms\list.ajax.ctp:67;67;67
 msgid "Show %s records on a page."
-msgstr ""
+msgstr "ページ上にレコード%sを表示する　"
 
 #: \views\requests\list.ajax.ctp:86;86;86
 #: \views\rooms\list.ajax.ctp:82;82;82
 msgid "Result %current% records out of %count% total."
-msgstr ""
+msgstr "%count%合計のうちの%current%レコードの結果"
 
 #: \views\requests\view.ctp:2;2;2
 msgid "Request"
-msgstr ""
+msgstr "要求"
 
 #: \views\requests\view.ctp:19;19;19
 msgid "Create By"
-msgstr ""
+msgstr "作成"
 
 #: \views\requests\view.ctp:24;24;24
 msgid "Create Time"
-msgstr ""
+msgstr "作成時間"
 
 #: \views\requests\view.ctp:34;34;34
 msgid "Update By"
-msgstr ""
+msgstr "更新"
 
 #: \views\requests\view.ctp:39;39;39
 msgid "Update Time"
-msgstr ""
+msgstr "更新時間"
 
 #: \views\requests\view.ctp:50;50;50
 msgid "Delete Request"
-msgstr ""
+msgstr "要求削除"
 
 #: \views\requests\view.ctp:52;52;52
 msgid "New Request"
-msgstr ""
+msgstr "新しい要求"
 
 #: \views\room_types\add.ctp:4;4;4
 msgid "Add Room Type"
-msgstr ""
+msgstr "会議室タイプ追加"
 
 #: \views\room_types\add.ctp:16;16;16
 #: \views\room_types\edit.ctp:18;18;18
 #: \views\room_types\view.ctp:26;26;26
 msgid "List Room Types"
-msgstr ""
+msgstr "会議室タイプ一覧"
 
 #: \views\room_types\edit.ctp:4;4;4
 #: \views\room_types\view.ctp:24;24;24
 msgid "Edit Room Type"
-msgstr ""
+msgstr "会議室タイプ編集"
 
 #: \views\room_types\index.ctp:47;47;47
 #: \views\room_types\view.ctp:27;27;27
 msgid "New Room Type"
-msgstr ""
+msgstr "新しい会議室タイプ"
 
 #: \views\room_types\view.ctp:2;2;2
 msgid "Room Type"
-msgstr ""
+msgstr "会議室タイプ"
 
 #: \views\room_types\view.ctp:9;9;9
 #: \views\rooms\view.ctp:9;9;9
 msgid "Name"
-msgstr ""
+msgstr "名"
 
 #: \views\room_types\view.ctp:25;25;25
 msgid "Delete Room Type"
-msgstr ""
+msgstr "会議室タイプ削除"
 
 #: \views\rooms\add.ctp:4;4;4
 msgid "Add Room"
-msgstr ""
+msgstr "会議室追加"
 
 #: \views\rooms\add.ctp:21;21;21
 #: \views\rooms\edit.ctp:23;23;23
 #: \views\rooms\view.ctp:51;51;51
 msgid "List Rooms"
-msgstr ""
+msgstr "会議室一覧"
 
 #: \views\rooms\edit.ctp:4;4;4
 #: \views\rooms\view.ctp:49;49;49
 msgid "Edit Room"
-msgstr ""
+msgstr "会議室編集"
 
 #: \views\rooms\index.ctp:58;58;58
 #: \views\rooms\view.ctp:52;52;52
 msgid "New Room"
-msgstr ""
+msgstr "新会議室"
 
 #: \views\rooms\list.ajax.ctp:27;27;27
 msgid "Type"
-msgstr ""
+msgstr "タイプ"
 
 #: \views\rooms\list.ajax.ctp:28;28;28
 #: \views\rooms\view.ctp:19;19;19
 msgid "Quantity Seat"
-msgstr ""
-
+msgstr "座席数量"
 #: \views\rooms\list.ajax.ctp:29;29;29
 #: \views\rooms\view.ctp:29;29;29
 msgid "Renting Fee"
-msgstr ""
+msgstr "借り金"
 
 #: \views\rooms\list.ajax.ctp:32;32;32
 #: \views\rooms\view.ctp:34;34;34
 msgid "Image"
-msgstr ""
+msgstr "イメージ"
 
 #: \views\rooms\view.ctp:14;14;14
 msgid "Typeid"
-msgstr ""
+msgstr "タイプID"
 
 #: \views\rooms\view.ctp:50;50;50
 msgid "Delete Room"
-msgstr ""
+msgstr "会議室削除"
 
 #: \views\users\admin_edit.ctp:25;25;25
 #: \views\users\admin_view.ctp:24;24;24
 msgid "Email: "
-msgstr ""
+msgstr "メール："
 
 #: \views\users\admin_edit.ctp:33;33;33
 msgid "Change Email: "
-msgstr ""
+msgstr "メール変更："
 
 #: \views\users\admin_edit.ctp:42;42;42
 msgid "Password: "
-msgstr ""
+msgstr "パスワード"
 
 #: \views\users\admin_edit.ctp:51;51;51
 msgid "Change Password: "
-msgstr ""
+msgstr "パスワード変更："
 
 #: \views\users\admin_edit.ctp:64;64;64
 msgid "Confirm Password: "
-msgstr ""
+msgstr "パスワード確認："
 
 #: \views\users\admin_edit.ctp:84;84;84
 #: \views\users\admin_view.ctp:48;48;48
 msgid "Last Access"
-msgstr ""
+msgstr "最後のアクセス"
 
 #: \views\users\admin_edit.ctp:88;88;88
 msgid "Last Booking"
-msgstr ""
+msgstr "最後の予約"
 
 #: \views\users\admin_edit.ctp:92;92;92
 msgid "Bookings Number"
-msgstr ""
+msgstr "予約数"
 
 #: \views\users\admin_edit.ctp:101;101;101
 #: \views\users\admin_view.ctp:62;62;62
 msgid "Website Critical: "
-msgstr ""
+msgstr "重要なウェブサイト"
 
 #: \views\users\admin_index.ctp:16;16;16
 msgid "Import CSV"
-msgstr ""
+msgstr "CSV輸入"
 
 #: \views\users\admin_index.ctp:39;39;39
 msgid "Register Date:"
-msgstr ""
+msgstr "登録日"
 
 #: \views\users\admin_index.ctp:81;81;81
 msgid "Result %current% records of %count%"
-msgstr ""
+msgstr "%count%の%current%レコードの結果"
 
 #: \views\users\admin_index.ctp:100;100;100
 msgid "No of booking"
-msgstr ""
+msgstr "予約がない"
 
 #: \views\users\admin_index.ctp:133;133;133
 msgid "Registerd"
-msgstr ""
+msgstr "登録"
 
 #: \views\users\admin_index.ctp:136;136;136
 #: \views\users\admin_view.ctp:89;189;89;189;89;189
 msgid "Active"
-msgstr ""
+msgstr "能動"
 
 #: \views\users\admin_index.ctp:140;140;140
 #: \views\users\admin_view.ctp:91;193;91;193;91;193
 msgid "Disable"
-msgstr ""
+msgstr "Disable"
 
 #: \views\users\admin_index.ctp:169;169;169
 msgid "Rows of a page: "
-msgstr ""
+msgstr "ページの列："
 
 #: \views\users\admin_login.ctp:9;9;9
 #: \views\users\forgotpassword.ctp:18;18;18
 #: \views\users\login.ctp:9;9;9
 #: \views\users\register.ctp:75;75;75
 msgid "Welcome "
-msgstr ""
+msgstr "ようこそ"
 
 #: \views\users\admin_login.ctp:18;18;18
 #: \views\users\forgotpassword.ctp:35;35;35
 #: \views\users\register.ctp:84;84;84
 #: \views\users\view.ctp:14;14;14
 msgid "Email"
-msgstr ""
+msgstr "メール"
 
 #: \views\users\admin_login.ctp:26;26;26
 #: \views\users\login.ctp:31;31;31
 #: \views\users\register.ctp:92;92;92
 #: \views\users\view.ctp:19;19;19
 msgid "Password"
-msgstr ""
+msgstr "パスワード"
 
 #: \views\users\admin_login.ctp:32;32;32
 #: \views\users\login.ctp:37;37;37
 msgid "Login"
-msgstr ""
+msgstr "ログイン"
 
 #: \views\users\admin_view.ctp:44;44;44
 msgid "Last Booked"
-msgstr ""
+msgstr "最後の予約"
 
 #: \views\users\admin_view.ctp:53;53;53
 msgid "No of Booking"
-msgstr ""
+msgstr "予約が無い"
 
 #: \views\users\admin_view.ctp:83;83;83
 msgid "Status: "
-msgstr ""
+msgstr "ステータス："
 
 #: \views\users\admin_view.ctp:93;93;93
 msgid "Registered"
-msgstr ""
+msgstr "登録"
 
 #: \views\users\admin_view.ctp:115;115;115
 msgid "Bookings"
-msgstr ""
+msgstr "予約"
 
 #: \views\users\admin_view.ctp:140;140;140
 msgid "Pages"
-msgstr ""
+msgstr "ページ"
 
 #: \views\users\edit.ctp:4;4;4
 #: \views\users\view.ctp:54;54;54
 msgid "Edit User"
-msgstr ""
+msgstr "ユーザ編集"
 
 #: \views\users\forgotpassword.ctp:29;29;29
 msgid "Input your true email address to get your new password"
-msgstr ""
+msgstr "新しいパスワードを取得するために、本当のメールアドレスを入力してください。"
 
 #: \views\users\forgotpassword.ctp:49;49;49
 msgid "Send"
-msgstr ""
+msgstr "送信"
 
 #: \views\users\index.ctp:59;59;59
 #: \views\users\view.ctp:57;57;57
 msgid "New User"
-msgstr ""
+msgstr "新ユーザ"
 
 #: \views\users\register.ctp:97;97;97
 msgid "Confirm Password"
-msgstr ""
+msgstr "確認パスワード"
 
 #: \views\users\register.ctp:105;105;105
 msgid "Full name"
-msgstr ""
+msgstr "フルネーム"
 
 #: \views\users\register.ctp:109;109;109
 msgid "Company name: "
-msgstr ""
+msgstr "会社名："
 
 #: \views\users\register.ctp:127;127;127
 msgid "Local phone"
-msgstr ""
+msgstr "内線電話番号"
 
 #: \views\users\register.ctp:133;133;133
 msgid "Register"
-msgstr ""
+msgstr "登録"
 
 #: \views\users\view.ctp:2;2;2
 msgid "User"
-msgstr ""
+msgstr "ユーザ"
 
 #: \views\users\view.ctp:9;9;9
 msgid "Usercode"
-msgstr ""
+msgstr "ユーザコード"
 
 #: \views\users\view.ctp:24;24;24
 msgid "Fullname"
-msgstr ""
+msgstr "フルネーム"
 
 #: \views\users\view.ctp:29;29;29
 msgid "Company"
-msgstr ""
+msgstr "会社"
 
 #: \views\users\view.ctp:34;34;34
 msgid "Phone"
-msgstr ""
+msgstr "電話番号"
 
 #: \views\users\view.ctp:39;39;39
 msgid "Local Phone"
-msgstr ""
+msgstr "内線電話番号"
 
 #: \views\users\view.ctp:44;44;44
 msgid "Role"
-msgstr ""
+msgstr "役割"
 
 #: \views\users\view.ctp:55;55;55
 msgid "Delete User"
-msgstr ""
+msgstr "ユーザ削除"
 
 #: \cake\tests\test_app\views\pages\extract.ctp:10;10;10
 msgid "You have %d new message (domain)."
 msgid_plural "You have %d new messages (domain)."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "あなたが新しいメッセージが%dあります。（ドメイン）。"
+msgstr[1] "あなたが新しいメッセージが%dあります。（ドメイン）。"
 
 #: \cake\tests\test_app\views\pages\extract.ctp:11;11;11
 msgid "You deleted %d message (domain)."
 msgid_plural "You deleted %d messages (domain)."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "あなたがメッセージを%d削除しました。（ドメイン）。"
+msgstr[1] "あなたがメッセージを%d削除しました。（ドメイン）。"
 
