@@ -27,6 +27,6 @@
 <body>
 	<?php echo $content_for_layout;?>
 
-	<p>This email was sent using the <a href="http://cakephp.org">CakePHP Framework</a></p>
+	<p>IT Japanese - T09 Group <a href="http://localhost/itjp-project/">http://localhost/itjp-project/</a></p>
 </body>
 </html>
