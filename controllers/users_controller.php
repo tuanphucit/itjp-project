@@ -653,7 +653,7 @@ class UsersController extends AppController {
 					$count ++;
 			}
 			unlink ( $absolute_path );
-			$this->Session->setFlash ( "Imported successfully $count record(s)" );
+			$this->Session->setFlash ( __("Imported successfully $count record(s)", true), 'default', array('class'=>CLASS_SUCCESS_ALERT));
 		} else
 			$this->Session->setFlash ( __("You must select a file!", true), 'default', array('class'=>CLASS_ERROR_ALERT));
 		$this->redirect ( array ('action' => 'admin_index' ) );
