@@ -364,7 +364,7 @@ div#main {
     -moz-border-radius-topleft: 5px; -moz-border-radius-topright: 5px;
     border-top-left-radius: 5px; border-top-right-radius: 5px;
 }
-.module_header form{
+.module_header div.header_action{
     margin: 5px 10px;
     height: 25px;
 }
