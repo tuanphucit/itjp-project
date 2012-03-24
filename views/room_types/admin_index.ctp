@@ -14,12 +14,12 @@ $html->addCrumb(__('Room Types Management', true), '/admin/room_types');
     <div id="search_box" class="module_content">
         <?php
         //TODO : chinh form 
-        echo $form->create();
-        echo $form->input('fsstatus', array('label' => 'Status:', 'type' => 'select', 'options' => array(), 'div' => false, 'empty' => '--All--'));
-        echo $form->input('fsformtime', array('label' => 'From:', 'type' => 'text', 'div' => false));
-        echo $form->input('fstotime', array('label' => 'To:', 'type' => 'text', 'div' => false));
-        echo $form->input('fscustomer', array('label' => 'Customer:', 'type' => 'text', 'div' => false));
-        echo $form->end(array('label' => 'Search', 'div' => false));
+//        echo $form->create();
+//        echo $form->input('fsstatus', array('label' => 'Status:', 'type' => 'select', 'options' => array(), 'div' => false, 'empty' => '--All--'));
+//        echo $form->input('fsformtime', array('label' => 'From:', 'type' => 'text', 'div' => false));
+//        echo $form->input('fstotime', array('label' => 'To:', 'type' => 'text', 'div' => false));
+//        echo $form->input('fscustomer', array('label' => 'Customer:', 'type' => 'text', 'div' => false));
+//        echo $form->end(array('label' => 'Search', 'div' => false));
         ?>
     </div>
 </div>
