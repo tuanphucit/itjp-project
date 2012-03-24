@@ -24,5 +24,5 @@ $html->addCrumb(__('Room Types Management', true), '/admin/room_types');
     </div>
 </div>
 <div class="module width_full" id="result_box">
-    <?php echo $this->element('/../room_types/list.ajax'); ?>
+    <?php echo $this->element('../room_types/list.ajax'); ?>
 </div>
