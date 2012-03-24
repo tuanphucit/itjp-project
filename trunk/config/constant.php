@@ -20,4 +20,9 @@ define('REQUEST_STATUS_DENY', 2);
 define('REQUEST_STATUS_CANCEL_WAITING', 3);
 define('REQUEST_STATUS_CANCELED', 4); // Da huy phong
 define('REQUEST_STATUS_FINISH', 5); // Da qua ngay dang ky su dung
+
+define('CLASS_ERROR_ALERT', 'alert_error');
+define('CLASS_INFO_ALERT', 'alert_info');
+define('CLASS_WARNING_ALERT', 'alert_warning');
+define('CLASS_SUCCESS_ALERT', 'alert_success');
 ?>
