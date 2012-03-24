@@ -47,7 +47,7 @@
 <tr>
 	<td></td>
 	<td>
-	<?php echo $this->Html->link('Forgot Your Password?', array('controller'=>'users', 'action'=>'forgotpswd'));?>
+	<?php echo $this->Html->link('Forgot Your Password?', array('controller'=>'users', 'action'=>'forgotpassword'));?>
 	</td>
 </tr>
 

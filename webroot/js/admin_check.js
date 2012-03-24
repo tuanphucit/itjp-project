@@ -7,16 +7,7 @@ img.height = "20";
 img.width  = "20";
 }
 
-function checkAll(){
-	for (var i=0;i<document.form1.elements.length;i++)
-	{
-		var e=document.form1.elements[i];
-		if ((e.name != 'allbox') && (e.type=='checkbox'))
-		{
-			e.checked=document.form1.allbox.checked;
-		}
-	}
-}
+
 function submitUserAction(form)
 {
 	var count = 0;

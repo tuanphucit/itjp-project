@@ -18,6 +18,7 @@
         //echo $html->script('jquery-ui.min.js');
         //echo $html->script('jquery-ui-timepicker-addon');
         //echo $html->script('jquery-ui-sliderAccess');
+         echo $html->script('common');
         echo $html->script('admin_check');
         echo $html->script('common');
         echo $scripts_for_layout;

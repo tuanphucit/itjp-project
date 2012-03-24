@@ -154,12 +154,12 @@
 			$class = ' class="altrow"';
 		}
 		//$type_id=$website['User']['user_type'];
-		$status_id=$request['Website']['status'];
+		$status_id=$request['Request']['status'];
 		
 		
 		//Flag
 		
-		$flag_id=$website['Website']['critical_flag'];
+		$flag_id=$request['Request']['status'];
 		if (isset($flag_id)){
 			if ($flag_id == 1)
 				$flag = 'Good';
@@ -170,12 +170,12 @@
 		else $flag = 'Good/Normal/Bad';
 	?>
 	<tr<?php echo $class;?>>
-		<?php $id=$website['Website']['id'];
+		<?php $id=$request['Request']['id'];
 		$index++;
 		$row++;?>
 		<td><?php echo $row+($page-1)*$limit; ?>&nbsp;</td>
 		
-		<td class="email"><?php echo $this->Html->link($website['Website']['website_name'], array('controller'=>'websites', 'action'=>'view', $id)); ?>&nbsp;</td>
+		<td class="email"><?php echo $this->Html->link($request['Request']['website_name'], array('controller'=>'websites', 'action'=>'view', $id)); ?>&nbsp;</td>
 		
 		<td><?php echo $website['Website']['website_url']; ?>&nbsp;</td>
 		
@@ -206,7 +206,7 @@
 		<td><?php echo count($website['Webpage']);?>&nbsp;</td>
 		
 	</tr>
-<?php endforeach; ?>
+<?php endforeach;?>
 	
 	
 	

@@ -33,7 +33,7 @@
             echo ' <span>|</span> ';
             echo $html->link(__('My booking',true),array('plugin'=>null,'controller'=>'users','action'=>'view'));
             echo '<span>|<span>'; 
-            echo $html->link('Logout',array('plugin' => null,'controller'=>'users','action'=>'logout','admin'=>1));
+            echo $html->link('Logout',array('plugin' => null,'controller'=>'users','action'=>'logout'));
         	
             ?>
         </div>
