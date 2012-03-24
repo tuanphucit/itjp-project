@@ -1,41 +1,28 @@
-<div id="header">
-		<div class = header_left>
-			<ul class="navigation">
-			<li class="selected first">
-				<?php echo $html->link(__("Home",true),array('plugin'=>null,'controller'=>'users','action'=>'view'));
-				?>
-				</li>
-			<li>
-				<?php echo $html->link(__("Office",true),array('plugin'=>null,'controller'=>'users','action'=>'view'));
-				?>
-			</li>
-			<li>
-				<?php echo $html->link(__("Booking",true),array('plugin'=>null,'controller'=>'users','action'=>'view'));
-				?>
-			</li>
-			<li>
-				<?php echo $html->link(__("Contact",true),array('plugin'=>null,'controller'=>'users','action'=>'view'));
-				?>
-			</li>
-			<li>
-				<?php echo $html->link(__("About us",true),array('plugin'=>null,'controller'=>'users','action'=>'view'));
-				?>
-			</li>
+<div class="header">
+	<ul id="navigation">
+		<li>
+			<a href="index.html" id="home">Home</a>
+		</li>
+		<li>
+			<a href="#" id="email">Email</a>
+		</li>
+	</ul>
+	<p>Talk to a travel professional <span>1-999-666-888</span></p>
+	<a href="index.html" id="logo"><img src="images/logo.jpg" alt="logo"/></a>
+	<ul class="navigation">
+		<li class="first">
+			<a href="#">Conference Room</a>
+		</li>
+		<li>
+			<a href="#">Booking</a>
+		</li>
+		<li class="selected">
+			<a href="#">Contact us</a>
+		</li>
+		<li class="selected">
+			<a href="#">About</a>
+		</li>
+	</ul>
 
-			</ul>
-		
-		</div>
-        <div class="header-right">
-        <?php
-            echo sprintf(__("User:", true));
-            echo '<span>|<span>';
-			echo $html->link(__("Profile",true),array('plugin'=>null,'controller'=>'users','action'=>'view'));
-            echo ' <span>|</span> ';
-            echo $html->link(__('My booking',true),array('plugin'=>null,'controller'=>'users','action'=>'view'));
-            echo '<span>|<span>'; 
-            echo $html->link('Logout',array('plugin' => null,'controller'=>'users','action'=>'logout'));
-        	
-            ?>
-        </div>
+</div> 
 
-</div>

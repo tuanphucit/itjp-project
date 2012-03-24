@@ -1,6 +1,4 @@
 /* Website template by freewebsitetemplates.com */
-
-
 /*------------------------- Layout styles ------------------------*/ 
 body{
 	background:url(../images/bg-body.jpg) repeat-x center top #09154F;
@@ -17,9 +15,6 @@ p a,h3 a{
 	margin: 0 auto;
 	overflow: hidden;
 }
-#header .header-right { font-size:15px;float: right; display:inline-block;color:#cc000}
-#header .header-left {font-size:20px;display:inline-block;}
-
 .header{
 	width: 960px;
 	margin: 0 auto;
@@ -84,7 +79,7 @@ p a,h3 a{
 	padding: 0;
 	margin: 23px 0 0;
 	width: 520px;
-	float: left;
+	float: right;
 }
 #header ul.navigation li,.header ul.navigation li{
 	float: left;
@@ -962,15 +957,4 @@ p a,h3 a{
 	*padding: 0 0 20px;
 	margin: 0;
 }
-#featured div ul {
-    height: 525px;
-    list-style: none outside none;
-    margin: 0;
-    overflow: hidden;
-    padding: 35px 0 0;
-    position: relative;
-    width: 630px;
-}
 
-	
-}
