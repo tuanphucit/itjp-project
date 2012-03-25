@@ -237,6 +237,7 @@ div#sidebar {
 }
 /* Sidebar Icons */
 #sidebar li.icn_statistic a { background: url(../img/16x16/statistics.png) no-repeat center left;}
+#sidebar li.icn_exprot a { background: url(../img/16x16/print.png) no-repeat center left;}
 /*#sidebar li.icn_new_article a { background: url(../img/admin_layout/icn_new_article.png) no-repeat center left;}*/
 /*#sidebar li.icn_edit_article a { background: url(../img/admin_layout/icn_edit_article.png) no-repeat center left;}*/
 #sidebar li.icn_categories a { background: url(../img/admin_layout/icn_categories.png) no-repeat center left;}

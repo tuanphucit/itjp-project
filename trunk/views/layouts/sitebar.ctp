@@ -30,9 +30,8 @@
     ?>
 </h3>
 <ul class="toggle">
-    <li class="icn_statistic"><?php echo $html->link(__('Rooms', true), array('controller' => 'rooms', 'action' => 'admin_index')); ?></li>
-    <li class="icn_categories"><?php echo $html->link(__('Room Types', true), array('controller' => 'room_types', 'action' => 'admin_index')); ?></li>
-    <li class="icn_categories"><?php echo $html->link(__('Equipments', true), array('controller' => 'equipment1s', 'action' => 'admin_index')); ?></li>
+    <li class="icn_statistic"><?php echo $html->link(__('Statistic Chart', true), array('controller' => 'rooms', 'action' => 'admin_index')); ?></li>
+    <li class="icn_exprot"><?php echo $html->link(__('Export File', true), array('controller' => 'room_types', 'action' => 'admin_index')); ?></li>
 </ul>
 <!-- Admin -->
 <h3>
