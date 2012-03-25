@@ -5,6 +5,7 @@
 /* @var $limit int */
 /* @var $data array */
 /* @var $rdurl String */
+$html->addCrumb(__('Website Admin', true), '/admin');
 $html->addCrumb(__('Booking Management', true), '/admin/requests');
 ?>
 <div class="module width_full">

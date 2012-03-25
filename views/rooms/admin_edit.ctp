@@ -6,6 +6,7 @@
 /* @var $data array */
 /* @var $rdurl String */
 /* @var $listRoomTypes */
+$html->addCrumb(__('Website Admin', true), '/admin');
 $html->addCrumb(__('Rooms Management', true), '/admin/rooms');
 $html->addCrumb(__('Edit Room', true), '/admin/rooms/edit');
 ?>

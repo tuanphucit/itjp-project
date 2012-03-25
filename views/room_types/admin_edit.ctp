@@ -2,6 +2,7 @@
 /* @var $form FormHelper */
 /* @var $html HtmlHelper */
 /* @var $js JsHelper */
+$html->addCrumb(__('Website Admin', true), '/admin');
 $html->addCrumb(__('Room Types Management', true), '/admin/room_types');
 $html->addCrumb(__('Edit Room Type', true), '/admin/room_types/edit');
 ?>

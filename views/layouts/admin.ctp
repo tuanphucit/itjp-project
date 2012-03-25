@@ -41,7 +41,7 @@
             </div>
             <div class="breadcrumbs_container">
                 <div class="breadcrumbs">
-                    <?php echo $html->getCrumbs('<div class="breadcrumb_divider"></div>', __('Website Admin', true)); ?>
+                    <?php echo $html->getCrumbs('<div class="breadcrumb_divider"></div>'); ?>
                 </div>
             </div>
         </div>
