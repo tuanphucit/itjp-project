@@ -1,5 +1,5 @@
 <?php
-
+ //このコントーラは会議室タイプの操作を管理する物です。
 class RoomTypesController extends AppController {
 
     var $name = 'RoomTypes';
@@ -15,7 +15,7 @@ class RoomTypesController extends AppController {
      * @var RequestHandlerComponent
      */
     var $RequestHandler;
-
+ //会議室タイプのインでクスページをセットする機能
     function admin_index() {
         //debug($this->params);
         $conditions = array();
@@ -44,7 +44,7 @@ class RoomTypesController extends AppController {
             $this->layout = 'admin';
         }
     }
-
+ //会議室タイプの追加ぺーじをセットする機能
     function admin_add() {
         $this->layout = "admin";
         $this->set('title_for_layout', __('Room Types Management', true));
@@ -58,7 +58,7 @@ class RoomTypesController extends AppController {
             }
         }
     }
-
+ //会議室タイプの編集ページをセットする機能
     function admin_edit($id = null) {
         $this->layout = "admin";
         $this->set('title_for_layout', __('Room Types Management', true));
@@ -78,7 +78,7 @@ class RoomTypesController extends AppController {
             $this->data = $this->RoomType->read(null, $id);
         }
     }
-
+ //会議室タイプを削除する機能
     function admin_delete($id = null) {
         //$this->uses = array('Room', 'RoomType');
         if (!$id) {

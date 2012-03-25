@@ -1,8 +1,9 @@
 <?php
-
+//このモデルはデータベースのREQUESTSテーブルに参照しています。
 class Request extends AppModel {
 
     var $name = 'Request';
+    //REQUETSテーブルのフィルドのフォーマトをチェックするために、$validate　を使います。
     var $validate = array(
         'roomid' => array(
             'numeric' => array(
@@ -35,6 +36,7 @@ class Request extends AppModel {
             ),
         ),
     );
+    //USERS,ROOMS,REQUESTDETAILS　テーブルとの関係を定義します。
     var $belongsTo = array(
         'Requester' => array(
             'className' => 'User',

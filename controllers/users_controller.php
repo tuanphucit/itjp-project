@@ -1,5 +1,5 @@
 <?php
-
+  //このコントローラがユーザの操作を管理する物です。
 class UsersController extends AppController {
 
     var $name = 'Users';
@@ -36,7 +36,7 @@ class UsersController extends AppController {
         $this->Auth->allow('register', 'confirm', 'forgotpassword', 'reset');
         $this->Auth->fields = array('username' => 'email', 'password' => 'password');
     }
-
+  //ログイン機能
     function login() {
         $this->layout = "login";
         if (!empty($this->data)) {
@@ -51,18 +51,18 @@ class UsersController extends AppController {
             }
         }
     }
-
+  //ログアウト機能
     function logout() {
         $this->redirect($this->Auth->logout());
     }
 
-    // xoa het Session
+    // セッションを削除する機能
     function reset() {
         $this->Session->destroy();
         $this->redirect(array('action' => 'login'));
     }
 
-    // dang ki
+    // 登録する機能
     function register() {
         $this->layout = 'login';
         $this->Session->destroy();
@@ -110,7 +110,7 @@ class UsersController extends AppController {
         }
         $this->set('user', $this->data);
     }
-
+  //パスワードを忘れ場合、また新しいパスワードを取得する機能
     function forgotpassword() {
         $this->layout = 'admin_login';
         debug($this->data);
@@ -147,7 +147,7 @@ class UsersController extends AppController {
         }
         //		else $this->Session->setFlash('Please input your email!');
     }
-
+  //ランダム文字列を作る機能
     function genRandomString() {
         $length = 6;
         $characters = '0123456789abcdefghijklmnopqrstuvwxyz';
@@ -159,7 +159,7 @@ class UsersController extends AppController {
 
         return $string;
     }
-
+//メール情報を読む機能
     function readMailInfo($filename) {
         $info = array();
         $i = 0;
@@ -212,7 +212,7 @@ class UsersController extends AppController {
         $result = $this->Email->send();
         return $result;
     }
-
+//アドミンがログインする機能
     function admin_login() {
 
         //		'recursive' => - 1,
@@ -237,12 +237,12 @@ class UsersController extends AppController {
         }
         //debug($this->data);
     }
-
+//アドミンがログアウトする機能
     function admin_logout() {
         $this->Session->destroy();
         $this->redirect('login');
     }
-
+//アドミンのインでクスページをセットする機能
     function admin_index() {
         $this->layout = 'admin';
         //debug($this->data);
@@ -274,7 +274,7 @@ class UsersController extends AppController {
             $this->render('list.ajax');
         }
     }
-
+//アドミンのビューページをセットする機能
     function admin_view($id = null) {
         $this->layout = 'admin';
         $this->set('title_for_layout', __('Users Management', true));
@@ -294,7 +294,7 @@ class UsersController extends AppController {
         $this->paginate = array('conditions' => array('Request.update_by' => $id));
         $this->set('requests', $this->paginate('Request'));
     }
-
+//アドミンの追加ページをセットする機能
     function admin_add() {
         $this->layout = 'admin';
         $this->set('title_for_layout', __('Users Management', true));
@@ -319,7 +319,7 @@ class UsersController extends AppController {
                 $this->Session->setFlash(__('Email must be valid format!', true));
         }
     }
-
+//アドミンの編集ページをセットする機能
     function admin_edit($id = null) {
         $this->layout = 'admin';
         $this->set('title_for_layout', __('Users Management', true));
@@ -380,7 +380,7 @@ class UsersController extends AppController {
         $this->set('page', $page);
         $this->set('limit', $this->_limit);
     }
-
+//アドミンの削除ページをセットする機能
     function admin_delete($id = null) {
         if (!$id) {
             $this->Session->setFlash(__('Invalid id for user', true));
@@ -393,13 +393,13 @@ class UsersController extends AppController {
         $this->Session->setFlash(__('User was not deleted', true));
         $this->redirect(array('action' => 'index'));
     }
-
+//アドミンの輸出する機能
     function admin_export() {
         $this->layout = 'ajax';
         $this->set('rs', $this->Session->read('result'));
         //$this->redirect('index');
     }
-
+//アドミンの輸入する機能    
     function admin_import() {
         $this->layout = 'flash';
         $path = getcwd();

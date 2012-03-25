@@ -1,4 +1,6 @@
 <?php
+
+//このモデルはデータベースのPOSITIONOFEQUIPMENTSテーブルに参照しています。
 class PositionsOfEquipment extends AppModel {
 	var $name = 'PositionsOfEquipment';
 	var $belongsTo = array(
