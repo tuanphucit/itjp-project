@@ -5,6 +5,7 @@
 /* @var $limit int */
 /* @var $data array */
 /* @var $rdurl String */
+$html->addCrumb(__('Website Admin', true), '/admin');
 $html->addCrumb(__('Users Management', true), '/admin/users');
 ?>
 <div class="module width_full">

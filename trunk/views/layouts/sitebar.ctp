@@ -30,8 +30,8 @@
     ?>
 </h3>
 <ul class="toggle">
-    <li class="icn_statistic"><?php echo $html->link(__('Statistic Chart', true), array('controller' => 'rooms', 'action' => 'admin_index')); ?></li>
-    <li class="icn_exprot"><?php echo $html->link(__('Export File', true), array('controller' => 'room_types', 'action' => 'admin_index')); ?></li>
+    <li class="icn_statistic"><?php echo $html->link(__('Statistic Chart', true), array('controller' => 'statistic', 'action' => 'chart')); ?></li>
+    <li class="icn_exprot"><?php echo $html->link(__('Export File', true), array('controller' => 'statistic', 'action' => 'export_file')); ?></li>
 </ul>
 <!-- Admin -->
 <h3>
@@ -41,8 +41,8 @@
     ?>
 </h3>
 <ul class="toggle">
-    <li class="icn_settings"><?php echo $html->link(__('Options', true), array('controller' => 'rooms', 'action' => 'admin_index')); ?></li>
-    <li class="icn_security"><?php echo $html->link(__('Security', true), array('controller' => 'room_types', 'action' => 'admin_index')); ?></li>
-    <li class="icn_profile"><?php echo $html->link(__('Your Profile', true), array('controller' => 'equipment1s', 'action' => 'admin_index')); ?></li>
-    <li class="icn_jump_back"><?php echo $html->link(__('Logout', true), array('controller' => 'equipment1s', 'action' => 'admin_index')); ?></li>
+    <li class="icn_settings"><?php echo $html->link(__('Options', true), '#'); ?></li>
+    <li class="icn_security"><?php echo $html->link(__('Security', true), '#'); ?></li>
+    <li class="icn_profile"><?php echo $html->link(__('Your Profile', true), '#'); ?></li>
+    <li class="icn_jump_back"><?php echo $html->link(__('Logout', true), array('controller' => 'users', 'action' => 'admin_logout')); ?></li>
 </ul>
