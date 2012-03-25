@@ -1,7 +1,9 @@
 <?php
+//このモデルはデータベースのROOMSテーブルに参照しています。
+//データベースを操作する時、モデルを使います。
 class Room extends AppModel {
 	var $name = 'Room';
-	
+	//ROOMSテーブルのフィルドのフォーマトをチェックするために、$validate　を使います。
 	var $validate = array(
 		'name' => array(
 			'notempty' => array(
@@ -64,6 +66,7 @@ class Room extends AppModel {
 			),
 		),
 	);
+	//ROOMTYPES,REQUESTS　テーブルとの関係を定義します。
 	var $belongsTo = array(
 		'RoomType' => array(
 			'className' => 'RoomType',

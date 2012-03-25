@@ -1,4 +1,6 @@
 <?php 
+//このモデルはデータベースのEQUIPMENTSテーブルに参照しています。
+
 class Equipment1 extends AppModel{
 	var $name = 'Equipment1';
 	var $validate = array(
@@ -8,7 +10,7 @@ class Equipment1 extends AppModel{
 	'price' => array( 'rule' => 'numeric', 'message' => 'Must be number'),
 	'quantity' => array('rule' => 'numeric', 'message' => 'Must be number')
 	);
-	
+//POSITIONOFEQUIPMENTS　テーブルとの関係を定義します。
 	var $hasMany = array(
 		'PositionsOfEquipment' => array(
 			'className' => 'PositionsOfEquipment',

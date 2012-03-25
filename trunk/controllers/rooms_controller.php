@@ -1,5 +1,5 @@
 <?php
-
+ //このコントーラがROOMの操作を管理する物です。
 class RoomsController extends AppController {
 
     var $name = 'Rooms';
@@ -26,12 +26,12 @@ class RoomsController extends AppController {
      * @var RequestHandlerComponent
      */
     var $RequestHandler;
-
+ //会議室インでクスページをセットする機能
     function index() {
         $this->Room->recursive = 0;
         $this->set('rooms', $this->paginate());
     }
-
+　//会議室の情報を表す機能
     function view($id = null) {
         if (!$id) {
             $this->Session->setFlash(__('Invalid room', true));
@@ -39,7 +39,7 @@ class RoomsController extends AppController {
         }
         $this->set('room', $this->Room->read(null, $id));
     }
-
+ //アドミンのインでクスページをセットする機能
     function admin_index() {
         $this->layout = 'admin';
         //debug($this->data);
@@ -67,7 +67,7 @@ class RoomsController extends AppController {
             $this->render('list.ajax');
         }
     }
-
+ //アドミンのビューページをセットする機能
     function admin_view($id = null) {
         $this->set('title_for_layout', __('Rooms Management', true));
         $this->layout = "admin";
@@ -77,7 +77,7 @@ class RoomsController extends AppController {
         }
         $this->set('room', $this->Room->read(null, $id));
     }
-
+ //会議室を追加ページをセットする機能
     function admin_add() {
         $this->set('listRoomTypes', $this->RoomType->find('list', array('fields' => array('id', 'name'))));
         $this->set('title_for_layout', __('Rooms Management', true));
@@ -92,7 +92,7 @@ class RoomsController extends AppController {
             }
         }
     }
-
+ //会議室を編集ページをセットする機能
     function admin_edit($id = null) {
         $this->set('listRoomTypes', $this->RoomType->find('list', array('fields' => array('id', 'name'))));
         $this->set('title_for_layout', __('Rooms Management', true));
@@ -113,7 +113,7 @@ class RoomsController extends AppController {
             $this->data = $this->Room->read(null, $id);
         }
     }
-
+ //会議室を削除ページをセットする機能
     function admin_delete($id = null) {
         if (!$id) {
             $this->Session->setFlash(__('Invalid id for room', true));

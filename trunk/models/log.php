@@ -1,7 +1,8 @@
 <?php
+//このモデルはデータベースのLOGSテーブルに参照しています。
 class Log extends AppModel {
 	var $name = 'Log';
-	
+	//LOGSテーブルのフィルドのフォーマトをチェックするために、$validate　を使います。
 	var $validate = array(
 		'id' => array(
 			'q' => array(

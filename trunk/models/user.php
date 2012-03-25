@@ -1,7 +1,9 @@
 <?php
+//このモデルはデータベースのUSERSテーブルに参照しています。
 class User extends AppModel {
 	var $name = 'User';
 	
+	//USERSテーブルのフィルドを入力する時、フォマートをチェックします。
 	var $validate = array(
 		'usercode' => array(
 			'notempty' => array(
@@ -79,6 +81,7 @@ class User extends AppModel {
 		),
 	);
 	
+	//REQUESTS、COMPANYテーブルとの関係を定義します。
 	var $hasMany = array(
 		'Request' => array(
 			'className' => 'Request',
