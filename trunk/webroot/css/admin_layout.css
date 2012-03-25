@@ -507,14 +507,12 @@ ul.tabs li {
     padding: 0;
     line-height: 24px;
 }
-ul.tabs li.mod_hea_bt{
-    background: url(../img/admin_layout/icn_new_article.png) no-repeat 5% 50%;
-}
+
 ul.tabs li a {
     text-decoration: none;
     color: #999;
     display: block;
-    padding: 0 8% 0 25%;
+    padding: 0 8% 0 8%;
     height: 24px;
 }
 
