@@ -324,7 +324,7 @@ div#main {
     text-indent: 40px;
     font-size: 12px;
 }
-#main h4.alert_success {
+#main div.alert_success {
     display: block;
     width: 98%;
     margin: 10px 1% 0 1%;
