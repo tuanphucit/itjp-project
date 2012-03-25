@@ -17,7 +17,7 @@ $html->addCrumb(__('Add Room Type', true), '/admin/room_types/add');
     </div>
     <div id="search_box" class="module_content">
         <?php
-        //TODO : chinh form 
+        //TODO : make style cho form admin add new room type
         echo $form->create('RoomType');
         echo $form->input('name', array('type' => 'text'));
         echo $form->input('description', array('type' => 'textarea'));

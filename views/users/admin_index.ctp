@@ -14,13 +14,23 @@ $html->addCrumb(__('Users Management', true), '/admin/users');
     </div>
     <div id="search_box" class="module_content">
         <?php
-        //TODO : chinh form 
-//        echo $form->create();
-//        echo $form->input('fsstatus', array('label' => 'Status:', 'type' => 'select', 'options' => array(), 'div' => false, 'empty' => '--All--'));
-//        echo $form->input('fsformtime', array('label' => 'From:', 'type' => 'text', 'div' => false));
-//        echo $form->input('fstotime', array('label' => 'To:', 'type' => 'text', 'div' => false));
-//        echo $form->input('fscustomer', array('label' => 'Customer:', 'type' => 'text', 'div' => false));
-//        echo $form->end(array('label' => 'Search', 'div' => false));
+        //TODO : make style cho form admin search user
+        $stsOptions = array(
+            '2' => __('Registerd', true),
+            '1' => __('Actived', true),
+            '0' => __('Disabled', true)
+        );
+        echo $form->create('User');
+        echo $form->input('fullname', array('label' => __('Full Name', true), 'type' => 'text', 'div' => false));
+        echo $form->input('usercode', array('label' => __('User Code', true), 'type' => 'text', 'div' => false));
+        echo $form->input('phone', array('label' => __('Phone', true), 'type' => 'text', 'div' => false));
+        echo $form->input('email', array('label' => __('Email', true), 'type' => 'text', 'div' => false));
+        echo $form->input('company', array('label' => __('Conpany', true), 'type' => 'select', 'options' => $listCompanies, 'empty' => __('-- all --', true), 'div' => false));
+        echo $form->input('localphone', array('label' => __('Local Phone', true), 'type' => 'text', 'div' => false));
+        echo $form->input('status', array('label' => __('Status', true), 'type' => 'select', 'options' => $stsOptions, 'empty' => __('-- all --', true), 'div' => false));
+        echo $form->button(__('Search', true), array('type' => 'submit', 'div' => false));
+        echo $form->button(__('Reset', true), array('type' => 'reset', 'div' => false));
+        echo $form->end();
         ?>
     </div>
 </div>

@@ -1,90 +1,47 @@
-<div id="content">
-<div id="tab_title">
-<div id="tit">Add New User</div>
-<div id="csv" style="float: right; width: 46%; text-align: right;">
-	<?php 
-	$url=array('id'=>'gobackFromAdd','onclick'=>'gobackFromAdd();');
-	echo $this->Form->button('Back', $url);
+<?php
+/* @var $form FormHelper */
+/* @var $html HtmlHelper */
+/* @var $js JsHelper */
+/* @var $limit int */
+/* @var $data array */
+/* @var $rdurl String */
+$html->addCrumb(__('Website Admin', true), '/admin');
+$html->addCrumb(__('Users Management', true), '/admin/users');
+$html->addCrumb(__('Add New User', true), '/admin/users/add');
 ?>
+<div class="module width_full">
+    <div class="module_header">
+        <h3 style="width: 40%"><?php __('Add New User') ?></h3>
+        <div class="header_action">
+            <ul class="tabs">
+                <li><?php echo $html->link(__('Back to List', true), array('action' => 'admin_index'), array('title' => __('Back to List', true))); ?></li>
+            </ul>
+        </div>
+    </div>
+    <div id="search_box" class="module_content">
+        <?php
+        //TODO : make style cho form admin add new user
+        $stsOptions = array(
+            '2' => __('Registerd', true),
+            '1' => __('Actived', true),
+            '0' => __('Disabled', true)
+        );
+        $roleOptions = array(
+            '1' => __('Nomal', true),
+            '2' => __('Admin', true)
+        );
+        echo $form->create('User', array('onsubmit' => "return confirm('" . __('Are you sure to add?', true) . "')"));
+        echo $form->input('fullname', array('label' => __('Full Name', true), 'type' => 'text'));
+        echo $form->input('email', array('label' => __('Email', true), 'type' => 'text'));
+        echo $form->input('phone', array('label' => __('Phone', true), 'type' => 'text'));
+        echo $form->input('company', array('label' => __('Company', true), 'type' => 'select', 'options' => $listCompanies, 'empty' => __(' -- select -- ', true)));
+        echo $form->input('localphone', array('label' => __('Local Phone', true), 'type' => 'text'));
+        echo $form->input('usercode', array('label' => 'User Code', 'type' => 'text', 'disabled' => true));
+        //echo $form->input('role', array('label' => __('User Type', true), 'type' => 'radio', 'options' => $roleOptions, 'value' => '1'));
+        echo $form->input('status', array('label' => __('Status', true), 'type' => 'radio', 'options' => $stsOptions, 'value' => '2'));
+        echo $form->button(__('Submit', true), array('type' => 'submit'));
+        echo $form->button(__('Reset', true), array('type' => 'reset'));
+        echo $form->end();
+        ?>
+    </div>
 </div>
-</div>
-<div id="input_box" style="border: 3px solid #41A317;
-	-moz-border-radius: 10px;
-	-webkit-border-radius: 10px;
-	color: #41A317;
-	padding: 2px;	">
-	
-<center>
-	<?php
-	echo $this->Form->create ( 'User', array ('action' => 'admin_add', 'method' => 'post' ) );
-	?>
-<table style="border: 0;">
-	<tbody>
-		<tr>
-			<td class="head">Email</td>
-			<td class="text"><?php
-			echo $this->Form->input ( 'email', array ('label' => false, 'style' => 'width: 100%;') );
-			?>
-			
-		
-		
-		
-		</tr>
-
-		<tr>
-			<td class="head">Password</td>
-			<td class="text">
-			<?php
-			echo $this->Form->input ( 'password', array ('label' => false, 'style' => 'width: 100%;', 'value'=>'' ) );
-			?>
-					
-		</tr>
-
- 		<tr>
-			<td class="head">Confirm Password</td>
-			<td class="text">
-			<?php
-			echo $this->Form->input ( 'confirm', array ('label' => false, 'type'=>'password','style' => 'width: 100%;' ) );
-			?>
-					
-		</tr>
-		
-		
-		
-		
-		<tr>
-				<?php
-				$option = array ( '1' => 'Active' , '0' => 'Disable');
-				$attributes = array ('legend' => false, 'value' => '1', 'class' => 'radioStyled');
-				?>
-				<td class="head"><?php echo __('Status', true);?></td>
-			<td class="text">
-				<?php
-				echo $this->Form->radio( 'status', $option, $attributes );
-				?>
-			
-		
-		
-		
-		</tr>
-
-
-		<tr>
-			<td class="head">
-			
-			</td>
-			<td class="text">
-				<?php
-				echo $this->Form->end ( array ('label' => 'Add', 'style' => 'width: 100px;' ) );
-				?>
-				
-			</td>
-		</tr>
-	</tbody>
-</table>
-</center>
-
-
-</div>
-</div>
-

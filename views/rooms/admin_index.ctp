@@ -14,7 +14,7 @@ $html->addCrumb(__('Rooms Management', true), '/admin/room_types');
     </div>
     <div id="search_box" class="module_content">
         <?php
-        //TODO : chinh form 
+        //TODO : chinh form admin search room
 //        echo $form->create();
 //        echo $form->input('fsstatus', array('label' => 'Status:', 'type' => 'select', 'options' => array(), 'div' => false, 'empty' => '--All--'));
 //        echo $form->input('fsformtime', array('label' => 'From:', 'type' => 'text', 'div' => false));

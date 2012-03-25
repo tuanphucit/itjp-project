@@ -15,7 +15,7 @@ $html->addCrumb(__('View Room', true), '/admin/rooms/view');
         <h3 style="width: 40%"><?php __('View Room') ?></h3>
         <div class="header_action">
             <ul class="tabs">
-                <li><?php echo $html->link(__('Edit this room', true), array('action' => 'admin_edit',$room['Room']['id']), array('title' => __('Edit this room', true))); ?></li>
+                <li><?php echo $html->link(__('Edit this room', true), array('action' => 'admin_edit', $room['Room']['id']), array('title' => __('Edit this room', true))); ?></li>
             </ul>
             <ul class="tabs" style="margin-right: 5px">
                 <li><?php echo $html->link(__('Back to List', true), array('action' => 'admin_index'), array('title' => __('Back to List', true))); ?></li>
@@ -23,12 +23,14 @@ $html->addCrumb(__('View Room', true), '/admin/rooms/view');
         </div>
     </div>
     <div class="module_content">
-        <?php //debug($room); ?>
+        <?php
+        //TODO : lam giao dien phan thong tin ve phong
+        ?>
     </div>
 </div>
 <div class="module width_full">
     <div class="module_header">
-        <h3 style="width: 40%"><?php __('List Booking') ?></h3>
+        <h3 style="width: 40%"><?php __('List Booked') ?></h3>
         <div class="header_action">
             <ul class="tabs">
                 <li><?php echo $html->link(__('View all', true), array('controller' => 'requests', 'action' => 'admin_index'), array('title' => __('View all', true))); ?></li>
@@ -39,7 +41,6 @@ $html->addCrumb(__('View Room', true), '/admin/rooms/view');
     <table class="tablesorter" cellpadding="0" cellspacing="0">
         <thead>
             <tr>
-                <?php //TODO : chinh lai cho dung ten cac truong ?>
                 <th style="width: 5%" class="tableheader"><?php __("#"); ?></th>
                 <th style="width: 15%" class="tableheader"><?php __('Created By'); ?></th>
                 <th style="width: 15%" class="tableheader"><?php __('Created Time'); ?></th>
@@ -57,7 +58,6 @@ $html->addCrumb(__('View Room', true), '/admin/rooms/view');
             }
             ?>
             <tr<?php echo $class; ?>>
-                <?php //TODO : chinh lai cho dung cac truong ?>
                 <td align="center"><?php echo $stt; ?>&nbsp;</td>
                 <td align="left"><?php echo $item['create_by']; ?>&nbsp;</td>
                 <td align="center"><?php echo $item['create_time']; ?>&nbsp;</td>

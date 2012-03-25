@@ -27,7 +27,6 @@ $stt = ($this->Paginator->current() - 1 ) * $limit;
     <table class="tablesorter" cellpadding="0" cellspacing="0">
         <thead>
             <tr>
-                <?php //TODO : chinh lai cho dung ten cac truong ?>
                 <th style="width: 5%" class="tableheader"><?php __("#"); ?></th>
                 <th style="width: 5%" class="tableheader"><?php echo $form->checkbox('SelectAll', array('title' => __('Select all', true), 'class' => 'cb_allItem')); ?></th>
                 <th style="width: 10%" class="tableheader"><?php echo $this->Paginator->sort(__('Room', true), 'Room.name'); ?></th>
@@ -47,7 +46,6 @@ $stt = ($this->Paginator->current() - 1 ) * $limit;
             }
             ?>
             <tr<?php echo $class; ?>>
-                <?php //TODO : chinh lai cho dung cac truong ?>
                 <td align="center"><?php echo $stt; ?>&nbsp;</td>
                 <td align="center"><?php echo $form->checkbox('Request.SelectItem.' . ($stt - 1), array('value' => $item['Request']['id'], 'title' => __('Select # ' . $stt, true), 'class' => 'cb_item')); ?></td>
                 <td align="left"><?php echo $item['Room']['name']; ?>&nbsp;</td>
