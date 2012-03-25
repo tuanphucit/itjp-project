@@ -5,7 +5,9 @@
 		<?php __('Add Positions Of Equipment'); ?>
 		</legend>
 		<?php
+		echo nl2br("Room ID");
 		echo $this->Form->select('roomid', $roomids, null, array());
+		echo nl2br("\nEquipment ID");
 		echo $this->Form->select('equipmentid',$equipmentids, null, array());
 		echo $this->Form->input('quantity');
 		echo $this->Form->input('move_time');

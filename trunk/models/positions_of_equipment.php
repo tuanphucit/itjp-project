@@ -8,6 +8,11 @@ class PositionsOfEquipment extends AppModel {
 			'dependent' => true,
 			'conditions' => '',
 			'fields' => '',
-		)
+	)
+	);
+	var $validate = array(
+	'roomid' => array('rule' => 'numeric', 'message' => 'Must be number'),
+	'requipmentid' => array('rule' => 'numeric', 'message' => 'Must be number'),
+	'quantity' => array('rule' => 'numeric', 'message' => 'Must be number')
 	);
 }
