@@ -33,8 +33,8 @@ $stt = ($this->Paginator->current() - 1 ) * $limit;
                 <th style="width: 10%" class="tableheader"><?php echo $this->Paginator->sort(__('Type', true), 'RoomType.name'); ?></th>
                 <th style="width: 10%" class="tableheader"><?php echo $this->Paginator->sort(__('Quantity Seat', true), 'quantity_seat'); ?></th>
                 <th style="width: 10%" class="tableheader"><?php echo $this->Paginator->sort(__('Renting Fee', true), 'renting_fee'); ?></th>
-                <th style="width: 35%" class="tableheader"><?php echo $this->Paginator->sort(__('Description', true), 'description'); ?></th>
-                <th style="width: 15%" class="tableheader"><?php __('Actions'); ?></th>
+                <th style="width: 40%" class="tableheader"><?php echo $this->Paginator->sort(__('Description', true), 'description'); ?></th>
+                <th style="width: 10%" class="tableheader"><?php __('Actions'); ?></th>
             </tr>
         </thead>
         <?php foreach ($list as $item) : ?>
@@ -47,17 +47,17 @@ $stt = ($this->Paginator->current() - 1 ) * $limit;
             <tr<?php echo $class; ?>>
                 <?php //TODO ?>
                 <td align="center"><?php echo $stt; ?>&nbsp;</td>
-                <td align="center"><?php echo $form->checkbox('Request.SelectItem.' . ($stt - 1), array('value' => $item['Room']['id'], 'title' => __('Select # ' . $stt, true), 'class' => 'cb_item')); ?></td>
+                <td align="center"><?php echo $form->checkbox('Room.SelectItem.' . ($stt - 1), array('value' => $item['Room']['id'], 'title' => __('Select # ' . $stt, true), 'class' => 'cb_item')); ?></td>
                 <td align="left"><?php echo $item['Room']['name']; ?>&nbsp;</td>
                 <td align="left"><?php echo $item['RoomType']['name']; ?>&nbsp;</td>
                 <td align="center"><?php echo $item['Room']['quantity_seat']; ?>&nbsp;</td>
                 <td align="left"><?php echo $item['Room']['renting_fee']; ?>&nbsp;</td>
                 <td align="center"><?php echo $item['Room']['description']; ?>&nbsp;</td>
-                <td align="center">
+                <td style="padding: 5px 5px" align="center">
                     <?php
-                    echo $html->image('admin_layout/icn_aprove.gif', array('url' => array('action' => 'admin_view', $item['RoomType']['id']), 'title' => __('View # ' . $stt, true), 'alt' => 'view'));
-                    echo $html->image('admin_layout/icn_edit.png', array('url' => array('action' => 'admin_edit', $item['RoomType']['id']), 'title' => __('Edit # ' . $stt, true), 'alt' => 'edit'));
-                    echo $html->image('admin_layout/icn_trash.png', array('url' => array('action' => 'admin_delete', $item['RoomType']['id']), 'title' => __('Delete # ' . $stt, true), 'alt' => 'delete', 'onclick' => "return confirm('" . __('Are you sure to delete?', true) . "')"));
+                    echo $html->image('admin_layout/icn_aprove.gif', array('url' => array('action' => 'admin_view', $item['Room']['id']), 'title' => __('View # ' . $stt, true), 'alt' => 'view'));
+                    echo $html->image('admin_layout/icn_edit.png', array('url' => array('action' => 'admin_edit', $item['Room']['id']), 'title' => __('Edit # ' . $stt, true), 'alt' => 'edit'));
+                    echo $html->image('admin_layout/icn_trash.png', array('url' => array('action' => 'admin_delete', $item['Room']['id']), 'title' => __('Delete # ' . $stt, true), 'alt' => 'delete', 'onclick' => "return confirm('" . __('Are you sure to delete?', true) . "')"));
                     ?>
                 </td>
             </tr>

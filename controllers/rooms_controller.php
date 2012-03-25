@@ -5,11 +5,22 @@ class RoomsController extends AppController {
     var $name = 'Rooms';
     var $helpers = array('Ajax', 'Js');
     var $components = array('RequestHandler');
+    var $uses = array('Room', 'RoomType', 'Request');
 
     /**
      * @var Room
      */
     var $Room;
+
+    /**
+     * @var Request
+     */
+    var $Request;
+
+    /**
+     * @var RoomType
+     */
+    var $RoomType;
 
     /**
      * @var RequestHandlerComponent
@@ -50,7 +61,7 @@ class RoomsController extends AppController {
         $this->set('title_for_layout', __('Rooms Management', true));
         $this->set('rdurl', 'http://localhost/itjp-project/admin/rooms/index/sort:' . $sort . '/direction:' . $direction . '/limit:');
         $this->set('limit', $limit);
-        $this->set('list', $this->paginate());
+        $this->set('list', $this->paginate('Room'));
         if ($this->RequestHandler->isAjax()) {
             $this->layout = 'ajax';
             $this->render('list.ajax');
@@ -68,8 +79,7 @@ class RoomsController extends AppController {
     }
 
     function admin_add() {
-        $roomTypes = new RoomType();
-        $this->set('listRoomTypes', $roomTypes->find('list', array('fields' => array('id', 'name'))));
+        $this->set('listRoomTypes', $this->RoomType->find('list', array('fields' => array('id', 'name'))));
         $this->set('title_for_layout', __('Rooms Management', true));
         $this->layout = "admin";
         if (!empty($this->data)) {
@@ -84,8 +94,7 @@ class RoomsController extends AppController {
     }
 
     function admin_edit($id = null) {
-        $roomTypes = new RoomType();
-        $this->set('listRoomTypes', $roomTypes->find('list', array('fields' => array('id', 'name'))));
+        $this->set('listRoomTypes', $this->RoomType->find('list', array('fields' => array('id', 'name'))));
         $this->set('title_for_layout', __('Rooms Management', true));
         $this->layout = "admin";
         if (!$id && empty($this->data)) {
