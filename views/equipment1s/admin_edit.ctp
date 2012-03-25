@@ -9,5 +9,5 @@
 	echo $this->Form->input('description');
 	echo $this->Form->input('price');
 	echo $this->Form->input('quantity');
-	echo $this->Form->end('Save Post');
+	echo $this->Form->end('Save');
 ?>

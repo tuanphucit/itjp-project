@@ -1,12 +1,12 @@
 <!-- File: /app/views/Equipment1s/index.ctp  (edit links added) -->
-
-<h1>Equipment</h1>
-<p>
-<?php echo $this->Html->link("Add Equipment", array('action' => 'add')); ?>
-</p>
+<div class="actions">
+	<h3><?php __('Equipment'); ?></h3>
+	<ul>
+		<li><?php echo $this->Html->link(__('Add Equipment', true), array('action' => 'add')); ?></li>
+	</ul>
+</div>
 <table>
 	<tr>
-		<th>ID</th> 
 		<th>Code</th>
 		<th>Name</th>
 		<th>Description</th>
@@ -20,13 +20,12 @@
 
 	<?php foreach ($equipment1s as $equipment): ?>
 	<tr>
-		<td><?php echo $equipment['Equipment1']['id']; ?></td>
-		<td><?php echo $equipment['Equipment1']['code']; ?></td>
-		<td><?php echo $this->Html->link($equipment['Equipment1']['name'],array('action'=>'view',$equipment['Equipment1']['id'])); ?></td>
-		<td><?php echo $equipment['Equipment1']['description']; ?></td>
-		<td><?php echo $equipment['Equipment1']['price']; ?></td>
-		<td><?php echo $equipment['Equipment1']['quantity']; ?></td>
-		<td><?php echo $equipment['Equipment1']['start_time']; ?></td>		
+		<td><?php echo $equipment['Equipment1']['code']; ?>&nbsp;</td>
+		<td><?php echo $this->Html->link($equipment['Equipment1']['name'],array('action'=>'view',$equipment['Equipment1']['id'])); ?>&nbsp;</td>
+		<td><?php echo $equipment['Equipment1']['description']; ?>&nbsp;</td>
+		<td><?php echo $equipment['Equipment1']['price']; ?>&nbsp;</td>
+		<td><?php echo $equipment['Equipment1']['quantity']; ?>&nbsp;</td>
+		<td><?php echo $equipment['Equipment1']['start_time']; ?>&nbsp;</td>		
 		<td><?php echo $this->Html->link(
 				'Delete', 
 		array('action' => 'delete', $equipment['Equipment1']['id']),
