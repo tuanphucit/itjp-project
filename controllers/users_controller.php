@@ -1,5 +1,6 @@
 <?php
-  //このコントローラがユーザの操作を管理する物です。
+
+//このコントローラがユーザの操作を管理する物です。
 class UsersController extends AppController {
 
     var $name = 'Users';
@@ -36,7 +37,8 @@ class UsersController extends AppController {
         $this->Auth->allow('register', 'confirm', 'forgotpassword', 'reset');
         $this->Auth->fields = array('username' => 'email', 'password' => 'password');
     }
-  //ログイン機能
+
+    //ログイン機能
     function login() {
         $this->layout = "login";
         if (!empty($this->data)) {
@@ -51,7 +53,8 @@ class UsersController extends AppController {
             }
         }
     }
-  //ログアウト機能
+
+    //ログアウト機能
     function logout() {
         $this->redirect($this->Auth->logout());
     }
@@ -110,7 +113,8 @@ class UsersController extends AppController {
         }
         $this->set('user', $this->data);
     }
-  //パスワードを忘れ場合、また新しいパスワードを取得する機能
+
+    //パスワードを忘れ場合、また新しいパスワードを取得する機能
     function forgotpassword() {
         $this->layout = 'admin_login';
         debug($this->data);
@@ -120,7 +124,7 @@ class UsersController extends AppController {
                 $users = &$this->User->find('all', array('fields' => array('User.id', 'User.email', 'User.password'), 'conditions' => array('User.status' => USER_STATUS_ACTIVE, 'User.email' => $this->data ['User'] ['email'])));
                 debug($users);
                 $found = 0;
-                $password = $this->genRandomString();
+                $password = $this->_genRandomString();
                 foreach ($users as $user) {
                     if ($user ['User'] ['email'] == $email_post) {
                         $this->User->id = $user ['User'] ['id'];
@@ -147,19 +151,8 @@ class UsersController extends AppController {
         }
         //		else $this->Session->setFlash('Please input your email!');
     }
-  //ランダム文字列を作る機能
-    function genRandomString() {
-        $length = 6;
-        $characters = '0123456789abcdefghijklmnopqrstuvwxyz';
-        $string = '';
 
-        for ($p = 0; $p < $length; $p++) {
-            $string .= substr($characters, mt_rand(0, strlen($characters) - 1), 1);
-        }
-
-        return $string;
-    }
-//メール情報を読む機能
+    //ランダム文字列を作る機能
     function readMailInfo($filename) {
         $info = array();
         $i = 0;
@@ -212,6 +205,7 @@ class UsersController extends AppController {
         $result = $this->Email->send();
         return $result;
     }
+
 //アドミンがログインする機能
     function admin_login() {
 
@@ -237,20 +231,41 @@ class UsersController extends AppController {
         }
         //debug($this->data);
     }
+
 //アドミンがログアウトする機能
     function admin_logout() {
         $this->Session->destroy();
         $this->redirect('login');
     }
+
 //アドミンのインでクスページをセットする機能
     function admin_index() {
         $this->layout = 'admin';
         //debug($this->data);
         $conditions = array();
-        $conditions ['User.role <>'] = USER_ROLE_ADMIN;
-        $conditions ['User.status <>'] = USER_STATUS_DELETE;
-
-        //TODO : lay dk search
+        $conditions['User.role <>'] = USER_ROLE_ADMIN;
+        $conditions['User.status <>'] = USER_STATUS_DELETE;
+        if (isset($this->data['User']['usercode']) && !empty($this->data['User']['usercode'])) {
+            $conditions['User.usercode LIKE'] = $this->data['User']['usercode'] . '%';
+        }
+        if (isset($this->data['User']['fullname']) && !empty($this->data['User']['fullname'])) {
+            $conditions['User.fullname LIKE'] = '%' . $this->data['User']['fullname'] . '%';
+        }
+        if (isset($this->data['User']['phone']) && !empty($this->data['User']['phone'])) {
+            $conditions['User.phone LIKE'] = $this->data['User']['phone'] . '%';
+        }
+        if (isset($this->data['User']['email']) && !empty($this->data['User']['email'])) {
+            $conditions['User.email LIKE'] = '%' . $this->data['User']['email'] . '%';
+        }
+        if (isset($this->data['User']['company']) && !empty($this->data['User']['company'])) {
+            $conditions['User.company_id'] = (int) $this->data['User']['company'];
+        }
+        if (isset($this->data['User']['localphone']) && !empty($this->data['User']['localphone'])) {
+            $conditions['User.local_phone LIKE'] = $this->data['User']['localphone'] . '%';
+        }
+        if (isset($this->data['User']['status']) && ($this->data['User']['status'] != '')) {
+            $conditions['User.status'] = (int) $this->data['User']['status'];
+        }
         $limit = isset($this->params['named']['limit']) ? (int) $this->params['named']['limit'] : 10;
         $sort = isset($this->params['named']['sort']) ? $this->params['named']['sort'] : 'User.created_time';
         $direction = isset($this->params['named']['direction']) ? $this->params['named']['direction'] : 'desc';
@@ -265,6 +280,7 @@ class UsersController extends AppController {
             'page' => $page,
             'recursives' => 0
         );
+        $this->set('listCompanies', $this->Company->find('list', array('fiels' => array('id', 'name'))));
         $this->set('title_for_layout', __('Users Management', true));
         $this->set('rdurl', 'http://localhost/itjp-project/admin/users/index/sort:' . $sort . '/direction:' . $direction . '/limit:');
         $this->set('limit', $limit);
@@ -274,6 +290,7 @@ class UsersController extends AppController {
             $this->render('list.ajax');
         }
     }
+
 //アドミンのビューページをセットする機能
     function admin_view($id = null) {
         $this->layout = 'admin';
@@ -282,123 +299,174 @@ class UsersController extends AppController {
             $this->Session->setFlash(__('Invalid user', true));
             $this->redirect(array('action' => 'index'));
         }
+        //TODO : check xem co phai userid co phai cua admin ko?
+        $conditions = array('Request.create_by' => $id);
+        $limit = isset($this->params['named']['limit']) ? (int) $this->params['named']['limit'] : 10;
+        $sort = isset($this->params['named']['sort']) ? $this->params['named']['sort'] : 'Request.create_time';
+        $direction = isset($this->params['named']['direction']) ? $this->params['named']['direction'] : 'desc';
+        $page = isset($this->params['named']['page']) ? (int) $this->params['named']['page'] : 1;
+        //$fields = array('User.id', 'User.fullname', 'User.email', 'User.created_time', 'User.last_access', 'User.role');
+        $sort = $sort == 'type' ? 'role' : $sort;
+        $this->paginate = array(
+            //'fields' => $fields,
+            'conditions' => $conditions,
+            'limit' => $limit,
+            'order' => array($sort => $direction),
+            'page' => $page,
+            'recursives' => 0
+        );
+        $this->set('rdurl', 'http://localhost/itjp-project/admin/users/view/' . $id . '/sort:' . $sort . '/direction:' . $direction . '/limit:');
+        $this->set('limit', $limit);
         $this->set('user', $this->User->read(null, $id));
-
-        $page = 1;
-        if (!empty($this->params ['named'] ['page'])) {
-            $page = $this->params ['named'] ['page'];
+        $this->set('list', $this->paginate('Request'));
+        if ($this->RequestHandler->isAjax()) {
+            $this->layout = 'ajax';
+            $this->render('list_booked.ajax');
         }
-        $this->set('page', $page);
-        $this->set('limit', $this->_limit);
-
-        $this->paginate = array('conditions' => array('Request.update_by' => $id));
-        $this->set('requests', $this->paginate('Request'));
     }
+
 //アドミンの追加ページをセットする機能
     function admin_add() {
         $this->layout = 'admin';
         $this->set('title_for_layout', __('Users Management', true));
+        $this->set('listCompanies', $this->Company->find('list', array('fiels' => array('id', 'name'))));
         if (!empty($this->data)) {
-            $this->User->create();
-            if (Validation::email($this->data ['User'] ['email'])) {
-                if ($this->data ['User'] ['password'] !== $this->Auth->password('')) {
-                    $confirm = $this->Auth->password($this->data ['User'] ['confirm']);
-                    if ($this->data ['User'] ['password'] == $confirm) {
-                        $this->data ['User'] ['created_time'] = date('Y-m-d H:m:s');
-                        $this->data ['User'] ['last_access'] = date('Y-m-d H:m:s');
-                        $this->data ['User'] ['ws_critical'] = 1;
-                        if ($this->User->save($this->data)) {
-                            $this->Session->setFlash(__('The user has been saved', true));
-                            $this->redirect(array('action' => 'index'));
-                        }
-                    } else
-                        $this->Session->setFlash(__('Wrong of your password confirm. Please try again!', true));
-                } else
-                    $this->Session->setFlash(__('Password must not be empty!', true));
-            } else
-                $this->Session->setFlash(__('Email must be valid format!', true));
+            //TODO : check validate data
+            if (!Validation::email($this->data['User']['email'])) {
+                $this->Session->setFlash(__('Email must be valid format!', true), 'default', array('class' => CLASS_ERROR_ALERT));
+            } elseif (!isset($this->data['User']['company']) || empty($this->data['User']['company'])) {
+                $this->Session->setFlash(__('Please select company!', true), 'default', array('class' => CLASS_WARNING_ALERT));
+            } else {
+                $usercode = $this->_genUserCode($this->data['User']['company']);
+                $password = $this->_genRandomString();
+                $userData = array(
+                    'usercode' => $usercode,
+                    'email' => $this->data['User']['email'],
+                    'password' => $this->Auth->password($password),
+                    'fullname' => $this->data['User']['fullname'],
+                    'conpany_id' => (int) $this->data['User']['company'],
+                    'phone' => $this->data['User']['phone'],
+                    'local_phone' => $this->data['User']['localphone'],
+                    'created_time' => date('Y-m-d H-i-s'),
+                    'role' => 1,
+                    'status' => (int) $this->data['User']['status']
+                );
+                $this->User->create();
+                if ($this->User->save(array('User' => $userData))) {
+                    $this->Session->setFlash(__('The user has been saved', true), 'default', array('class' => CLASS_SUCCESS_ALERT));
+                    $this->redirect(array('action' => 'index'));
+                }
+                $this->Session->setFlash(__('The user could not be saved. Please, try again.', true), 'default', array('class' => CLASS_ERROR_ALERT));
+            }
         }
     }
+
 //アドミンの編集ページをセットする機能
     function admin_edit($id = null) {
-        $this->layout = 'admin';
-        $this->set('title_for_layout', __('Users Management', true));
+
         if (!$id && empty($this->data)) {
-            $this->Session->setFlash(__('Invalid user', true));
+            $this->Session->setFlash(__('Invalid user', true), 'default', array('class' => CLASS_ERROR_ALERT));
             $this->redirect(array('action' => 'index'));
         }
         if (!empty($this->data)) {
-            $error = false;
-            $page = $this->Session->read('page');
-            if ($this->data ['User'] ['status'] == USER_STATUS_DELETE) {
-                $this->admin_delete($id);
-
-                $this->Session->setFlash('User has been deleted!');
-                $this->redirect('index');
-                $this->Session->delete('page');
+            //TODO : check validate data
+            if (!Validation::email($this->data['User']['email'])) {
+                $this->Session->setFlash(__('Email must be valid format!', true), 'default', array('class' => CLASS_ERROR_ALERT));
+            } elseif (!isset($this->data['User']['company']) || empty($this->data['User']['company'])) {
+                $this->Session->setFlash(__('Please select company!', true), 'default', array('class' => CLASS_ERROR_ALERT));
             } else {
-
-                $this->data ['User'] ['id'] = $id;
-                $this->data ['User'] ['last_access'] = date('Y-m-d H:m:s');
-
-                if (empty($this->data ['User'] ['password_change']) && empty($this->data ['User'] ['confirm'])) {
-                    $this->data ['User'] ['password'] = $this->Session->read('password');
-                } elseif ($this->data ['User'] ['password_change'] == $this->data ['User'] ['confirm']) {
-                    $this->data ['User'] ['password'] = $this->Auth->password($this->data ['User'] ['password_change']);
-                } else {
-                    $error = true;
+                $usercode = $this->_genUserCode($this->data['User']['company']);
+                $password = $this->_genRandomString();
+                $userData = array(
+                    'id' => (int) $id,
+                    'usercode' => $usercode,
+                    'email' => $this->data['User']['email'],
+                    'password' => $this->Auth->password($password),
+                    'fullname' => $this->data['User']['fullname'],
+                    'conpany_id' => (int) $this->data['User']['company'],
+                    'phone' => $this->data['User']['phone'],
+                    'local_phone' => $this->data['User']['localphone'],
+                    'created_time' => date('Y-m-d H-i-s'),
+                    'role' => 1,
+                    'status' => (int) $this->data['User']['status']
+                );
+                if ($this->User->save(array('User' => $userData))) {
+                    $this->Session->setFlash(__('The user has been saved', true), 'default', array('class' => CLASS_ERROR_ALERT));
+                    $this->redirect(array('action' => 'index'));
                 }
-
-                if (!$error) {
-                    $this->data ['User'] ['last_access'] = date('Y-m-d H:m:s');
-                    //debug($this->data);
-                    if ($this->User->save($this->data)) {
-                        $this->Session->setFlash(__('The user has been saved', true));
-                        $this->redirect('index/page:' . $page);
-                        $this->Session->delete('page');
-                    } else {
-                        $this->Session->setFlash(__('The user could not be saved. Please, try again.', true));
-                    }
-                } else
-                    echo $this->Session->setFlash('Password and Confirm Password not math. Try again!');
+                $this->Session->setFlash(__('The user could not be saved. Please, try again.', true), 'default', array('class' => CLASS_WARNING_ALERT));
             }
         }
 
-        $this->data = $this->User->read(null, $id);
-        $this->set('user', $this->User->read(null, $id));
-        $this->Session->write('password', $this->data ['User'] ['password']);
-        //$this->data ['User'] ['password'] = '';
-
-
-        $request_count = $this->Request->find('count', array('conditions' => array('Request.create_by' => $id)));
-        $this->set('numBookings', $request_count);
-
-        $page = 1;
-        if (!empty($this->params ['named'] ['page'])) {
-            $page = $this->params ['named'] ['page'];
+//        if (!empty($this->data)) {
+//            $error = false;
+//            $page = $this->Session->read('page');
+//            if ($this->data ['User'] ['status'] == USER_STATUS_DELETE) {
+//                $this->admin_delete($id);
+//
+//                $this->Session->setFlash('User has been deleted!');
+//                $this->redirect('index');
+//                $this->Session->delete('page');
+//            } else {
+//
+//                $this->data ['User'] ['id'] = $id;
+//                $this->data ['User'] ['last_access'] = date('Y-m-d H:m:s');
+//
+//                if (empty($this->data ['User'] ['password_change']) && empty($this->data ['User'] ['confirm'])) {
+//                    $this->data ['User'] ['password'] = $this->Session->read('password');
+//                } elseif ($this->data ['User'] ['password_change'] == $this->data ['User'] ['confirm']) {
+//                    $this->data ['User'] ['password'] = $this->Auth->password($this->data ['User'] ['password_change']);
+//                } else {
+//                    $error = true;
+//                }
+//
+//                if (!$error) {
+//                    $this->data ['User'] ['last_access'] = date('Y-m-d H:m:s');
+//                    //debug($this->data);
+//                    if ($this->User->save($this->data)) {
+//                        $this->Session->setFlash(__('The user has been saved', true));
+//                        $this->redirect('index/page:' . $page);
+//                        $this->Session->delete('page');
+//                    } else {
+//                        $this->Session->setFlash(__('The user could not be saved. Please, try again.', true));
+//                    }
+//                } else
+//                    echo $this->Session->setFlash('Password and Confirm Password not math. Try again!');
+//            }
+//        }
+        if (empty($this->data)) {
+            $this->data = $this->User->read(null, $id);
+            $this->data['User']['company'] = $this->data['User']['company_id'];
+            $this->data['User']['localphone'] = $this->data['User']['local_phone'];
         }
-        $this->set('page', $page);
-        $this->set('limit', $this->_limit);
+        $this->layout = 'admin';
+        $this->set('title_for_layout', __('Users Management', true));
+        $this->set('listCompanies', $this->Company->find('list', array('fiels' => array('id', 'name'))));
     }
+
 //アドミンの削除ページをセットする機能
     function admin_delete($id = null) {
         if (!$id) {
-            $this->Session->setFlash(__('Invalid id for user', true));
+            $this->Session->setFlash(__('Invalid id for user', true), 'default', array('class' => CLASS_ERROR_ALERT));
             $this->redirect(array('action' => 'index'));
         }
-        if ($this->User->delete($id)) {
-            $this->Session->setFlash(__('User deleted', true));
+        $this->data = $this->User->read(null, $id);
+        $this->data['User']['status'] = USER_STATUS_DELETE;
+        if ($this->User->save($this->data)) {
+            $this->Session->setFlash(__('User deleted', true), 'default', array('class' => CLASS_SUCCESS_ALERT));
             $this->redirect(array('action' => 'index'));
         }
-        $this->Session->setFlash(__('User was not deleted', true));
+        $this->Session->setFlash(__('User was not deleted', true), 'default', array('class' => CLASS_WARNING_ALERT));
         $this->redirect(array('action' => 'index'));
     }
+
 //アドミンの輸出する機能
     function admin_export() {
         $this->layout = 'ajax';
         $this->set('rs', $this->Session->read('result'));
         //$this->redirect('index');
     }
+
 //アドミンの輸入する機能    
     function admin_import() {
         $this->layout = 'flash';
@@ -501,124 +569,26 @@ class UsersController extends AppController {
         $this->redirect(array('action' => 'admin_index'));
     }
 
-    function admin_bak() {
-        $this->layout = "admin";
-        $page = 1;
-        if (!empty($this->data ['show'])) {
-            if ($this->data ['show'] != 0) {
-                $this->_limit = $this->data ['show'];
-            }
-
-            $this->data ['User'] = $this->Session->read('search');
-            $this->set('show', $this->_limit);
-            $this->Session->write('show', $this->_limit);
-        } else
-            $this->set('show', $this->_limit);
-
-        $fields = array('User.id', 'User.email', 'User.create_time', 'User.last_access', 'User.role');
-        $group = '';
-        if (!empty($this->params ['named'] ['page'])) {
-            $page = $this->params ['named'] ['page'];
-            $this->data ['User'] = $this->Session->read('search');
-            if (!empty($this->data ['show']))
-                $this->_limit = $this->data ['show'];
-            else
-                $this->_limit = $this->Session->read('show');
-        }
-
-        //$this->User->Website->unbindModel ( array ('belongsTo' => array ('Category' ), 'hasMany' => array ('Webpage' ) ) );
-        if (empty($this->data)) {
-            $this->set('show', $this->_limit);
-            //$this->User->recursive = -1;
-            $conditions = array();
-            $conditions ['User.role >'] = USER_ROLE_ADMIN;
-            $conditions ['User.status >'] = USER_STATUS_DELETE;
-
-            $this->paginate = array('conditions' => $conditions, 'limit' => $this->_limit);
-            $users = &$this->paginate('User');
-            $this->set('users', $users);
-            $this->set('data', 0);
-            $this->Session->write('result', $users);
-
-            //session for $this->data
-            $this->Session->write('search', $this->data ['User']);
+    private function _genUserCode($companyId = null) {
+        if (isset($companyId) && !empty($companyId)) {
+            $companyCode = $this->Company->field('code', array('id' => $companyId));
         } else {
+            $companyCode = '---';
+        }
+        $countUser = $this->User->find('count', array('conditions' => array('usercode LIKE' => $companyCode . '%')));
+        return sprintf("%s%03d", $companyCode, ++$countUser);
+    }
 
-            if (array_key_exists('User', $this->data)) {
-                $from_year = $this->data ['User'] ['from'] ['year'];
-                $from_month = $this->data ['User'] ['from'] ['month'];
-                $from_day = $this->data ['User'] ['from'] ['day'];
+    private function _genRandomString() {
+        $length = 6;
+        $characters = '0123456789abcdefghijklmnopqrstuvwxyz';
+        $string = '';
 
-                $to_year = $this->data ['User'] ['to'] ['year'];
-                $to_month = $this->data ['User'] ['to'] ['month'];
-                $to_day = $this->data ['User'] ['to'] ['day'];
-
-                if (($from_day != null || $from_month != null) && $from_year == null) {
-                    $this->Session->setFlash('Please select a year of Register Date (from)');
-                } else {
-                    if ($from_day == null)
-                        $from_day = '01';
-                    if ($from_month == null)
-                        $from_month = '01';
-                }
-
-                if (($to_day != null || $to_month != null) && $to_year == null) {
-                    $this->Session->setFlash('Please select a year of Register Date (to)');
-                } else {
-                    if ($to_day == null)
-                        $to_day = '31';
-                    if ($to_month == null)
-                        $to_month = '12';
-                }
-                $from = $from_year . '-' . $from_month . '-' . $from_day . ' 00:00:00';
-                //debug($from);
-                $to = $to_year . '-' . $to_month . '-' . $to_day . ' 00:00:00';
-
-                $conditions = array();
-
-                if ($this->data ['User'] ['role'] != '') {
-                    $conditions ['User.role'] = $this->data ['User'] ['role'];
-                }
-                if ($this->data ['User'] ['status'] != '') {
-                    $conditions ['User.status'] = $this->data ['User'] ['status'];
-                }
-
-                if (strlen($from) == 19) {
-                    $conditions ['User.create_date >'] = $from;
-                }
-                if (strlen($to) == 19) {
-                    $conditions ['User.create_date <'] = $to;
-                }
-                if ($this->data ['User'] ['email'] != '') {
-                    $conditions ['User.email LIKE'] = "%" . $this->data ['User'] ['email'] . "%";
-                }
-                $conditions ['User.role >'] = USER_ROLE_ADMIN;
-                $conditions ['User.status >'] = USER_STATUS_DELETE;
-                $this->set('data', 0);
-
-                if ($this->data ['User'] ['website_count'] != '') {
-                    $this->log('co website count' . $this->data ['User'] ['website_count'] . 'test', 'abc');
-                    $group = 'Website.user_id HAVING count = ' . $this->data ['User'] ['website_count'];
-                    $this->paginate = array('fields' => $fields, 'conditions' => $conditions, 'group' => $group, 'limit' => $this->_limit);
-                    $this->set('data', 1);
-
-                    $this->set('users', $this->paginate());
-                    $this->Session->write('result', $this->paginate());
-
-                    $this->Session->write('search', $this->data ['User']);
-                } else {
-                    $this->paginate = array('conditions' => $conditions, 'limit' => $this->_limit);
-                    $this->set('users', $this->paginate('User'));
-                    $this->Session->write('result', $this->paginate('User'));
-
-                    $this->Session->write('search', $this->data ['User']);
-                }
-            }
+        for ($p = 0; $p < $length; $p++) {
+            $string .= substr($characters, mt_rand(0, strlen($characters) - 1), 1);
         }
 
-        $this->set('page', $page);
-        $this->set('limit', $this->_limit);
-        $page = $this->Session->write('page', $page);
+        return $string;
     }
 
 }
