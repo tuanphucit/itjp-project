@@ -44,7 +44,7 @@ class RoomsController extends AppController {
         $this->layout = 'admin';
         //debug($this->data);
         $conditions = array();
-        //TODO : lay dk search
+        //TODO : lay dk search phong
         $limit = isset($this->params['named']['limit']) ? (int) $this->params['named']['limit'] : 10;
         $sort = isset($this->params['named']['sort']) ? $this->params['named']['sort'] : 'Room.name';
         $direction = isset($this->params['named']['direction']) ? $this->params['named']['direction'] : 'asc';
