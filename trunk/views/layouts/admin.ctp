@@ -31,7 +31,7 @@
             </h1>
             <h2 class="section_title"><?php echo $title_for_layout; ?></h2>
             <div class="btn_view_site">
-                <?php echo $html->link(__('View Site', true), array('http://localhost/itjp-project/')); ?>
+                <?php echo $html->link(__('View Site', true), 'http://localhost/itjp-project/'); ?>
             </div>
         </div>
         <div id="secondary_bar">
