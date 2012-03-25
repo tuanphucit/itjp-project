@@ -11,7 +11,6 @@
 </div>
 <div id="search_box">
     <?php
-    //TODO : chinh form 
     echo $form->create();
     echo $form->input('fsstatus', array('label' => 'Status:', 'type' => 'select', 'options' => array(), 'div' => false, 'empty' => '--All--'));
     echo $form->input('fsformtime', array('label' => 'From:', 'type' => 'text', 'div' => false));

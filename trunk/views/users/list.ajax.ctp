@@ -66,12 +66,12 @@ function makeupType($typeid) {
     <table class="tablesorter" cellpadding="0" cellspacing="0">
         <thead>
             <tr>
-                <?php //TODO : chinh lai cho dung ten cac truong    ?>
                 <th style="width: 5%" class="tableheader"><?php __("#"); ?></th>
                 <th style="width: 5%" class="tableheader"><?php echo $form->checkbox('allbox', array('onclick' => 'checkAll()')); ?></th>
-                <th style="width: 16%" class="tableheader"><?php echo $this->Paginator->sort(__('Fullname', true), 'fullname'); ?></th>
+                <th style="width: 6%" class="tableheader"><?php echo $this->Paginator->sort(__('Code', true), 'usercode'); ?></th>
+                <th style="width: 15%" class="tableheader"><?php echo $this->Paginator->sort(__('Fullname', true), 'fullname'); ?></th>
                 <th style="width: 8%" class="tableheader"><?php echo $this->Paginator->sort(__('Local Phone', true), 'local_phone'); ?></th>
-                <th style="width: 20%" class="tableheader"><?php echo $this->Paginator->sort(__('Email', true), 'email'); ?></th>
+                <th style="width: 15%" class="tableheader"><?php echo $this->Paginator->sort(__('Email', true), 'email'); ?></th>
                 <th style="width: 8%" class="tableheader"><?php echo $this->Paginator->sort(__('Type', true), 'type'); ?></th>
                 <th style="width: 10%" class="tableheader"><?php echo $this->Paginator->sort(__('Created', true), 'created_time'); ?></th>
                 <th style="width: 10%" class="tableheader"><?php echo $this->Paginator->sort(__('Last Booked', true), 'last_booked'); ?></th>
@@ -79,33 +79,41 @@ function makeupType($typeid) {
                 <th style="width: 10%" class="tableheader"><?php __('Actions'); ?></th>
             </tr>
         </thead>
-        <?php foreach ($list as $item) : ?>
-            <?php
-            $class = null;
-            if ($stt++ % 2 == 0) {
-                $class = ' class="altrow"';
-            }
-            ?>
-            <tr<?php echo $class; ?>>
-                <?php //TODO    ?>
-                <td align="center"><?php echo $stt; ?>&nbsp;</td>
-                <td align="center"><?php echo $form->checkbox('User.SelectItem.' . ($stt - 1), array('value' => $item['User']['id'], 'title' => __('Select # ' . $stt, true), 'class' => 'cb_item')); ?></td>
-                <td align="left"><?php echo $item['User']['fullname']; ?>&nbsp;</td>
-                <td align="right"><?php echo $item['User']['local_phone']; ?>&nbsp;</td>
-                <td align="left"><?php echo $item['User']['email']; ?>&nbsp;</td>
-                <td align="center"><?php echo makeupType($item['User']['role']); ?>&nbsp;</td>
-                <td align="center"><?php echo $item['User']['created_time']; ?>&nbsp;</td>
-                <td align="center"><?php echo $item['User']['last_booked']; ?>&nbsp;</td>
-                <td align="center"><?php echo makeupStatus($item['User']['status']); ?>&nbsp;</td>
-                <td style="padding: 5px 5px" align="center">
-                    <?php
-                    echo $html->image('admin_layout/icn_aprove.gif', array('url' => array('action' => 'admin_view', $item['User']['id']), 'title' => __('View # ' . $stt, true), 'alt' => 'view'));
-                    echo $html->image('admin_layout/icn_edit.png', array('url' => array('action' => 'admin_edit', $item['User']['id']), 'title' => __('Edit # ' . $stt, true), 'alt' => 'edit'));
-                    echo $html->image('admin_layout/icn_trash.png', array('url' => array('action' => 'admin_delete', $item['User']['id']), 'title' => __('Delete # ' . $stt, true), 'alt' => 'delete', 'onclick' => "return confirm('" . __('Are you sure to delete?', true) . "')"));
-                    ?>
+        <?php if (count($list) == 0): ?>
+            <tr>
+                <td colspan="11" align="center" style="height: 100px">
+                    <strong><?php __('Not found any records'); ?></strong>
                 </td>
             </tr>
-        <?php endforeach; ?>
+        <?php else: ?>
+            <?php foreach ($list as $item) : ?>
+                <?php
+                $class = null;
+                if ($stt++ % 2 == 0) {
+                    $class = ' class="altrow"';
+                }
+                ?>
+                <tr<?php echo $class; ?>>
+                    <td align="center"><?php echo $stt; ?>&nbsp;</td>
+                    <td align="center"><?php echo $form->checkbox('User.SelectItem.' . ($stt - 1), array('value' => $item['User']['id'], 'title' => __('Select # ' . $stt, true), 'class' => 'cb_item')); ?></td>
+                    <td align="left"><?php echo $item['User']['usercode']; ?>&nbsp;</td>
+                    <td align="left"><?php echo $item['User']['fullname']; ?>&nbsp;</td>
+                    <td align="right"><?php echo $item['User']['local_phone']; ?>&nbsp;</td>
+                    <td align="left"><?php echo $item['User']['email']; ?>&nbsp;</td>
+                    <td align="center"><?php echo makeupType($item['User']['role']); ?>&nbsp;</td>
+                    <td align="center"><?php echo $item['User']['created_time']; ?>&nbsp;</td>
+                    <td align="center"><?php echo $item['User']['last_booked']; ?>&nbsp;</td>
+                    <td align="center"><?php echo makeupStatus($item['User']['status']); ?>&nbsp;</td>
+                    <td style="padding: 5px 5px" align="center">
+                        <?php
+                        echo $html->image('admin_layout/icn_aprove.gif', array('url' => array('action' => 'admin_view', $item['User']['id']), 'title' => __('View # ' . $stt, true), 'alt' => 'view'));
+                        echo $html->image('admin_layout/icn_edit.png', array('url' => array('action' => 'admin_edit', $item['User']['id']), 'title' => __('Edit # ' . $stt, true), 'alt' => 'edit'));
+                        echo $html->image('admin_layout/icn_trash.png', array('url' => array('action' => 'admin_delete', $item['User']['id']), 'title' => __('Delete # ' . $stt, true), 'alt' => 'delete', 'onclick' => "return confirm('" . __('Are you sure to delete?', true) . "')"));
+                        ?>
+                    </td>
+                </tr>
+            <?php endforeach; ?>
+        <?php endif; ?>
     </table>
 </form>
 <div class="module_footer">

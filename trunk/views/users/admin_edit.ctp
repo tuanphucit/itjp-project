@@ -1,147 +1,46 @@
-
-
-<div id="content">
-<div id="tab_title">
-<div id="tit">Edit User</div>
-
-<div id="csv" style="float: right; width: 46%; text-align: right;">
-	<?php 
-	$url=array('id'=>'goback','onclick'=>'gotoAdminHome();', 'class' => 'buttonStyle');
-	echo $this->Form->button('Back', $url);
+<?php
+/* @var $form FormHelper */
+/* @var $html HtmlHelper */
+/* @var $js JsHelper */
+/* @var $limit int */
+/* @var $data array */
+/* @var $rdurl String */
+$html->addCrumb(__('Website Admin', true), '/admin');
+$html->addCrumb(__('Users Management', true), '/admin/users');
+$html->addCrumb(__('Edit User', true), '/admin/users/edit');
 ?>
+<div class="module width_full">
+    <div class="module_header">
+        <h3 style="width: 40%"><?php __('Edit User') ?></h3>
+        <div class="header_action">
+            <ul class="tabs">
+                <li><?php echo $html->link(__('Back to List', true), array('action' => 'admin_index'), array('title' => __('Back to List', true))); ?></li>
+            </ul>
+        </div>
+    </div>
+    <div id="search_box" class="module_content">
+        <?php
+        //TODO : make style cho form admin edit user
+        $stsOptions = array(
+            '2' => __('Registerd', true),
+            '1' => __('Actived', true),
+            '0' => __('Disabled', true)
+        );
+        $roleOptions = array(
+            '1' => __('Nomal', true),
+            '2' => __('Admin', true)
+        );
+        echo $form->create('User', array('onsubmit' => "return confirm('" . __('Are you sure to edit?', true) . "')"));
+        echo $form->input('fullname', array('label' => __('Full Name', true), 'type' => 'text'));
+        echo $form->input('email', array('label' => __('Email', true), 'type' => 'text'));
+        echo $form->input('phone', array('label' => __('Phone', true), 'type' => 'text'));
+        echo $form->input('company', array('label' => __('Company', true), 'type' => 'select', 'options' => $listCompanies, 'empty' => __(' -- select -- ', true)));
+        echo $form->input('localphone', array('label' => __('Local Phone', true), 'type' => 'text'));
+        echo $form->input('usercode', array('label' => 'User Code', 'type' => 'text', 'disabled' => true));
+        //echo $form->input('role', array('label' => __('User Type', true), 'type' => 'radio', 'options' => $roleOptions, 'value' => '1'));
+        echo $form->input('status', array('label' => __('Status', true), 'type' => 'radio', 'options' => $stsOptions));
+        echo $form->button(__('Submit', true), array('type' => 'submit'));
+        echo $form->end();
+        ?>
+    </div>
 </div>
-</div>
-
-
-<div id="input_box">
-	<?php
-	echo $this->Form->create ( 'User', array ('action' => 'admin_edit', 'name'=>'form1' ) );
-	?>
-	<center>
-<table>
-	<tbody>
-	
-		<tr>
-			<td class="head"><?php echo __('Email: ');?></td>
-			
-			<td class="text">
-				<?php echo $user['User']['email'];?>
-			</td>
-		</tr>
-	
-		<tr>
-			<td class="head same"><?php echo __('Change Email: ')?></td>
-			<td class="text same"><?php
-			echo $this->Form->input ( 'email', array ('label' => false, 'style' => 'width: 250px;', 'class'=>'writeText' ) );
-			?>
-		
-		</tr>
-		
-		
-		<!--<tr>
-			<td class="head"><?php echo __('Password: ');?></td>
-			
-			<td class="text">
-				<?php //echo $user['User']['password'];?>
-			</td>
-		</tr>
-		
-
-		--><tr>
-			<td class="head"><?php echo __('Change Password: ')?></td>
-			<td class="text">
-			<?php
-			echo $this->Form->input ( 'User.password_change', array ('label' => false, 'type'=>'password', 'style' => 'width: 250px;' ) );
-			?>
-					
-		</tr>
-		
-		
-		
-
-
- 		<tr>
-			<td class="head same"><?php echo __('Confirm Password: ');?></td>
-			<td class="text same">
-			<?php
-				echo $this->Form->input ( 'User.confirm', array ('label' => false, 'type'=>'password','style' => 'width: 250px;' ) );
-			?>
-					
-		</tr>
-		
- 		
- 		
- 		<tr>
- 			<td class="head">Information</td>
-			<td class="info_box">
-				<table align="left">
-					<tr>
-						<td><?php echo __('Created Time');?></td>
-						<td><?php echo ': '.$user['User']['created_time'];?></td>
-					</tr>
-			
-					<tr>
-						<td><?php echo __('Last Access');?></td>
-						<td><?php echo ': '.$user['User']['last_access'];?></td>
-					</tr>
-					<tr>
-						<td><?php __('Last Booking');?></td>
-						<td><?php echo ': '.$user['User']['last_booked'];?></td>
-					</tr>
-					<tr>
-						<td><?php __('Bookings Number');?></td>
-						<td><?php echo ': '.$numBookings; ?></td>
-					</tr>
-				</table>
-			</td>
- 		</tr>
-
-		
-		<tr>
-			<td class="head"><?php echo __('Website Critical: ');?></td>
-			
-			<?php
-			$flag = $user['User']['ws_critical'];
-			$options = array ('0' => 'Normal', '1' => 'Good', '-1'=>'Bad' );
-			$attributes = array ('legend' => false, 'class' => 'radioStyled', 'value' => $flag);
-			?>
-			<td class="text"><?php
-			echo $this->Form->radio ( 'User.ws_critical', $options, $attributes );
-		
-			?></td>
-		</tr>
-
-
-		<tr>
-				<?php
-				$option = array ( '1' => 'Active', '0' => 'Disable', '-1' => 'Delete', '2' => 'Registered');
-				$attributes = array('legend'=>false, 'class'=>'radioStyled', 'id'=>'Status');
-				?>
-				<td class="head">Status</td>
-			<td class="text">
-				<?php
-				echo $this->Form->radio ( 'status', $option, $attributes );
-				?>
-			
-		
-		
-		
-		</tr>
-
-		
-
-		<tr>
-			<td class="head"></td>
-			<td class="text">
-					<?php
-					echo $this->Form->end ( array ('label' => 'Save', 'class' => 'buttonStyle', 'onclick'=>'return checkDelete(form1);' ) );
-					?>
-				</td>
-		</tr>
-	</tbody>
-</table>
-</center>
-</div>
-
-</div>
-
