@@ -20,7 +20,6 @@
         //echo $html->script('jquery-ui-sliderAccess');
         echo $html->script('common');
         echo $html->script('admin_check');
-        echo $html->script('common');
         echo $html->script('hideshow');
         echo $scripts_for_layout;
         ?>
@@ -52,8 +51,8 @@
             </form>
             <hr />
             <?php echo $this->element('../layouts/sitebar'); ?>
+            <hr style="clear: both" />
             <div id="footer">
-                <hr />
                 <p><strong><?php printf(__('Copyright &copy; %d Team 09 - IT Japanese', true), date('Y')); ?></strong></p>
             </div>
         </div>
