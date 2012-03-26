@@ -91,30 +91,51 @@ class EquipmentsController extends AppController {
     }
 
     function admin_add() {
+        $this->layout = 'admin';
+        $this->set('title_for_layout', __('Equipments Management', true));
         if (!empty($this->data)) {
             $this->data['Equipment']['start_time'] = date('Y-m-d H:i:s');
             if ($this->Equipment->save($this->data)) {
-                $this->Session->setFlash('Your equipment has been added.');
+                $this->Session->setFlash(__('The request has been saved', true), 'default', array('class' => CLASS_SUCCESS_ALERT));
                 $this->redirect('index');
+            } else {
+                $this->Session->setFlash(__('The equipment could not be saved. Please, try again.', true), 'default', array('class' => CLASS_ERROR_ALERT));
             }
         }
     }
 
     function admin_delete($id) {
-        $this->Equipment->delete($id);
-        $this->redirect('index');
+        if (!$id) {
+            $this->Session->setFlash(__('Invalid id for equipment', true), 'default', array('class' => CLASS_ERROR_ALERT));
+            $this->redirect(array('action' => 'admin_index'));
+        }
+        //TODO : kiem tra xem thiet bi co dang dc dung trong cac phong ko?
+        if ($this->Equipment->delete($id)) {
+            $this->Session->setFlash(__('Equipment deleted', true), 'default', array('class' => CLASS_SUCCESS_ALERT));
+            $this->redirect(array('action' => 'admin_index'));
+        }
+        $this->Session->setFlash(__('Room was not deleted', true), 'default', array('class' => CLASS_WARNING_ALERT));
+        $this->redirect(array('action' => 'admin_index'));
     }
 
     function admin_edit($id = null) {
-        $this->Equipment->id = $id;
-        if (empty($this->data)) {
-            $this->data = $this->Equipment->read();
-        } else {
-            $this->data['Equipment']['start_time'] = date('Y-m-d H:i:s');
+        $this->set('title_for_layout', __('Equipments Management', true));
+        $this->layout = "admin";
+        if (!$id && empty($this->data)) {
+            $this->Session->setFlash(__('Invalid equipment', true), 'default', array('class' => CLASS_ERROR_ALERT));
+            $this->redirect(array('action' => 'admin_index'));
+        }
+        if (!empty($this->data)) {
+            $this->data['Equipment']['id'] = (int) $id;
             if ($this->Equipment->save($this->data)) {
-                $this->Session->setFlash('Your equipment has been updated.');
-                $this->redirect('index');
+                $this->Session->setFlash(__('The equipment has been saved', true), 'default', array('class' => CLASS_SUCCESS_ALERT));
+                $this->redirect(array('action' => 'admin_index'));
+            } else {
+                $this->Session->setFlash(__('The equipment could not be saved. Please, try again.', true), 'default', array('class' => CLASS_WARNING_ALERT));
             }
+        }
+        if (empty($this->data)) {
+            $this->data = $this->Equipment->read(null, $id);
         }
     }
 
