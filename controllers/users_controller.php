@@ -213,7 +213,7 @@ class UsersController extends AppController {
         $this->layout = 'admin_login';
         if (!empty($this->data)) {
             if (isset($this->data ['User'] ['email'])) {
-                $user = &$this->User->find('first', array('conditions' => array('User.email' => $this->data ['User'] ['email'], 'User.role' => USER_ROLE_ADMIN), 'fields' => array('User.role')));
+                $user = &$this->User->find('first', array('conditions' => array('User.email' => trim($this->data ['User'] ['email']), 'User.role' => USER_ROLE_ADMIN), 'fields' => array('User.role')));
                 if (!empty($user) && ($user ['User'] ['role'] == USER_ROLE_ADMIN)) {
                     if ($this->Auth->login($this->data)) {
                         $this->redirect($this->referer());
@@ -246,22 +246,22 @@ class UsersController extends AppController {
         $conditions['User.role <>'] = USER_ROLE_ADMIN;
         $conditions['User.status <>'] = USER_STATUS_DELETE;
         if (isset($this->data['User']['usercode']) && !empty($this->data['User']['usercode'])) {
-            $conditions['User.usercode LIKE'] = $this->data['User']['usercode'] . '%';
+            $conditions['User.usercode LIKE'] = '%'.trim($this->data['User']['usercode']) . '%';
         }
         if (isset($this->data['User']['fullname']) && !empty($this->data['User']['fullname'])) {
-            $conditions['User.fullname LIKE'] = '%' . $this->data['User']['fullname'] . '%';
+            $conditions['User.fullname LIKE'] = '%' . trim($this->data['User']['fullname']) . '%';
         }
         if (isset($this->data['User']['phone']) && !empty($this->data['User']['phone'])) {
-            $conditions['User.phone LIKE'] = $this->data['User']['phone'] . '%';
+            $conditions['User.phone LIKE'] = '%'.trim($this->data['User']['phone']) . '%';
         }
         if (isset($this->data['User']['email']) && !empty($this->data['User']['email'])) {
-            $conditions['User.email LIKE'] = '%' . $this->data['User']['email'] . '%';
+            $conditions['User.email LIKE'] = '%' . trim($this->data['User']['email']) . '%';
         }
         if (isset($this->data['User']['company']) && !empty($this->data['User']['company'])) {
             $conditions['User.company_id'] = (int) $this->data['User']['company'];
         }
         if (isset($this->data['User']['localphone']) && !empty($this->data['User']['localphone'])) {
-            $conditions['User.local_phone LIKE'] = $this->data['User']['localphone'] . '%';
+            $conditions['User.local_phone LIKE'] = '%'.trim($this->data['User']['localphone']) . '%';
         }
         if (isset($this->data['User']['status']) && ($this->data['User']['status'] != '')) {
             $conditions['User.status'] = (int) $this->data['User']['status'];
@@ -340,13 +340,13 @@ class UsersController extends AppController {
                 $usercode = $this->_genUserCode($this->data['User']['company']);
                 $password = $this->_genRandomString();
                 $userData = array(
-                    'usercode' => $usercode,
-                    'email' => $this->data['User']['email'],
+                    'usercode' => trim($usercode),
+                    'email' => trim($this->data['User']['email']),
                     'password' => $this->Auth->password($password),
-                    'fullname' => $this->data['User']['fullname'],
+                    'fullname' => trim($this->data['User']['fullname']),
                     'conpany_id' => (int) $this->data['User']['company'],
-                    'phone' => $this->data['User']['phone'],
-                    'local_phone' => $this->data['User']['localphone'],
+                    'phone' => trim($this->data['User']['phone']),
+                    'local_phone' => trim($this->data['User']['localphone']),
                     'created_time' => date('Y-m-d H-i-s'),
                     'role' => 1,
                     'status' => (int) $this->data['User']['status']
@@ -379,13 +379,13 @@ class UsersController extends AppController {
                 $password = $this->_genRandomString();
                 $userData = array(
                     'id' => (int) $id,
-                    'usercode' => $usercode,
-                    'email' => $this->data['User']['email'],
+                    'usercode' => trim($usercode),
+                    'email' => trim($this->data['User']['email']),
                     'password' => $this->Auth->password($password),
-                    'fullname' => $this->data['User']['fullname'],
+                    'fullname' => trim($this->data['User']['fullname']),
                     'conpany_id' => (int) $this->data['User']['company'],
-                    'phone' => $this->data['User']['phone'],
-                    'local_phone' => $this->data['User']['localphone'],
+                    'phone' => trim($this->data['User']['phone']),
+                    'local_phone' => trim($this->data['User']['localphone']),
                     'created_time' => date('Y-m-d H-i-s'),
                     'role' => 1,
                     'status' => (int) $this->data['User']['status']
