@@ -8,7 +8,7 @@
 <ul class="toggle">
     <li class="icn_categories"><?php echo $html->link(__('Rooms', true), array('controller' => 'rooms', 'action' => 'admin_index')); ?></li>
     <li class="icn_categories"><?php echo $html->link(__('Room Types', true), array('controller' => 'room_types', 'action' => 'admin_index')); ?></li>
-    <li class="icn_categories"><?php echo $html->link(__('Equipments', true), array('controller' => 'equipment1s', 'action' => 'admin_index')); ?></li>
+    <li class="icn_categories"><?php echo $html->link(__('Equipments', true), array('controller' => 'equipments', 'action' => 'admin_index')); ?></li>
     <li class="icn_categories"><?php echo $html->link(__('Booking', true), array('controller' => 'requests', 'action' => 'admin_index')); ?></li>
 </ul>
 <!-- User Management -->
