@@ -53,12 +53,20 @@
             <?php echo $this->element('../layouts/sitebar'); ?>
             <hr style="clear: both" />
             <div id="footer">
-                <p><strong><?php printf(__('Copyright &copy; %d Team 09 - IT Japanese', true), date('Y')); ?></strong></p>
+                <p>
+                    <strong><?php printf(__('Copyright &copy; %d Team 09 - IT Japanese', true), date('Y')); ?></strong>
+                </p>
+                <p>
+                    <?php
+                    echo $this->Html->link(
+                            $this->Html->image('cake.power.gif', array('alt' => __('CakePHP: the rapid development php framework', true), 'border' => '0')), 'http://www.cakephp.org/', array('target' => '_blank', 'escape' => false)
+                    );
+                    ?>
+                </p>
             </div>
         </div>
         <div id="main" class="column">
-            <?php if ($msg = $this->Session->flash()) : ?>
-                <?php echo $msg; ?><?php endif; ?>
+            <?php echo $this->Session->flash(); ?>
             <div id="content">
                 <?php echo $content_for_layout; ?>
             </div>

@@ -95,7 +95,8 @@ $stt = ($this->Paginator->current() - 1 ) * $limit;
     </div>
 </div>
 <?php
-$js->get("#rd")->event('change', "$('#result_box').load('" . $rdurl . "'+this.value);");
-$js->get("a[href*=/sort:], a[href*=/page:]")->event('click', "$('#result_box').load($(this).attr('href'));");
+$js->get("#rd")->event('change', "$('#result_box').load('" . $rdurl . "'+this.value,$('#search_form').serializeArray());");
+$js->get("a[href*=/sort:], a[href*=/page:]")->event('click', "$('#result_box').load($(this).attr('href'),$('#search_form').serializeArray());");
+$js->get("#bt_submit")->event('click', "alert(rd);");
 echo $js->writeBuffer();
 ?>
