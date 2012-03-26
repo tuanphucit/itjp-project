@@ -5,12 +5,18 @@ class RequestsController extends AppController {
     var $name = 'Requests';
     var $helpers = array('Ajax', 'Js');
     var $components = array('RequestHandler');
-    var $paginate = array('order' => array('Request.update_time' => 'desc'), 'limit' => '10');
+    var $uses = array('Request', 'RequestDetail');
+    //var $paginate = array('order' => array('Request.update_time' => 'desc'), 'limit' => '10');
 
     /**
      * @var Request
      */
     var $Request;
+
+    /**
+     * @var RequestDetail
+     */
+    var $RequestDetail;
 
     /**
      * @var RequestHandlerComponent
@@ -138,20 +144,45 @@ class RequestsController extends AppController {
 
     function admin_view($id = null) {
         if (!$id) {
-            $this->Session->setFlash(__('Invalid request', true));
-            $this->redirect(array('action' => 'index'));
+            $this->Session->setFlash(__('Invalid request', true), 'default', array('class' => CLASS_ERROR_ALERT));
+            $this->redirect(array('action' => 'admin_index'));
         }
-        $this->set('request', $this->Request->read(null, $id));
+        $conditions = array('RequestDetail.requestid' => $id);
+        $limit = isset($this->params['named']['limit']) ? (int) $this->params['named']['limit'] : 10;
+        $sort = isset($this->params['named']['sort']) ? $this->params['named']['sort'] : 'RequestDetail.begin_time';
+        $direction = isset($this->params['named']['direction']) ? $this->params['named']['direction'] : 'asc';
+        $page = isset($this->params['named']['page']) ? (int) $this->params['named']['page'] : 1;
+        //$fields = array('User.id', 'User.fullname', 'User.email', 'User.created_time', 'User.last_access', 'User.role');
+        //$sort = $sort == 'type' ? 'role' : $sort;
+        $this->paginate = array(
+            //'fields' => $fields,
+            'conditions' => $conditions,
+            'limit' => $limit,
+            'order' => array($sort => $direction),
+            'page' => $page,
+            'recursives' => 0
+        );
+        $this->layout = 'admin';
+        $this->set('title_for_layout', __('Booking Management', true));
+        $this->set('rdurl', 'http://localhost/itjp-project/admin/requests/view/' . $id . '/sort:' . $sort . '/direction:' . $direction . '/limit:');
+        $this->set('limit', $limit);
+        $this->set('Request', $this->Request->read(null, $id));
+        $this->set('list', $this->paginate('RequestDetail'));
+        if ($this->RequestHandler->isAjax()) {
+            $this->layout = 'ajax';
+            $this->render('list_detail.ajax');
+        }
     }
 
     function admin_add() {
+        $this->layout = 'admin';
+        $this->set('title_for_layout', __('Booking Management', true));
         if (!empty($this->data)) {
-            $this->Request->create();
             if ($this->Request->save($this->data)) {
-                $this->Session->setFlash(__('The request has been saved', true));
-                $this->redirect(array('action' => 'index'));
+                $this->Session->setFlash(__('The request has been saved', true), 'default', array('class' => CLASS_SUCCESS_ALERT));
+                $this->redirect('index');
             } else {
-                $this->Session->setFlash(__('The request could not be saved. Please, try again.', true));
+                $this->Session->setFlash(__('The request could not be saved. Please, try again.', true), 'default', array('class' => CLASS_ERROR_ALERT));
             }
         }
     }

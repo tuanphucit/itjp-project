@@ -36,30 +36,38 @@ $stt = ($this->Paginator->current() - 1 ) * $limit;
                 <th style="width: 10%" class="tableheader"><?php __('Actions'); ?></th>
             </tr>
         </thead>
-        <?php foreach ($list as $item) : ?>
-            <?php
-            $class = null;
-            if ($stt++ % 2 == 0) {
-                $class = ' class="altrow"';
-            }
-            ?>
-            <tr<?php echo $class; ?>>
-                <td align="center"><?php echo $stt; ?>&nbsp;</td>
-                <td align="center"><?php echo $form->checkbox('Room.SelectItem.' . ($stt - 1), array('value' => $item['Room']['id'], 'title' => __('Select # ' . $stt, true), 'class' => 'cb_item')); ?></td>
-                <td align="left"><?php echo $item['Room']['name']; ?>&nbsp;</td>
-                <td align="left"><?php echo $item['RoomType']['name']; ?>&nbsp;</td>
-                <td align="center"><?php echo $item['Room']['quantity_seat']; ?>&nbsp;</td>
-                <td align="left"><?php echo $item['Room']['renting_fee']; ?>&nbsp;</td>
-                <td align="center"><?php echo $item['Room']['description']; ?>&nbsp;</td>
-                <td style="padding: 5px 5px" align="center">
-                    <?php
-                    echo $html->image('admin_layout/icn_aprove.gif', array('url' => array('action' => 'admin_view', $item['Room']['id']), 'title' => __('View # ' . $stt, true), 'alt' => 'view'));
-                    echo $html->image('admin_layout/icn_edit.png', array('url' => array('action' => 'admin_edit', $item['Room']['id']), 'title' => __('Edit # ' . $stt, true), 'alt' => 'edit'));
-                    echo $html->image('admin_layout/icn_trash.png', array('url' => array('action' => 'admin_delete', $item['Room']['id']), 'title' => __('Delete # ' . $stt, true), 'alt' => 'delete', 'onclick' => "return confirm('" . __('Are you sure to delete?', true) . "')"));
-                    ?>
+        <?php if (count($list) == 0): ?>
+            <tr>
+                <td colspan="11" align="center" style="height: 100px">
+                    <strong><?php __('Not found any records'); ?></strong>
                 </td>
             </tr>
-        <?php endforeach; ?>
+        <?php else: ?>
+            <?php foreach ($list as $item) : ?>
+                <?php
+                $class = null;
+                if ($stt++ % 2 == 0) {
+                    $class = ' class="altrow"';
+                }
+                ?>
+                <tr<?php echo $class; ?>>
+                    <td align="center"><?php echo $stt; ?>&nbsp;</td>
+                    <td align="center"><?php echo $form->checkbox('Room.SelectItem.' . ($stt - 1), array('value' => $item['Room']['id'], 'title' => __('Select # ' . $stt, true), 'class' => 'cb_item')); ?></td>
+                    <td align="left"><?php echo $item['Room']['name']; ?>&nbsp;</td>
+                    <td align="left"><?php echo $item['RoomType']['name']; ?>&nbsp;</td>
+                    <td align="center"><?php echo $item['Room']['quantity_seat']; ?>&nbsp;</td>
+                    <td align="left"><?php echo $item['Room']['renting_fee']; ?>&nbsp;</td>
+                    <td align="center"><?php echo $item['Room']['description']; ?>&nbsp;</td>
+                    <td style="padding: 5px 5px" align="center">
+                        <?php
+                        echo $html->image('admin_layout/icn_aprove.gif', array('url' => array('action' => 'admin_view', $item['Room']['id']), 'title' => __('View # ' . $stt, true), 'alt' => 'view'));
+                        echo $html->image('admin_layout/icn_edit.png', array('url' => array('action' => 'admin_edit', $item['Room']['id']), 'title' => __('Edit # ' . $stt, true), 'alt' => 'edit'));
+                        echo $html->image('admin_layout/icn_trash.png', array('url' => array('action' => 'admin_delete', $item['Room']['id']), 'title' => __('Delete # ' . $stt, true), 'alt' => 'delete', 'onclick' => "return confirm('" . __('Are you sure to delete?', true) . "')"));
+                        ?>
+                    </td>
+                </tr>
+            <?php endforeach; ?>
+        <?php endif; ?>
     </table>
 </form>
 <div class="module_footer">
