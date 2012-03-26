@@ -45,11 +45,11 @@ class UsersController extends AppController {
             if ($this->Auth->login($this->data)) {
                 if ($this->Session->read('Auth.User.status') < 1) {
                     $this->Session->destroy();
-                    $this->Session->setFlash('You have been disable or deleted!');
+                    $this->Session->setFlash(__('You have been disable or deleted!', true), 'default', array('class' => CLASS_ERROR_ALERT));
                 } else
                     $this->redirect($this->Auth->redirect());
             } else {
-                $this->Session->setFlash(__('Email or password is invalid or not active yet!', true));
+                $this->Session->setFlash(__('Email or password is invalid or not active yet!', true), 'default', array('class' => CLASS_ERROR_ALERT));
             }
         }
     }
@@ -104,10 +104,10 @@ class UsersController extends AppController {
                         $this->redirect('index');
                     }
                 } else {
-                    $this->Session->setFlash(__('Wrong of your password confirm! Try again', true));
+                    $this->Session->setFlash(__('Wrong of your password confirm! Try again', true), 'default', array('class' => CLASS_ERROR_ALERT));
                 }
             } else {
-                $this->Session->setFlash(__('Password must not be blank! Try again', true));
+                $this->Session->setFlash(__('Password must not be blank! Try again', true), 'default', array('class' => CLASS_ERROR_ALERT));
             }
             //$this->User->save($this->data);
         }
@@ -136,18 +136,18 @@ class UsersController extends AppController {
 
                         if ($this->admin_sendmail($mailInfo [0], $mailInfo [1], $mailInfo [2], $mailInfo [3], $mailInfo [4], $email_post, 'Recover Lost Password', 'ForgotPasswordEmailTemplate')) {
                             $this->User->saveField('password', $this->Auth->password($password));
-                            $this->Session->setFlash('Your password have been sent to your email address!');
+                            $this->Session->setFlash(__ ('Your password have been sent to your email address!', true), 'default', array('class' => CLASS_SUCCESS_ALERT));
                             $this->redirect('login');
                         } else
-                            $this->Session->setFlash('May be there are errors during sending email!');
+                            $this->Session->setFlash(__ ('May be there are errors during sending email!', true), 'default', array('class' => CLASS_ERROR_ALERT));
                         $found = 1;
                         break;
                     }
                 }
                 if ($found == 0)
-                    $this->Session->setFlash('Not found your email in database! Try again.');
+                    $this->Session->setFlash(__ ('Not found your email in database! Try again.', true), 'default', array('class' => CLASS_ERROR_ALERT));
             } else
-                $this->Session->setFlash('Email must be valid form.');
+                $this->Session->setFlash(__ ('Email must be valid form.', true), 'default', array('class' => CLASS_ERROR_ALERT));
         }
         //		else $this->Session->setFlash('Please input your email!');
     }
@@ -219,10 +219,10 @@ class UsersController extends AppController {
                         $this->redirect($this->referer());
                         //$this->redirect('website');
                     } else {
-                        $this->Session->setFlash(__('Email or password is invalid.', true));
+                        $this->Session->setFlash(__('Email or password is invalid.', true), 'default', array('class' => CLASS_ERROR_ALERT));
                     }
                 } else {
-                    $this->Session->setFlash("You don't accept permission to login admin.");
+                    $this->Session->setFlash(__ ("You don't accept permission to login admin.", true), 'default', array('class' => CLASS_ERROR_ALERT));
                     $this->redirect('index');
                 }
             } else {
@@ -296,7 +296,7 @@ class UsersController extends AppController {
         $this->layout = 'admin';
         $this->set('title_for_layout', __('Users Management', true));
         if (!$id) {
-            $this->Session->setFlash(__('Invalid user', true));
+            $this->Session->setFlash(__('Invalid user', true), 'default', array('class' => CLASS_ERROR_ALERT));
             $this->redirect(array('action' => 'index'));
         }
         //TODO : check xem co phai userid co phai cua admin ko?
