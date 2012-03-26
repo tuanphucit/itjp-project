@@ -60,8 +60,8 @@ class EquipmentsController extends AppController {
 
     function admin_view($id) {
         if (!$id) {
-            $this->Session->setFlash(__('Invalid user', true));
-            $this->redirect(array('action' => 'index'));
+            $this->Session->setFlash(__('Invalid equipment', true),'default',array('class'=> CLASS_ERROR_ALERT));
+            $this->redirect(array('action' => 'admin_index'));
         }
         $conditions = array('PositionsOfEquipment.equipmentid' => $id);
         $limit = isset($this->params['named']['limit']) ? (int) $this->params['named']['limit'] : 10;
@@ -69,7 +69,7 @@ class EquipmentsController extends AppController {
         $direction = isset($this->params['named']['direction']) ? $this->params['named']['direction'] : 'desc';
         $page = isset($this->params['named']['page']) ? (int) $this->params['named']['page'] : 1;
         //$fields = array('User.id', 'User.fullname', 'User.email', 'User.created_time', 'User.last_access', 'User.role');
-        $sort = $sort == 'type' ? 'role' : $sort;
+        //$sort = $sort == 'type' ? 'role' : $sort;
         $this->paginate = array(
             //'fields' => $fields,
             'conditions' => $conditions,
@@ -80,7 +80,7 @@ class EquipmentsController extends AppController {
         );
         $this->layout = 'admin';
         $this->set('title_for_layout', __('Equipments Management', true));
-        $this->set('rdurl', 'http://localhost/itjp-project/admin/emquipment1s/view/' . $id . '/sort:' . $sort . '/direction:' . $direction . '/limit:');
+        $this->set('rdurl', 'http://localhost/itjp-project/admin/emquipments/view/' . $id . '/sort:' . $sort . '/direction:' . $direction . '/limit:');
         $this->set('limit', $limit);
         $this->set('equipment', $this->Equipment->read(null, $id));
         $this->set('list', $this->paginate('PositionsOfEquipment'));
@@ -96,7 +96,7 @@ class EquipmentsController extends AppController {
         if (!empty($this->data)) {
             $this->data['Equipment']['start_time'] = date('Y-m-d H:i:s');
             if ($this->Equipment->save($this->data)) {
-                $this->Session->setFlash(__('The request has been saved', true), 'default', array('class' => CLASS_SUCCESS_ALERT));
+                $this->Session->setFlash(__('The equipment has been saved', true), 'default', array('class' => CLASS_SUCCESS_ALERT));
                 $this->redirect('index');
             } else {
                 $this->Session->setFlash(__('The equipment could not be saved. Please, try again.', true), 'default', array('class' => CLASS_ERROR_ALERT));

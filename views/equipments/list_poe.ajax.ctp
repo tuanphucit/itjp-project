@@ -8,7 +8,7 @@
 $stt = ($this->Paginator->current() - 1 ) * $limit;
 ?>
 <div class="module_header">
-    <h3 style="width: 40%"><?php __('List Positions') ?></h3>
+    <h3 style="width: 40%"><?php __('List Positions'); ?></h3>
     <div class="header_action">
         <ul class="tabs">
             <li><?php echo $html->link(__('View all', true), array('controller' => 'PositionsOfEquipments', 'action' => 'admin_index'), array('title' => __('View all', true))); ?></li>
@@ -48,6 +48,7 @@ $stt = ($this->Paginator->current() - 1 ) * $limit;
                 <td align="left"><?php echo $item['PositionsOfEquipment']['note']; ?>&nbsp;</td>
                 <td align="center">
                     <?php
+                    //TODO : chinh lai action
                     echo $html->image('admin_layout/icn_edit.png', array('url' => array('action' => 'admin_edit', $item['Request']['id']), 'title' => __('Edit # ' . $stt, true), 'alt' => 'edit'));
                     echo $html->image('admin_layout/icn_trash.png', array('url' => array('action' => 'admin_delete', $item['Request']['id']), 'title' => __('Delete # ' . $stt, true), 'alt' => 'delete'));
                     ?>
