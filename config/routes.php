@@ -34,3 +34,18 @@
  */
 	Router::connect('/pages/*', array('controller' => 'pages', 'action' => 'display'));
 	Router::connect('/admin', array('admin'=> true,'controller' => 'users', 'action' => 'index'));
+	
+	// chuyen language
+	Router::connect('/lang/*', array('controller' => 'p28n', 'action' => 'change'));
+
+	//forgiving routes that allow users to change the lang of any page
+	Router::connect('/eng/*', array(
+		'controller' => 'p28n',
+		'action' => 'shuntRequest',
+		'lang' => 'eng'
+	));
+	Router::connect('/vie/*', array(
+		'controller' => 'p28n',
+		'action' => 'shuntRequest',
+		'lang' => 'jap'
+	));
