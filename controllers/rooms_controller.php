@@ -48,7 +48,13 @@ class RoomsController extends AppController {
         $this->layout = 'admin';
         //debug($this->data);
         $conditions = array();
-        //TODO : lay dk search phong
+        //TODO : xu ly data submit
+        if (isset($this->data['Room']['name']) && !empty($this->data['Room']['name'])) {
+            $conditions['Room.name LIKE'] = $this->data['Room']['name'] . '%';
+        }
+        if (isset($this->data['Room']['type']) && !empty($this->data['Room']['type'])) {
+            $conditions['Room.typeid'] = (int) $this->data['Room']['type'];
+        }
         $limit = isset($this->params['named']['limit']) ? (int) $this->params['named']['limit'] : 10;
         $sort = isset($this->params['named']['sort']) ? $this->params['named']['sort'] : 'Room.name';
         $direction = isset($this->params['named']['direction']) ? $this->params['named']['direction'] : 'asc';
@@ -62,6 +68,7 @@ class RoomsController extends AppController {
             'page' => $page,
             'recursives' => 0
         );
+        $this->set('listRoomTypes', $this->RoomType->find('list', array('fiels' => array('id', 'name'))));
         $this->set('title_for_layout', __('Rooms Management', true));
         $this->set('rdurl', 'http://localhost/itjp-project/admin/rooms/index/sort:' . $sort . '/direction:' . $direction . '/limit:');
         $this->set('limit', $limit);
