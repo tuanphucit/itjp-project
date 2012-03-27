@@ -1,4 +1,9 @@
-<div>
+<?php
+/* @var $form FormHelper */
+/* @var $html HtmlHelper */
+/* @var $js JsHelper */
+?>
+<!--<div>
     <div class="first">
         <h2>Hot Deals</h2>
         <ul>
@@ -67,4 +72,4 @@
         </ul>
         <a href="offers.html">View all</a>
     </div>	
-</div>
+</div>-->

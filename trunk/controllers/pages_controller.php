@@ -45,7 +45,7 @@ class PagesController extends AppController {
      * @var array
      * @access public
      */
-    var $helpers = array('Html');
+    var $helpers = array('Html', 'Js', 'Form');
 
     /**
      * This controller does not use a model
@@ -53,7 +53,7 @@ class PagesController extends AppController {
      * @var array
      * @access public
      */
-    var $uses = array();
+    var $uses = array('Room', 'RoomType');
 
     /**
      * Displays a view
@@ -80,7 +80,9 @@ class PagesController extends AppController {
             $title_for_layout = Inflector::humanize($path[$count - 1]);
         }
         if (in_array('home', $path)) {
-            $this->layout = 'home_layout';
+            $this->layout = 'page';
+            $this->set('hots', $this->Room->find('all', array('order' => array(), 'limit' => 3)));
+            $this->set('listRoomTypes', $this->RoomType->find('list', array('fiels' => array('id', 'name'))));
         }
         $this->set(compact('page', 'subpage', 'title_for_layout'));
         $this->render(implode('/', $path));
