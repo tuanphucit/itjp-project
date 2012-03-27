@@ -8,9 +8,15 @@
     <li <?php echo $page == 'service' ? 'class="selected"' : ''; ?>>
         <?php echo $html->link(__('Service', true), array('controller' => 'pages', 'action' => 'display', 'service')); ?>
     </li>
-    <li <?php echo $page == 'login' ? 'class="selected"' : ''; ?>>
-        <?php echo $html->link(__('Sign In', true), array('controller' => 'users', 'action' => 'login')); ?>
-    </li>
+    <?php if ($session->check('Auth.User.id')): ?>
+        <li <?php echo $page == 'profile' ? 'class="selected"' : ''; ?>>
+            <?php echo $html->link(__('Profile', true), array('controller' => 'users', 'action' => 'view')); ?>
+        </li>
+    <?php else : ?>
+        <li <?php echo $page == 'login' ? 'class="selected"' : ''; ?>>
+            <?php echo $html->link(__('Sign In', true), array('controller' => 'users', 'action' => 'login')); ?>
+        </li>
+    <?php endif; ?>
     <li <?php echo $page == 'faq' ? 'class="selected"' : ''; ?>>
         <?php echo $html->link(__('FAQ', true), array('controller' => 'pages', 'action' => 'display', 'faq')); ?>
     </li>

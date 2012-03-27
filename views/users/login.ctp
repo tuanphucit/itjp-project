@@ -1,7 +1,7 @@
 <div id="about">
     <h2 style="text-align: center"><?php __('Sign In'); ?></h2>
     <?php echo $this->Session->flash(); ?>
-    <table style="margin: 20px auto">
+    <table style="margin: 80px auto">
         <?php if ($session->check('Auth.User.id')) : ?>
             <tr>
                 <td>
@@ -21,7 +21,7 @@
             <tr>
                 <td class="head" style="padding: 5px 2px;"><?php __('Password'); ?></td>
                 <td>:</td>
-                <td><?php echo $form->text('password', array('div' => false, 'style' => 'width: 200px')); ?></td>
+                <td><?php echo $form->password('password', array('div' => false, 'style' => 'width: 200px')); ?></td>
             </tr>
             <tr >
                 <td colspan="3" style="text-align: center; padding-top: 30px">
