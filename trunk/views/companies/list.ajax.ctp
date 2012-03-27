@@ -3,14 +3,10 @@
 /* @var $html HtmlHelper */
 /* @var $js JsHelper */
 /* @var $limit int */
-/* @var $data array */
+/* @var $list array */
 /* @var $rdurl String */
 /* @var $stt int */
 $stt = ($this->Paginator->current() - 1 ) * $limit;
-//$this->Paginator->options(array(
-//    'update' => '#result_box',
-//    'evalScripts' => true
-//));
 ?>
 <form name="form1" action="" method="post">
     <div class="module_header">
@@ -20,7 +16,7 @@ $stt = ($this->Paginator->current() - 1 ) * $limit;
             echo $form->button('Submit', array('type' => 'button'));
             ?>
             <ul class="tabs">
-                <li><?php echo $html->link(__('Add Room Types', true), array('action' => 'admin_add'), array('title' => __('Add', true))); ?></li>
+                <li><?php echo $html->link(__('Add Company', true), array('action' => 'admin_add'), array('title' => __('Add Company', true))); ?></li>
             </ul>
         </div>
     </div>
@@ -29,8 +25,8 @@ $stt = ($this->Paginator->current() - 1 ) * $limit;
             <tr>
                 <th style="width: 5%" class="tableheader"><?php __("#"); ?></th>
                 <th style="width: 5%" class="tableheader"><?php echo $form->checkbox('SelectAll', array('title' => __('Select all', true), 'class' => 'cb_allItem')); ?></th>
-                <th style="width: 20%" class="tableheader"><?php echo $this->Paginator->sort(__('Name', true), 'RoomType.name'); ?></th>
-                <th style="width: 60%" class="tableheader"><?php echo $this->Paginator->sort(__('Description', true), 'RoomType.description'); ?></th>
+                <th style="width: 20%" class="tableheader"><?php echo $this->Paginator->sort(__('Name', true), 'Company.code'); ?></th>
+                <th style="width: 60%" class="tableheader"><?php echo $this->Paginator->sort(__('Description', true), 'Company.name'); ?></th>
                 <th style="width: 10%" class="tableheader"><?php __('Actions'); ?></th>
             </tr>
         </thead>
@@ -50,13 +46,13 @@ $stt = ($this->Paginator->current() - 1 ) * $limit;
                 ?>
                 <tr<?php echo $class; ?>>
                     <td align="center"><?php echo $stt; ?>&nbsp;</td>
-                    <td align="center"><?php echo $form->checkbox('RoomType.SelectItem.' . ($stt - 1), array('value' => $item['RoomType']['id'], 'title' => __('Select # ' . $stt, true), 'class' => 'cb_item')); ?></td>
-                    <td align="left"><?php echo $item['RoomType']['name']; ?>&nbsp;</td>
-                    <td align="left"><?php echo $item['RoomType']['description']; ?>&nbsp;</td>
+                    <td align="center"><?php echo $form->checkbox('Company.SelectItem.' . ($stt - 1), array('value' => $item['Company']['id'], 'title' => __('Select # ' . $stt, true), 'class' => 'cb_item')); ?></td>
+                    <td align="left"><?php echo $item['Company']['code']; ?>&nbsp;</td>
+                    <td align="left"><?php echo $item['Company']['name']; ?>&nbsp;</td>
                     <td align="center">
                         <?php
-                        echo $html->image('admin_layout/icn_edit.png', array('url' => array('action' => 'admin_edit', $item['RoomType']['id']), 'title' => __('Edit # ' . $stt, true), 'alt' => 'edit'));
-                        echo $html->image('admin_layout/icn_trash.png', array('url' => array('action' => 'admin_delete', $item['RoomType']['id']), 'title' => __('Delete # ' . $stt, true), 'alt' => 'delete', 'onclick' => "return confirm('" . __('Are you sure to delete?', true) . "')"));
+                        echo $html->image('admin_layout/icn_edit.png', array('url' => array('action' => 'admin_edit', $item['Company']['id']), 'title' => __('Edit # ' . $stt, true), 'alt' => 'edit'));
+                        echo $html->image('admin_layout/icn_trash.png', array('url' => array('action' => 'admin_delete', $item['Company']['id']), 'title' => __('Delete # ' . $stt, true), 'alt' => 'delete', 'onclick' => "return confirm('" . __('Are you sure to delete?', true) . "')"));
                         ?>
                     </td>
                 </tr>

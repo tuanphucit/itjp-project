@@ -47,6 +47,14 @@ p a,h3 a{
     height: 23px;
     display: block;
 }
+#header ul#navigation li a.userlink,.header ul#navigation li a.userlink{
+    text-decoration: none;
+    color: #003333;
+}
+#header ul#navigation li a.userlink:hover,.header ul#navigation li a.userlink:hover{
+    text-decoration: underline;
+    color: #000099;
+}
 #header ul#navigation li a img,.header ul#navigation li a img{
     border: 0;
 }

@@ -41,7 +41,7 @@ class UsersController extends AppController {
     //ログイン機能
     function login() {
         //$this->layout = "login";
-        $this->set('page','login');
+        $this->set('page', 'login');
         if (!empty($this->data)) {
             if ($this->Auth->login($this->data)) {
                 if ($this->Session->read('Auth.User.status') < 1) {
@@ -69,29 +69,35 @@ class UsersController extends AppController {
     // 登録する機能
     function register() {
         //$this->layout = 'login';
-        $this->set('page','login');
+        $this->set('page', 'login');
         $this->Session->destroy();
         $this->set('listCompanies', $this->Company->find('list', array('fiels' => array('id', 'name'))));
         //debug($companies);
         if (!empty($this->data)) {
-            $this->User->create();
-            $confirm = $this->Auth->password($this->data['User']['password_confirm']);
-            if ($this->data['User']['password'] != $this->Auth->password('')) {
-                if ($this->data['User']['password'] == $confirm) {
-                    $this->data['User']['created_time'] = date('Y-m-d H:m:s');
-                    $this->data['User']['last_access'] = date('Y-m-d H:m:s');
-                    $this->data['User']['role'] = USER_ROLE_NORMAL_USER;
-                    $this->data['User']['status'] = USER_STATUS_REGISTERED;
-                    $this->data['User']['usercode'] = $this->_genUserCode($this->data['User']['company_id']);
-                    if ($this->User->save($this->data)) {
-                        $this->Session->setFlash(__('Thankyou for registed! We will phone to you.', true), 'default', array('class' => CLASS_SUCCESS_ALERT));
-                        $this->redirect('index');
+            if (!Validation::email($this->data['User']['email'])) {
+                $this->Session->setFlash(__('Email must be valid format!', true), 'default', array('class' => CLASS_ERROR_ALERT));
+            } elseif (!isset($this->data['User']['company_id']) || empty($this->data['User']['company_id'])) {
+                $this->Session->setFlash(__('Please select company!', true), 'default', array('class' => CLASS_WARNING_ALERT));
+            } else {
+                $confirm = $this->Auth->password($this->data['User']['password_confirm']);
+                if ($this->data['User']['password'] != $this->Auth->password('')) {
+                    if ($this->data['User']['password'] == $confirm) {
+                        $this->data['User']['created_time'] = date('Y-m-d H:m:s');
+                        $this->data['User']['last_access'] = date('Y-m-d H:m:s');
+                        $this->data['User']['role'] = USER_ROLE_NORMAL_USER;
+                        $this->data['User']['status'] = USER_STATUS_REGISTERED;
+                        $this->data['User']['usercode'] = $this->_genUserCode($this->data['User']['company_id']);
+                        $this->User->create();
+                        if ($this->User->save($this->data)) {
+                            $this->Session->setFlash(__('Thankyou for registed! We will phone to you.', true), 'default', array('class' => CLASS_SUCCESS_ALERT));
+                            $this->redirect(array('controller' => 'pages', 'action' => 'display', 'home'));
+                        }
+                    } else {
+                        $this->Session->setFlash(__('Wrong of your password confirm! Try again', true), 'default', array('class' => CLASS_ERROR_ALERT));
                     }
                 } else {
-                    $this->Session->setFlash(__('Wrong of your password confirm! Try again', true), 'default', array('class' => CLASS_ERROR_ALERT));
+                    $this->Session->setFlash(__('Password must not be blank! Try again', true), 'default', array('class' => CLASS_ERROR_ALERT));
                 }
-            } else {
-                $this->Session->setFlash(__('Password must not be blank! Try again', true), 'default', array('class' => CLASS_ERROR_ALERT));
             }
         }
         $this->set('user', $this->data);
@@ -572,6 +578,10 @@ class UsersController extends AppController {
         }
 
         return $string;
+    }
+
+    function view() {
+        $this->set('page', 'profile');
     }
 
 }

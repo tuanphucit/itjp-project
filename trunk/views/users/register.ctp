@@ -6,7 +6,7 @@
 <div id="about">
     <h2><?php __('Welcome to Room Booking System'); ?></h2>
     <?php echo $this->Session->flash(); ?>
-    <table style="margin: 20px auto">
+    <table style="margin: 50px auto">
         <?php if ($session->check('Auth.User.id')) : ?>
             <tr>
                 <td>
@@ -62,9 +62,6 @@
         <?php endif; ?>
     </table>
 </div>
-
-<?php echo $javascript->link('jquery/jquery.js', false); ?>
-<?php echo $javascript->link('jquery/jquery.validate.js', false); ?>
 <script type="text/javascript">
     $.validator.setDefaults({
         submitHandler: function() { alert("submitted!"); }
