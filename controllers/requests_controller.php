@@ -5,8 +5,13 @@ class RequestsController extends AppController {
     var $name = 'Requests';
     var $helpers = array('Ajax', 'Js');
     var $components = array('RequestHandler');
-    var $uses = array('Request', 'RequestDetail');
+    var $uses = array('Request', 'RequestDetail', 'Room');
     //var $paginate = array('order' => array('Request.update_time' => 'desc'), 'limit' => '10');
+
+    /**
+     * @var Room
+     */
+    var $Room;
 
     /**
      * @var Request
@@ -58,6 +63,12 @@ class RequestsController extends AppController {
     }
 
     function add() {
+        if ($this->RequestHandler->isAjax()) {
+            //TODO booking by ajax
+            $this->layout = 'ajax';
+        }
+        $this->set('title_for_layout', 'Booking Room');
+        $this->set('listRoom', $this->Room->find('list', array('fiels' => array('id', 'name'))));
         if (!empty($this->data)) {
             $this->Request->create();
             if ($this->Request->save($this->data)) {
@@ -98,6 +109,26 @@ class RequestsController extends AppController {
         }
         $this->Session->setFlash(__('Request was not deleted', true));
         $this->redirect(array('action' => 'index'));
+    }
+
+    function check($id = null) {
+        if (!$id && empty($this->data)) {
+            $this->Session->setFlash(__('Invalid room for check', true), 'default', array('class' => CLASS_ERROR_ALERT));
+        }
+        if (!empty($this->data)) {
+            $conditions = array();
+            if (isset($this->data['Request']['roomid']) && !empty($this->data['Request']['roomid']) && $id == null) {
+                $id = (int) $this->data['Request']['roomid'];
+            }
+            if (isset($this->data['Request']['fromtime'])) {
+                $conditions['RequestDetail.begin_time >='] = $this->data['Request']['fromtime'];
+            }
+            if (isset($this->data['Request']['totime'])) {
+                $conditions['Request.create_time <='] = $this->data['Request']['totime'];
+            }
+        }
+        $this->layout = 'popup';
+        $this->set('room', $this->Room->find('all', array('fiels' => array('id', 'name'), 'conditions' => array('Room.id' => $id))));
     }
 
     function admin_index() {
