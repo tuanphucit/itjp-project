@@ -78,7 +78,7 @@ p a,h3 a{
     overflow: hidden;
     padding: 0;
     margin: 23px 0 0;
-    width: 400px;
+    width: auto;
     float: right;
 }
 #header ul.navigation li,.header ul.navigation li{
@@ -87,11 +87,11 @@ p a,h3 a{
 }
 #header ul.navigation li,.header ul.navigation li{
     background: url(../images/bg-menu.gif) repeat-x;	
-    padding: 0 10px;
+    padding: 0 20px;
 }
 #header ul.navigation li.selected,.header ul.navigation li.selected{
     background: url(../images/bg-menu-selected.gif) repeat-x;
-    padding: 0 10px;
+    padding: 0 20px;
 }
 #header ul.navigation li a,.header ul.navigation li a{
     line-height: 40px;
@@ -238,7 +238,7 @@ p a,h3 a{
     text-align: center;
     background: url(../images/bg-sidebar-bottom-curve.gif) no-repeat center bottom #fff;
 }
-#header div#featured div form input{
+#header div#featured div form button{
     background: url(../images/icons.gif) no-repeat 0 -104px;
     text-indent: -99999px;
     width: 62px;
@@ -254,6 +254,20 @@ p a,h3 a{
     border: 1px solid #9A9A9A;
     margin: 0 0 10px;	
     font-size: 11px;
+}
+#header div#featured div form div.input{
+    width: 274px;
+}
+#header div#featured div form div label{
+    float: left;
+}
+#header div#featured div form div input{
+    display: block;
+    width: 180px;
+    border: 1px solid #9A9A9A;
+    margin: 0 0 10px;	
+    font-size: 11px;
+    float: right;
 }
 #header div#featured div div{
     margin: 0;

@@ -7,4 +7,4 @@
     </li>
 </ul>
 <p><?php __('Talk to us by hotline '); ?> <span>1-999-666-888</span></p>
-<a href="" id="logo"><!--img src="images/logo.jpg" alt="logo"/--></a>
+<a id="logo"></a>
