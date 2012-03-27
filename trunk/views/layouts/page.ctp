@@ -75,7 +75,7 @@
                         '4' => '30 ~ 50 ' . __('seats', true),
                         '5' => ' > 100 ' . __('seats', true)
                     );
-                    echo $form->create('Room', array('url' => array('controller' => 'rooms', 'action' => 'index')));
+                    echo $form->create('Room', array('url' => array('controller' => 'rooms', 'action' => 'find')));
                     echo $form->select('type', $listRoomTypes, null, array('empty' => __('Any Type', true)));
                     echo $form->select('seat', $seatOpts, null, array('empty' => __('Any Number Seats', true)));
                     echo $form->input('ftime', array('type' => 'text', 'id' => 'fTimeInput', 'label' => 'From :'));
@@ -116,16 +116,15 @@
                 var dates = $("#fTimeInput, #tTimeInput").datepicker({
                     dateFormat: 'yy-mm-dd',
                     changeMonth: true,
-                    changeYear:true,
                     numberOfMonths: 1,
-                    onSelect: function( selectedDate ) {
+                    onSelect: function(selectedDate) {
                         var option = this.id == "fTimeInput" ? "minDate" : "maxDate",
-                        instance = $( this ).data( "datepicker" ),
+                        instance = $(this).data( "datepicker" ),
                         date = $.datepicker.parseDate(
                         instance.settings.dateFormat ||
                             $.datepicker._defaults.dateFormat,
                         selectedDate, instance.settings );
-                        dates.not( this ).datepicker( "option", option, date );
+                        dates.not(this).datepicker( "option", option, date );
                     }
                 });
             });    

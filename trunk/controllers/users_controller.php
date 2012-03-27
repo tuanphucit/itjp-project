@@ -40,7 +40,8 @@ class UsersController extends AppController {
 
     //ログイン機能
     function login() {
-        $this->layout = "login";
+        //$this->layout = "login";
+        $this->set('page','login');
         if (!empty($this->data)) {
             if ($this->Auth->login($this->data)) {
                 if ($this->Session->read('Auth.User.status') < 1) {
@@ -67,40 +68,23 @@ class UsersController extends AppController {
 
     // 登録する機能
     function register() {
-        $this->layout = 'login';
+        //$this->layout = 'login';
+        $this->set('page','login');
         $this->Session->destroy();
-
-        $companies = $this->Company->find('all');
-        $this->set('companies', $companies);
+        $this->set('listCompanies', $this->Company->find('list', array('fiels' => array('id', 'name'))));
         //debug($companies);
-
-
         if (!empty($this->data)) {
             $this->User->create();
-            $confirm = $this->Auth->password($this->data ['User'] ['password_confirm']);
-            if ($this->data ['User'] ['password'] != $this->Auth->password('')) {
-                if ($this->data ['User'] ['password'] == $confirm) {
-                    $this->data ['User'] ['created_time'] = date('Y-m-d H:m:s');
-                    $this->data ['User'] ['last_access'] = date('Y-m-d H:m:s');
-                    $this->data ['User'] ['role'] = USER_ROLE_NORMAL_USER;
-                    $this->data ['User'] ['status'] = USER_STATUS_REGISTERED;
-                    $company_count = $this->User->find('count', array('condition' => array('User.company_id' => $this->data ['User'] ['company_id'])));
-                    $company_count = $company_count++;
-                    debug($company_count);
-                    $company_code = $this->Company->read('code', $this->data ['User'] ['company_id']);
-                    debug($company_code ['Company'] ['code']);
-
-                    if ($company_count < 9) {
-                        $this->data ['User'] ['usercode'] = $company_code ['Company'] ['code'] . '00' . $company_count;
-                    } elseif ($company_count < 99) {
-                        $this->data ['User'] ['usercode'] = $company_code ['Company'] ['code'] . '0' . $company_count;
-                    } else {
-                        $this->data ['User'] ['usercode'] = $company_code ['Company'] ['code'] . $company_count;
-                    }
-
-                    debug($this->data);
+            $confirm = $this->Auth->password($this->data['User']['password_confirm']);
+            if ($this->data['User']['password'] != $this->Auth->password('')) {
+                if ($this->data['User']['password'] == $confirm) {
+                    $this->data['User']['created_time'] = date('Y-m-d H:m:s');
+                    $this->data['User']['last_access'] = date('Y-m-d H:m:s');
+                    $this->data['User']['role'] = USER_ROLE_NORMAL_USER;
+                    $this->data['User']['status'] = USER_STATUS_REGISTERED;
+                    $this->data['User']['usercode'] = $this->_genUserCode($this->data['User']['company_id']);
                     if ($this->User->save($this->data)) {
-
+                        $this->Session->setFlash(__('Thankyou for registed! We will phone to you.', true), 'default', array('class' => CLASS_SUCCESS_ALERT));
                         $this->redirect('index');
                     }
                 } else {
@@ -109,7 +93,6 @@ class UsersController extends AppController {
             } else {
                 $this->Session->setFlash(__('Password must not be blank! Try again', true), 'default', array('class' => CLASS_ERROR_ALERT));
             }
-            //$this->User->save($this->data);
         }
         $this->set('user', $this->data);
     }
@@ -136,18 +119,18 @@ class UsersController extends AppController {
 
                         if ($this->admin_sendmail($mailInfo [0], $mailInfo [1], $mailInfo [2], $mailInfo [3], $mailInfo [4], $email_post, 'Recover Lost Password', 'ForgotPasswordEmailTemplate')) {
                             $this->User->saveField('password', $this->Auth->password($password));
-                            $this->Session->setFlash(__ ('Your password have been sent to your email address!', true), 'default', array('class' => CLASS_SUCCESS_ALERT));
+                            $this->Session->setFlash(__('Your password have been sent to your email address!', true), 'default', array('class' => CLASS_SUCCESS_ALERT));
                             $this->redirect('login');
                         } else
-                            $this->Session->setFlash(__ ('May be there are errors during sending email!', true), 'default', array('class' => CLASS_ERROR_ALERT));
+                            $this->Session->setFlash(__('May be there are errors during sending email!', true), 'default', array('class' => CLASS_ERROR_ALERT));
                         $found = 1;
                         break;
                     }
                 }
                 if ($found == 0)
-                    $this->Session->setFlash(__ ('Not found your email in database! Try again.', true), 'default', array('class' => CLASS_ERROR_ALERT));
+                    $this->Session->setFlash(__('Not found your email in database! Try again.', true), 'default', array('class' => CLASS_ERROR_ALERT));
             } else
-                $this->Session->setFlash(__ ('Email must be valid form.', true), 'default', array('class' => CLASS_ERROR_ALERT));
+                $this->Session->setFlash(__('Email must be valid form.', true), 'default', array('class' => CLASS_ERROR_ALERT));
         }
         //		else $this->Session->setFlash('Please input your email!');
     }
@@ -222,7 +205,7 @@ class UsersController extends AppController {
                         $this->Session->setFlash(__('Email or password is invalid.', true), 'default', array('class' => CLASS_ERROR_ALERT));
                     }
                 } else {
-                    $this->Session->setFlash(__ ("You don't accept permission to login admin.", true), 'default', array('class' => CLASS_ERROR_ALERT));
+                    $this->Session->setFlash(__("You don't accept permission to login admin.", true), 'default', array('class' => CLASS_ERROR_ALERT));
                     $this->redirect('index');
                 }
             } else {
@@ -246,13 +229,13 @@ class UsersController extends AppController {
         $conditions['User.role <>'] = USER_ROLE_ADMIN;
         $conditions['User.status <>'] = USER_STATUS_DELETE;
         if (isset($this->data['User']['usercode']) && !empty($this->data['User']['usercode'])) {
-            $conditions['User.usercode LIKE'] = '%'.trim($this->data['User']['usercode']) . '%';
+            $conditions['User.usercode LIKE'] = '%' . trim($this->data['User']['usercode']) . '%';
         }
         if (isset($this->data['User']['fullname']) && !empty($this->data['User']['fullname'])) {
             $conditions['User.fullname LIKE'] = '%' . trim($this->data['User']['fullname']) . '%';
         }
         if (isset($this->data['User']['phone']) && !empty($this->data['User']['phone'])) {
-            $conditions['User.phone LIKE'] = '%'.trim($this->data['User']['phone']) . '%';
+            $conditions['User.phone LIKE'] = '%' . trim($this->data['User']['phone']) . '%';
         }
         if (isset($this->data['User']['email']) && !empty($this->data['User']['email'])) {
             $conditions['User.email LIKE'] = '%' . trim($this->data['User']['email']) . '%';
@@ -261,7 +244,7 @@ class UsersController extends AppController {
             $conditions['User.company_id'] = (int) $this->data['User']['company'];
         }
         if (isset($this->data['User']['localphone']) && !empty($this->data['User']['localphone'])) {
-            $conditions['User.local_phone LIKE'] = '%'.trim($this->data['User']['localphone']) . '%';
+            $conditions['User.local_phone LIKE'] = '%' . trim($this->data['User']['localphone']) . '%';
         }
         if (isset($this->data['User']['status']) && ($this->data['User']['status'] != '')) {
             $conditions['User.status'] = (int) $this->data['User']['status'];

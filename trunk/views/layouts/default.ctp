@@ -23,7 +23,13 @@
     <body>
         <div class="header">
             <?php echo $this->element('header'); ?>
-            <?php echo $this->element('navigator'); ?>
+            <?php
+            if (isset($page)) {
+                echo $this->element('navigator');
+            } else {
+                echo $this->element('navigator', array('page' => ''));
+            }
+            ?>
         </div> 
         <div class="content">
             <?php

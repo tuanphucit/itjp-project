@@ -100,7 +100,7 @@ p a,h3 a{
     font-size: 16px;
     color: #061558;
 }
-#header ul.navigation li a:hover..header ul.navigation li a:hover{
+#header ul.navigation li a:hover,.header ul.navigation li a:hover{
     color: #5DA0D5;
 }
 #header div#featured{
@@ -509,25 +509,11 @@ p a,h3 a{
     margin: 500px auto 0;
     width: 960px;
 }
-.content div#blog{
-    margin-top: -490px;
-    background-color: #fff;
-    padding: 0 0 300px;
-    overflow: hidden;
-    border-radius: 5px;
-}
-.content div#excursions,.content div#activities,.content div#restaurant,.content div#destinations,.content div#deals,.content div#ships-and-activities,
-.content div#offers,.content div#featured{
+.content div#activities,.content div#restaurant,
+.content div#featured{
     margin-top: -490px;
     background-color: #fff;
     padding: 0 0 40px;
-    overflow: hidden;
-    border-radius: 5px;
-}
-.content div#cruises{
-    margin-top: -490px;
-    background-color: #fff;
-    padding: 0 0 300px;
     overflow: hidden;
     border-radius: 5px;
 }
@@ -538,8 +524,8 @@ p a,h3 a{
     overflow: hidden;
     border-radius: 5px;
 }
-.content div#blog h2,.content div#activities h2,.content div#about h2,.content div#restaurant h2,.content div#destinations h2,.content div#deals h2,.content div#ships-and-activities h2,
-.content div#offers h2,.content div#featured h2{
+.content div#activities h2,.content div#about h2,.content div#restaurant h2,
+.content div#featured h2{
     background: url(../images/interface.gif) no-repeat 0 -230px;
     height: 71px;
     width: 960px;
@@ -550,7 +536,7 @@ p a,h3 a{
     font-size: 30px;
     text-transform: capitalize;
 }
-.content div#blog div,.content div#excursions div,.content div#cruises div,.content div#featured div{
+.content div#about div,.content div#cruises div,.content div#featured div{
     margin: 0;
     width: auto;
     float: left;
@@ -586,15 +572,7 @@ p a,h3 a{
 .content div#featured div a img{
     border: 0;
 }
-.content div#blog h3{
-    margin: 35px 0 25px 30px;
-    font-family: arial;
-    font-size: 16px;
-    color: #105272;
-    width: 550px;
-    line-height: 26px;
-}
-.content div#excursions h3,.content div#cruises h3,.content div#about h3,.content div#featured div h3{
+.content div#about h3,.content div#featured div h3{
     margin: 35px 30px 10px;
     font-family: arial;
     font-size: 16px;
@@ -606,61 +584,7 @@ p a,h3 a{
     float: none;
     margin: 0;
 }
-.content div#blog p{
-    margin: 0 0 15px 30px;
-    font-family: arial;
-    font-size: 14px;
-    color: #555555;
-    width: 550px;
-    line-height: 26px;
-    text-align: justify;
-}
-.content div#blog p a{
-    color: #555555;
-}
-.content div#blog ul{
-    list-style: none;
-    float: left;
-    padding: 0;
-    margin: 35px 0 0 30px;
-}
-.content div#blog ul li{
-    overflow: hidden;
-    margin: 0 0 25px;
-}
-.content div#blog ul li div{
-    float: left;
-    background: url(../images/interface.gif) no-repeat;
-    width: 80px;
-    height: 60px;
-    text-align: center;
-    margin: 7px 0 0;
-}
-.content div#blog ul li div span.month{
-    color: #FFFFFF;
-    display: block;
-    font-family: arial;
-    font-size: 14px;
-    font-weight: bold;
-    margin: 10px 0 0;
-    text-transform: uppercase;
-}
-.content div#blog ul li div span.day{
-    color: #FFFFFF;
-    display: block;
-    font-family: arial;
-    font-size: 14px;
-    font-weight: bold;
-    margin: 8px 0 0;
-    text-transform: uppercase;
-}
-.content div#blog ul li p{
-    float: left;
-    width: 200px;
-    margin: 0 0 0 20px;
-}
-.content div#excursions h2,.content div#activities h2,.content div#cruises h2{
-    background: url(../images/interface.gif);
+.content div#activities h2{
     height: 71px;
     width: 960px;
     margin: 0;
@@ -670,7 +594,7 @@ p a,h3 a{
     font-size: 30px;
     text-transform: capitalize;
 }
-.content div#excursions p,.content div#cruises p,.content div#about p{
+.content div#about p{
     margin: 0 30px 15px;
     font-family: arial;
     font-size: 14px;
@@ -697,16 +621,10 @@ p a,h3 a{
     color: #555555;
     text-decoration: underline;
 }
-.content div#excursions ul{
-    list-style: none;
-    float: left;
-    margin: 20px 0 0;
-    padding: 0 30px;
-}
-.content div#restaurant ul.first,.content div#destinations ul.first,.content div#deals ul.first,.content div#ships-and-activities ul.first,.content div#offers ul.first{
+.content div#restaurant ul.first{
     border: 0;
 }
-.content div#restaurant ul,.content div#destinations ul,.content div#deals ul,.content div#ships-and-activities ul{
+.content div#restaurant ul{
     list-style: none;
     float: left;
     margin: 0;
@@ -715,43 +633,8 @@ p a,h3 a{
     border-style: none none none solid; 
     border-color: #dfdfdf;
 }
-.content div#offers ul{
-    border: 0;
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-.content div#excursions ul li{
-    overflow: hidden;
-    margin: 0 0 20px;
-}
-.content div#excursions ul li a,.content div#activities ul li a{
-    float: left;
-    margin: 0 20px 0 0;
-}
-.content div#excursions ul li a img,.content div#activities ul li a img{
-    float: left;
-    border: 0;
-}
-.content div#excursions ul li p{
-    margin: 0 30px 15px;
-    font-family: arial;
-    font-size: 14px;
-    color: #555555;
-    width: auto;
-    line-height: 26px;
-    text-align: justify;
-}
-.content div#excursions ul li p a{
-    color: #105272;
-    float: none;
-    font-weight: bold;
-    text-decoration: none;
-    margin: 0;
-}
-.content div#excursions ul li a img:hover,.content div#activities ul li a img:hover,.content div#restaurant ul li a img:hover,.content div#destinations ul li a img:hover
-,.content div#deals ul li a img:hover,.content div#ships-and-activities ul li a img:hover,.content div#offers ul li a img:hover,.content div#featured div a img:hover,
-#content div ul li a img:hover,#content div div div a#download img:hover{
+.content div#activities ul li a img:hover,.content div#restaurant ul li a img:hover
+,.content div#featured div a img:hover,#content div ul li a img:hover{
     filter:alpha(opacity=80);
     opacity:0.8;
 }
@@ -809,25 +692,16 @@ p a,h3 a{
     font-size: 14px;
     font-weight: bold;
 }
-.content div#cruises ol{
-    margin: 0 30px 0 15px;
-}
-.content div#cruises ol li{
-    margin: 0 0 15px 0;
-}
-.content div#cruises ol li p{
-    margin: 0;
-}
-.content div#restaurant ul li.first,.content div#destinations ul li.first,.content div#deals ul li.first,.content div#ships-and-activities ul li.first{
+.content div#restaurant ul li.first{
     border: 0;
 }
-.content div#restaurant ul li,.content div#destinations ul li,.content div#deals ul li,.content div#ships-and-activities ul li{
+.content div#restaurant ul li{
     padding: 29px;
     border-width: 1px;
     border-style: solid none none none;
     border-color: #dfdfdf;
 }
-.content div#destinations ul li h3,.content div#deals ul li h3,.content div#restaurant ul li h3,.content div#ships-and-activities ul li h3{
+.content div#restaurant ul li h3{
     color: #105272;
     font-family: arial;
     font-size: 14px;
@@ -835,46 +709,7 @@ p a,h3 a{
     width: auto;
     text-transform: uppercase;
 }
-.content div#offers ul li{
-    padding: 29px;
-    border-width: 1px;
-    border-style: solid none none none;
-    border-color: #dfdfdf;
-    overflow: hidden;
-    height: 1%;
-}
-.content div#offers ul li div{
-    float: left;
-    margin: 0 0 0 20px;
-    width: 420px;
-}
-.content div#offers ul li div h3{
-    color: #105272;
-    font-family: arial;
-    font-size: 14px;
-    margin: 0 0 10px;
-    width: auto;
-    text-transform: uppercase;
-}
-.content div#offers ul li div h4{
-    color: #555555;
-    text-transform: uppercase;
-    margin: 0;
-    font-family: arial;
-    font-size: 14px;
-    font-weight: normal;
-}
-.content div#offers ul li div ul{
-    list-style: disc;
-    margin: 0 0 0 20px;
-}
-.content div#offers ul li div ul li{
-    border: 0;
-    padding: 0;
-    overflow: visible;
-}
-.content div#restaurant ul li p,.content div#destinations ul li p,.content div#deals ul li p,.content div#ships-and-activities ul li p,
-.content div#offers ul li p{
+.content div#restaurant ul li p{
     margin: 10px 0 0;
     font-family: arial;
     font-size: 14px;
@@ -884,7 +719,7 @@ p a,h3 a{
     text-align: justify;
     width: 420px;
 }
-.content div#restaurant ul li a img,.content div#destinations ul li a img,.content div#deals ul li a img,.content div#ships-and-activities ul li a img,.content div#offers ul li a img{
+.content div#restaurant ul li a img{
     border: 0;
 }
 
@@ -970,4 +805,65 @@ p a,h3 a{
     padding: 5px 0 10px;
     margin: 0;
 }
-
+/* Flash Message */
+div.alert_info {
+    display: block;
+    width: 98%;
+    margin: 10px 1% 0 1%;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    background: #B5E5EF url(../img/admin_layout/icn_alert_info.png) no-repeat;
+    background-position: 10px 10px;
+    border: 1px solid #77BACE;
+    color: #082B33;
+    padding: 10px 0;
+    text-indent: 40px;
+    font-size: 12px;
+}
+div.alert_warning {
+    display: block;
+    width: 98%;
+    margin: 10px 1% 0 1%;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    background: #F5F3BA url(../img/admin_layout/icn_alert_warning.png) no-repeat;
+    background-position: 10px 10px;
+    border: 1px solid #C7A20D;
+    color: #796616;
+    padding: 10px 0;
+    text-indent: 40px;
+    font-size: 12px;
+}
+div.alert_error {
+    display: block;
+    width: 98%;
+    margin: 10px 1% 0 1%;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    background: #F3D9D9 url(../img/admin_layout/icn_alert_error.png) no-repeat;
+    background-position: 10px 10px;
+    border: 1px solid #D20009;
+    color: #7B040F;
+    padding: 10px 0;
+    text-indent: 40px;
+    font-size: 12px;
+}
+div.alert_success {
+    display: block;
+    width: 98%;
+    margin: 10px 1% 0 1%;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    background: #E2F6C5 url(../img/admin_layout/icn_alert_success.png) no-repeat;
+    background-position: 10px 10px;
+    border: 1px solid #79C20D;
+    color: #32510F;
+    padding: 10px 0;
+    text-indent: 40px;
+    font-size: 12px;
+}
+/* Modules */
