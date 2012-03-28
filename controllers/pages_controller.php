@@ -61,6 +61,10 @@ class PagesController extends AppController {
      * @param mixed What page to display
      * @access public
      */
+    function beforeFilter(){
+    	$this->Auth->allow('display');
+    	//debug($this->params);
+    }
     function display() {
         $path = func_get_args();
 

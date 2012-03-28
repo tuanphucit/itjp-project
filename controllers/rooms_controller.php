@@ -27,6 +27,8 @@ class RoomsController extends AppController {
      * @var RequestHandlerComponent
      */
     var $RequestHandler;
+    
+    function beforeFilter(){}
 
     //会議室インでクスページをセットする機能
     // liet ke tat ca cac phong

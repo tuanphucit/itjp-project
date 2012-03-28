@@ -190,7 +190,7 @@ class UsersController extends AppController {
         $this->Email->replyTo = 'noreply';
         $this->Email->subject = $subject;
         $this->Email->delivery = 'smtp';
-        debug($this->Email);
+        //debug($this->Email);
         $result = $this->Email->send();
         return $result;
     }

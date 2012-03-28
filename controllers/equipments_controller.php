@@ -27,8 +27,8 @@ class EquipmentsController extends AppController {
      */
     var $RequestHandler;
 
-    function BeforeFilter() {
-        $this->Auth->allow('admin_index', 'admin_add', 'admin_delete', 'admin_view', 'admin_edit');
+    function beforeFilter() {
+        //$this->Auth->allow('admin_index', 'admin_add', 'admin_delete', 'admin_view', 'admin_edit');
     }
 
     function admin_index() {

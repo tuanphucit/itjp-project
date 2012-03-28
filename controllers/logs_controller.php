@@ -4,6 +4,7 @@ class LogsController extends AppController {
 	var $name = 'Logs';
 	var $helpers = array('Ajax', 'Javascript', 'Time');
 
+	function beforeFilter(){}
 	function index() {
 		$this->Log->recursive = 0;
 		$this->set('logs', $this->paginate());
