@@ -16,7 +16,9 @@ class RoomTypesController extends AppController {
      */
     var $RequestHandler;
     
-    function beforeFilter(){}
+    function beforeFilter(){
+    	parent::beforeFilter();
+    }
     
  //会議室タイプのインでクスページをセットする機能
     function admin_index() {

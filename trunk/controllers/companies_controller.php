@@ -16,7 +16,9 @@ class CompaniesController extends AppController {
      */
     var $RequestHandler;
 	
-    function beforeFilter(){}
+    function beforeFilter(){
+    	parent::beforeFilter();
+    }
     
     function admin_index() {
         //debug($this->params);

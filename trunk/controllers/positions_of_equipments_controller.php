@@ -14,6 +14,7 @@ class PositionsOfEquipmentsController extends AppController {
 
 	function BeforeFilter(){
 		//$this->Auth->allow('index','add','delete','view','edit');
+		parent::beforeFilter();
 	}
 
 	function index() {

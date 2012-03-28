@@ -62,6 +62,7 @@ class PagesController extends AppController {
      * @access public
      */
     function beforeFilter(){
+    	parent::beforeFilter();
     	$this->Auth->allow('display');
     	//debug($this->params);
     }

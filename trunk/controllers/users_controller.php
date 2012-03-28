@@ -34,6 +34,7 @@ class UsersController extends AppController {
     var $Email;
 
     function beforeFilter() {
+    	parent::beforeFilter();
         $this->Auth->allow('register', 'confirm', 'forgotpassword', 'reset');
         $this->Auth->fields = array('username' => 'email', 'password' => 'password');
     }
@@ -202,7 +203,8 @@ class UsersController extends AppController {
         $this->layout = 'admin_login';
         if (!empty($this->data)) {
             if (isset($this->data ['User'] ['email'])) {
-                $user = &$this->User->find('first', array('conditions' => array('User.email' => trim($this->data ['User'] ['email']), 'User.role' => USER_ROLE_ADMIN), 'fields' => array('User.role')));
+                $user = &$this->User->find('first', array('conditions' => array('User.email' => trim($this->data ['User'] ['email']), 'User.role' => USER_ROLE_ADMIN)));
+                $this->log(debug($user), 'toan');
                 if (!empty($user) && ($user ['User'] ['role'] == USER_ROLE_ADMIN)) {
                     if ($this->Auth->login($this->data)) {
                         $this->redirect($this->referer());
@@ -211,7 +213,7 @@ class UsersController extends AppController {
                         $this->Session->setFlash(__('Email or password is invalid.', true), 'default', array('class' => CLASS_ERROR_ALERT));
                     }
                 } else {
-                    $this->Session->setFlash(__("You don't accept permission to login admin.", true), 'default', array('class' => CLASS_ERROR_ALERT));
+                    $this->Session->setFlash(__("You don't have permission to login admin.", true), 'default', array('class' => CLASS_ERROR_ALERT));
                     $this->redirect('index');
                 }
             } else {
