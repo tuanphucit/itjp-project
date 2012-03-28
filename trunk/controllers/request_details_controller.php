@@ -4,6 +4,7 @@ class RequestDetailsController extends AppController {
 	var $name = 'RequestDetails';
 	var $helpers = array('Ajax', 'Javascript', 'Time');
 
+	function beforeFilter(){}
 	function index() {
 		$this->RequestDetail->recursive = 0;
 		$this->set('requestDetails', $this->paginate());

@@ -15,7 +15,9 @@ class CompaniesController extends AppController {
      * @var RequestHandlerComponent
      */
     var $RequestHandler;
-
+	
+    function beforeFilter(){}
+    
     function admin_index() {
         //debug($this->params);
         $conditions = array();

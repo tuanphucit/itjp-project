@@ -15,6 +15,9 @@ class RoomTypesController extends AppController {
      * @var RequestHandlerComponent
      */
     var $RequestHandler;
+    
+    function beforeFilter(){}
+    
  //会議室タイプのインでクスページをセットする機能
     function admin_index() {
         //debug($this->params);
