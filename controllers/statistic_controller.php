@@ -7,7 +7,9 @@ class StatisticController extends AppController {
     var $uses = array();
     var $layout = 'admin';
 	
-    function beforeFilter(){}
+    function beforeFilter(){
+    	parent::beforeFilter();
+    }
     
     function admin_chart() {
         

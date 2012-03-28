@@ -28,7 +28,9 @@ class RequestsController extends AppController {
      */
     var $RequestHandler;
 	
-    function beforeFilter(){}
+    function beforeFilter(){
+    	parent::beforeFilter();
+    }
     
     function index() {
         //$this->layout = 'test';

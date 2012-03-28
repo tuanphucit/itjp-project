@@ -28,7 +28,10 @@ class RoomsController extends AppController {
      */
     var $RequestHandler;
     
-    function beforeFilter(){}
+    function beforeFilter(){
+    	parent::beforeFilter();
+    	$this->Auth->allow('index');
+    }
 
     //会議室インでクスページをセットする機能
     // liet ke tat ca cac phong
