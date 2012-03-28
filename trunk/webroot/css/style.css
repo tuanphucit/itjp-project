@@ -809,3 +809,7 @@ div.alert_success {
     font-size: 12px;
 }
 /* Modules */
+.content div#about .room_img {
+    width: 210px;
+    height: auto;
+}

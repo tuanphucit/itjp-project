@@ -1,3 +1,8 @@
+<?
+/* @var $form FormHelper */
+/* @var $html HtmlHelper */
+/* @var $js JsHelper */
+?>
 <div id="about">
     <h2 style="text-align: center"><?php __('Sign In'); ?></h2>
     <?php echo $this->Session->flash(); ?>
