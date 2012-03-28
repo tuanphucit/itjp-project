@@ -517,7 +517,7 @@ p a,h3 a{
     margin: 500px auto 0;
     width: 960px;
 }
-.content div#activities,.content div#restaurant,
+.content div#restaurant,
 .content div#featured{
     margin-top: -490px;
     background-color: #fff;
@@ -532,7 +532,7 @@ p a,h3 a{
     overflow: hidden;
     border-radius: 5px;
 }
-.content div#activities h2,.content div#about h2,.content div#restaurant h2,
+.content div#about h2,.content div#restaurant h2,
 .content div#featured h2{
     background: url(../images/interface.gif) no-repeat 0 -230px;
     height: 71px;
@@ -544,7 +544,7 @@ p a,h3 a{
     font-size: 30px;
     text-transform: capitalize;
 }
-.content div#about div,.content div#cruises div,.content div#featured div{
+.content div#about div,.content div#featured div{
     margin: 0;
     width: auto;
     float: left;
@@ -592,16 +592,6 @@ p a,h3 a{
     float: none;
     margin: 0;
 }
-.content div#activities h2{
-    height: 71px;
-    width: 960px;
-    margin: 0;
-    color: #041c4c;
-    line-height: 67px;
-    text-indent: 30px;	
-    font-size: 30px;
-    text-transform: capitalize;
-}
 .content div#about p{
     margin: 0 30px 15px;
     font-family: arial;
@@ -620,11 +610,6 @@ p a,h3 a{
     line-height: 26px;
     text-align: justify;
 }
-.content div#cruises p a{
-    color: #105272;
-    font-weight: bold;
-    text-decoration: none;
-}
 .content div#about p a{
     color: #555555;
     text-decoration: underline;
@@ -641,65 +626,11 @@ p a,h3 a{
     border-style: none none none solid; 
     border-color: #dfdfdf;
 }
-.content div#activities ul li a img:hover,.content div#restaurant ul li a img:hover
-,.content div#featured div a img:hover,#content div ul li a img:hover{
+.content div#restaurant ul li a img:hover,.content div#featured div a img:hover,#content div ul li a img:hover{
     filter:alpha(opacity=80);
     opacity:0.8;
 }
-.content div#activities ul{
-    list-style: none;
-    float: left;
-    margin: 0;
-    padding: 0;
-}
-.content div#activities ul li{
-    overflow: hidden;
-    border-width: 1px;
-    border-style: none none solid none;
-    border-color: #dcdcdc;
-    padding: 30px;
-    height: 1%;
-}
-.content div#activities ul li.last{
-    border: none;
-}
-.content div#activities h3{
-    float: right;
-    margin: 0 0 10px;
-    width: 460px;
-    font-family: arial;
-    font-size: 14px;
-    color: #105272;
-    text-align: justify;
-}
-.content div#activities ul li ul{
-    list-style: disc;
-    color: #555555;
-    padding: 0 0 0 15px;
-    width: 445px;
-    margin: 0;
-    float: left;
-}
-.content div#activities ul li ul li{
-    border: none;
-    padding: 0;
-    overflow: visible;
-    margin: 15px 0;
-}
-.content div#activities ul li ul li p{
-    font-family: arial;
-    font-size: 14px;
-    color: #105272;
-    text-align: justify;
-    color: #555555;
-}
-.content div#activities h3 a{
-    float: none !important;
-    margin: 0 !important;
-    color: #105272;
-    font-size: 14px;
-    font-weight: bold;
-}
+
 .content div#restaurant ul li.first{
     border: 0;
 }
