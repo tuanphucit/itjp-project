@@ -1,4 +1,4 @@
-<div id="activities">
+<div id="about">
     <h2><?php __('List Room'); ?></h2>
     <ul>
         <li>

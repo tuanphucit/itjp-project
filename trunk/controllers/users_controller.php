@@ -105,13 +105,13 @@ class UsersController extends AppController {
 
     //パスワードを忘れ場合、また新しいパスワードを取得する機能
     function forgotpassword() {
-        $this->layout = 'admin_login';
-        debug($this->data);
+        //$this->layout = 'admin_login';
+        //debug($this->data);
         if (!empty($this->data) && $this->data ['User'] ['email'] != '') {
             $email_post = $this->data ['User'] ['email'];
             if (Validation::email($email_post)) {
                 $users = &$this->User->find('all', array('fields' => array('User.id', 'User.email', 'User.password'), 'conditions' => array('User.status' => USER_STATUS_ACTIVE, 'User.email' => $this->data ['User'] ['email'])));
-                debug($users);
+                //debug($users);
                 $found = 0;
                 $password = $this->_genRandomString();
                 foreach ($users as $user) {
@@ -121,12 +121,12 @@ class UsersController extends AppController {
                         $this->set('user', $email_post);
                         $this->set('password', $password);
                         $mailInfo = $this->getMailConfig($this->readMailInfo('EmailConfiguration.txt'));
-                        debug($mailInfo);
+                        //debug($mailInfo);
 
                         if ($this->admin_sendmail($mailInfo [0], $mailInfo [1], $mailInfo [2], $mailInfo [3], $mailInfo [4], $email_post, 'Recover Lost Password', 'ForgotPasswordEmailTemplate')) {
                             $this->User->saveField('password', $this->Auth->password($password));
                             $this->Session->setFlash(__('Your password have been sent to your email address!', true), 'default', array('class' => CLASS_SUCCESS_ALERT));
-                            $this->redirect('login');
+                            $this->redirect(array('controller' => 'pages', 'action' => 'display', 'home'));
                         } else
                             $this->Session->setFlash(__('May be there are errors during sending email!', true), 'default', array('class' => CLASS_ERROR_ALERT));
                         $found = 1;
@@ -386,43 +386,6 @@ class UsersController extends AppController {
                 $this->Session->setFlash(__('The user could not be saved. Please, try again.', true), 'default', array('class' => CLASS_WARNING_ALERT));
             }
         }
-
-//        if (!empty($this->data)) {
-//            $error = false;
-//            $page = $this->Session->read('page');
-//            if ($this->data ['User'] ['status'] == USER_STATUS_DELETE) {
-//                $this->admin_delete($id);
-//
-//                $this->Session->setFlash('User has been deleted!');
-//                $this->redirect('index');
-//                $this->Session->delete('page');
-//            } else {
-//
-//                $this->data ['User'] ['id'] = $id;
-//                $this->data ['User'] ['last_access'] = date('Y-m-d H:m:s');
-//
-//                if (empty($this->data ['User'] ['password_change']) && empty($this->data ['User'] ['confirm'])) {
-//                    $this->data ['User'] ['password'] = $this->Session->read('password');
-//                } elseif ($this->data ['User'] ['password_change'] == $this->data ['User'] ['confirm']) {
-//                    $this->data ['User'] ['password'] = $this->Auth->password($this->data ['User'] ['password_change']);
-//                } else {
-//                    $error = true;
-//                }
-//
-//                if (!$error) {
-//                    $this->data ['User'] ['last_access'] = date('Y-m-d H:m:s');
-//                    //debug($this->data);
-//                    if ($this->User->save($this->data)) {
-//                        $this->Session->setFlash(__('The user has been saved', true));
-//                        $this->redirect('index/page:' . $page);
-//                        $this->Session->delete('page');
-//                    } else {
-//                        $this->Session->setFlash(__('The user could not be saved. Please, try again.', true));
-//                    }
-//                } else
-//                    echo $this->Session->setFlash('Password and Confirm Password not math. Try again!');
-//            }
-//        }
         if (empty($this->data)) {
             $this->data = $this->User->read(null, $id);
             $this->data['User']['company'] = $this->data['User']['company_id'];
@@ -582,6 +545,11 @@ class UsersController extends AppController {
 
     function view() {
         $this->set('page', 'profile');
+        if (!($id = $this->Session->read('Auth.User.id'))) {
+            $this->Session->setFlash(__('Invalid user id', true), 'default', array('class' => CLASS_ERROR_ALERT));
+            $this->redirect(array('controller' => 'pages', 'action' => 'display', 'home'));
+        }
+        $this->set('User', $this->User->find('first', array('conditions' => array('User.id' => $id))));
     }
 
 }

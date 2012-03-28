@@ -68,6 +68,7 @@ class RoomsController extends AppController {
 
     // tim kiem phog chong
     function find() {
+        $this->layout = 'dhtmlx';
         //debug($this->data);
         $conditions = array();
         //TODO : xu ly data submit
