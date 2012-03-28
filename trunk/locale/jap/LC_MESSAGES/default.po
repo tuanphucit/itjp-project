@@ -3091,16 +3091,16 @@ msgstr "T09"
 
 #: \views\layouts\admin.ctp:29;43;29;43;29;43
 msgid "Website Admin"
-msgstr "アドミンウェブサイト"
+msgstr "管理者ウェブサイト"
 
 #: \views\layouts\admin.ctp:33;33;33
 msgid "View Site"
-msgstr "ビューサイト"
+msgstr "サイトビュー"
 
 #: \views\layouts\admin.ctp:38;38;38
 #: \views\layouts\sitebar.ctp:40;40;40
 msgid "Admin"
-msgstr "アドミン"
+msgstr "管理者"
 
 #: \views\layouts\admin.ctp:39;39;39;39;39;39
 #: \views\layouts\sitebar.ctp:48;48;48
@@ -3113,7 +3113,7 @@ msgstr "ログアウト"
 
 #: \views\layouts\admin.ctp:55;55;55
 msgid "Copyright &copy; %d Team 09 - IT Japanese"
-msgstr "著作権＆コーピ；%d　チーム０９　－IT日本語"
+msgstr "著作権&copy;%d　チーム０９　－IT日本語"
 
 #: \views\layouts\admin_login.ctp:24;24;24
 msgid "Room Booking"
@@ -3670,13 +3670,15 @@ msgstr "新しいパスワードを取得するために、本当のメールアドレスを入力してください
 
 #: \views\users\forgotpassword.ctp:49;49;49
 msgid "Send"
-msgstr "送信"
+msgstr "Send"
 
 #: \views\users\index.ctp:59;59;59
 #: \views\users\view.ctp:57;57;57
 msgid "New User"
 msgstr "新ユーザ"
-
+#: \views\users\register.ctp
+msgid "Welcome to Room Booking System"
+msgstr "おはよう"
 #: \views\users\register.ctp:97;97;97
 msgid "Confirm Password"
 msgstr "確認パスワード"

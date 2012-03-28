@@ -3,7 +3,7 @@
 class RequestsController extends AppController {
 
     var $name = 'Requests';
-    var $helpers = array('Ajax', 'Js');
+    var $helpers = array('Ajax', 'Js', 'Csv');
     var $components = array('RequestHandler');
     var $uses = array('Request', 'RequestDetail', 'Room');
     //var $paginate = array('order' => array('Request.update_time' => 'desc'), 'limit' => '10');
@@ -251,6 +251,10 @@ class RequestsController extends AppController {
         }
         $this->Session->setFlash(__('Request was not deleted', true));
         $this->redirect(array('action' => 'index'));
+    }
+    function admin_csvexport(){
+    	$this->layout = 'ajax';
+        $this->set('rs', $this->Request->find('all'));
     }
 
 }

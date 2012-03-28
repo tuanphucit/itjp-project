@@ -204,7 +204,7 @@ class UsersController extends AppController {
         if (!empty($this->data)) {
             if (isset($this->data ['User'] ['email'])) {
                 $user = &$this->User->find('first', array('conditions' => array('User.email' => trim($this->data ['User'] ['email']), 'User.role' => USER_ROLE_ADMIN)));
-                $this->log(debug($user), 'toan');
+                //$this->log(debug($user), 'toan');
                 if (!empty($user) && ($user ['User'] ['role'] == USER_ROLE_ADMIN)) {
                     if ($this->Auth->login($this->data)) {
                         $this->redirect($this->referer());
