@@ -54,18 +54,35 @@ class CompaniesController extends AppController {
         $this->layout = 'admin';
         $this->set('title_for_layout', __('Companies Management', true));
         if (!empty($this->data)) {
-            $this->RoomType->create();
-            if ($this->RoomType->save($this->data)) {
-                $this->Session->setFlash(__('The room type has been saved', true));
-                $this->redirect(array('action' => 'index'));
+            $this->Company->create();
+            if ($this->Company->save($this->data)) {
+                $this->Session->setFlash(__('The company has been saved', true), 'default', array('class' => CLASS_SUCCESS_ALERT));
+                $this->redirect(array('action' => 'admin_index'));
             } else {
-                $this->Session->setFlash(__('The room type could not be saved. Please, try again.', true));
+                $this->Session->setFlash(__('The company could not be saved. Please, try again.', true), 'default', array('class' => CLASS_ERROR_ALERT));
             }
         }
     }
 
-    function admin_edit() {
-        
+    function admin_edit($id) {
+        $this->layout = "admin";
+        $this->set('title_for_layout', __('Companies Management', true));
+        if (!$id && empty($this->data)) {
+            $this->Session->setFlash(__('Invalid company', true), 'default', array('class' => CLASS_ERROR_ALERT));
+            $this->redirect(array('action' => 'admin_index'));
+        }
+        if (!empty($this->data)) {
+            $this->data['Company']['id'] = $id;
+            if ($this->Company->save($this->data)) {
+                $this->Session->setFlash(__('The company has been saved', true), 'default', array('class' => CLASS_SUCCESS_ALERT));
+                $this->redirect(array('action' => 'admin_index'));
+            } else {
+                $this->Session->setFlash(__('The company could not be saved. Please, try again.', true), 'default', array('class' => CLASS_ERROR_ALERT));
+            }
+        }
+        if (empty($this->data)) {
+            $this->data = $this->Company->read(null, $id);
+        }
     }
 
 }

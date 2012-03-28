@@ -25,8 +25,8 @@ $stt = ($this->Paginator->current() - 1 ) * $limit;
             <tr>
                 <th style="width: 5%" class="tableheader"><?php __("#"); ?></th>
                 <th style="width: 5%" class="tableheader"><?php echo $form->checkbox('SelectAll', array('title' => __('Select all', true), 'class' => 'cb_allItem')); ?></th>
-                <th style="width: 20%" class="tableheader"><?php echo $this->Paginator->sort(__('Name', true), 'Company.code'); ?></th>
-                <th style="width: 60%" class="tableheader"><?php echo $this->Paginator->sort(__('Description', true), 'Company.name'); ?></th>
+                <th style="width: 20%" class="tableheader"><?php echo $this->Paginator->sort(__('Code', true), 'Company.code'); ?></th>
+                <th style="width: 60%" class="tableheader"><?php echo $this->Paginator->sort(__('Name', true), 'Company.name'); ?></th>
                 <th style="width: 10%" class="tableheader"><?php __('Actions'); ?></th>
             </tr>
         </thead>
