@@ -20,7 +20,8 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<?php echo $this->Html->charset(); ?>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<?php //echo $this->Html->charset(); ?>
 <title><?php __('Room Booking'); ?> <?php echo $title_for_layout; ?>
 </title>
 <?php
@@ -28,6 +29,7 @@
 
 //echo $this->Html->css('cake.generic');
 echo $this->Html->css('admin_style.css');
+echo $this->Html->css('alert_style.css');
 echo $this->Html->css('jquery-ui.css');
 echo $this->Html->css('jquery.miniColors.css');
 

@@ -6,7 +6,8 @@
 <?php echo $html->docType(); ?>
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
-        <?php echo $html->charset(); ?>
+    	<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+        <?php //echo $html->charset(); ?>
         <title><?php __('T09'); ?> <?php echo ' :: ' . $title_for_layout; ?>
         </title>
         <?php
@@ -27,7 +28,7 @@
     <body>
         <div id="header">
             <h1 class="site_title">
-                <?php __('Website Admin'); ?>
+                <?php __('Website Admin',true); ?>
             </h1>
             <h2 class="section_title"><?php echo $title_for_layout; ?></h2>
             <div class="btn_view_site">

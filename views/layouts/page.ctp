@@ -5,8 +5,10 @@
 ?>
 <?php echo $html->docType(); ?>
 <html xmlns="http://www.w3.org/1999/xhtml">
+
     <head>
         <?php echo $html->charset(); ?>
+        <meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
         <title><?php __('T09'); ?><?php echo ' :: ' . $title_for_layout; ?></title>
         <?php
         echo $html->meta('icon');
