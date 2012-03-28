@@ -6,7 +6,7 @@
         <?php echo $html->link(__('About Us', true), array('controller' => 'pages', 'action' => 'display', 'about_us')); ?>
     </li>
     <li <?php echo $page == 'service' ? 'class="selected"' : ''; ?>>
-        <?php echo $html->link(__('Service', true), array('controller' => 'pages', 'action' => 'display', 'service')); ?>
+        <?php echo $html->link(__('Contacr Us', true), array('controller' => 'pages', 'action' => 'display', 'contact_us')); ?>
     </li>
     <?php if ($session->check('Auth.User.id')): ?>
         <li <?php echo $page == 'profile' ? 'class="selected"' : ''; ?>>
