@@ -51,10 +51,10 @@ class RoomTypesController extends AppController {
         if (!empty($this->data)) {
             $this->RoomType->create();
             if ($this->RoomType->save($this->data)) {
-                $this->Session->setFlash(__('The room type has been saved', true));
+                $this->Session->setFlash(__('The room type has been saved', true),'default',array('class'=>CLASS_SUCCESS_ALERT));
                 $this->redirect(array('action' => 'index'));
             } else {
-                $this->Session->setFlash(__('The room type could not be saved. Please, try again.', true));
+                $this->Session->setFlash(__('The room type could not be saved. Please, try again.', true),'default',array('class'=>CLASS_ERROR_ALERT));
             }
         }
     }
@@ -63,15 +63,15 @@ class RoomTypesController extends AppController {
         $this->layout = "admin";
         $this->set('title_for_layout', __('Room Types Management', true));
         if (!$id && empty($this->data)) {
-            $this->Session->setFlash(__('Invalid room type', true));
+            $this->Session->setFlash(__('Invalid room type', true),'default',array('class'=>CLASS_ERROR_ALERT));
             $this->redirect(array('action' => 'index'));
         }
         if (!empty($this->data)) {
             if ($this->RoomType->save($this->data)) {
-                $this->Session->setFlash(__('The room type has been saved', true));
+                $this->Session->setFlash(__('The room type has been saved', true),'default',array('class'=>CLASS_SUCCESS_ALERT));
                 $this->redirect(array('action' => 'index'));
             } else {
-                $this->Session->setFlash(__('The room type could not be saved. Please, try again.', true));
+                $this->Session->setFlash(__('The room type could not be saved. Please, try again.', true),'default',array('class'=>CLASS_ERROR_ALERT));
             }
         }
         if (empty($this->data)) {
