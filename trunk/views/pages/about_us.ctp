@@ -13,6 +13,6 @@
 		<li>Thieu Tuan Anh IS3</li>
 		<li>Nguen Ngoc Oanh IS1</li>
 		<li>Hoang Dang Lam IS2</li>
-		<li>Do Viet Hao IS1</li>
-	<ul>
+		<li>Nguyen Viet Hao IS1</li>
+	</ul>
 </div>
