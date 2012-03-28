@@ -32,62 +32,34 @@
  */
 require 'config/constant.php';
 class AppController extends Controller {
-	var $components = array('Auth','Session', 'P28n');
-
-	function beforeFilter() {
-		$this->Auth->allow(array('controller'=>'pages', 'action'=>'display'));
+	var $components = array ('Auth', 'Session', 'P28n' );
 	
-		$this->Auth->fields = array ('username' => 'email', 'password' => 'password' );
+	function beforeFilter() {
 		
-		/*
-		$isUser = $this->Session->read('isUser');
+		//$this->log($this->params['action'], 'toan');
+		
+
+		$isUser = $this->Session->read ( 'isUser' );
 		
 		//debug($this->params);
-		if(isset($this->params['admin'])){
-			if ($isUser){
-				$this->Session->destroy();
-				
+		if (isset ( $this->params ['admin'] )) {
+			if ($isUser) {
+				$this->Session->destroy ();
+			
 			}
 			$isUser = false;
 			$this->layout = 'admin';
-			$this->Session->write('isUser', false);
+			$this->Session->write ( 'isUser', false );
 			
-			$this->Auth->userScope = array('User.role'=>0);
-			
-			$this->Auth->autoRedirect = true;
-			$this->Auth->loginRedirect = array('controller'=>'users','action'=>'admin_index');
-		}
-		else {
-			if (!$isUser){
-				$this->Session->destroy();
-				
-			}
-			
-			$status = $this->Session->read('Auth.User.status');
-			if (isset($status) && $status < 1){
-				$this->Session->destroy();
-				$this->Session->setFlash('You have been disable or deleted!');
-			}
-			
-			elseif (isset($status) && $status >= 2 ){
-				$this->Auth->allow = 'confirm';
-				$this->Session->destroy();
-				$this->Session->setFlash('You must active first! Please login your email and confirm!');
-			}
-			
-			
-			$isUser = true;
-			$this->Session->write('isUser', true);
-			$this->Auth->userScope = array('User.role >'=>0);
+			$this->Auth->userScope = array ('User.role' => 0 );
 			
 			$this->Auth->autoRedirect = true;
-			$this->Auth->loginRedirect = array('controller'=>'users','action'=>'index');
+			$this->Auth->loginRedirect = array ('controller' => 'users', 'action' => 'admin_index' );
+		} else {
+			$this->Session->write ( 'isUser', true );
 		}
-		
-		
-		*/
-		$this->Auth->logoutRedirect = array('controller' => 'pages', 'action' => 'display', 'home');
-		
+		$this->Auth->logoutRedirect = array ('controller' => 'pages', 'action' => 'display', 'home' );
+	
 	}
 
 }
