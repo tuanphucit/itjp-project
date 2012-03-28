@@ -27,10 +27,10 @@ class RoomsController extends AppController {
      * @var RequestHandlerComponent
      */
     var $RequestHandler;
-    
-    function beforeFilter(){
-    	parent::beforeFilter();
-    	$this->Auth->allow('index');
+
+    function beforeFilter() {
+        parent::beforeFilter();
+        $this->Auth->allow('index');
     }
 
     //会議室インでクスページをセットする機能
@@ -73,7 +73,7 @@ class RoomsController extends AppController {
 
     // tim kiem phog chong
     function find() {
-        $this->layout = 'dhtmlx';
+        //$this->layout = 'dhtmlx';
         //debug($this->data);
         $conditions = array();
         //TODO : xu ly data submit
@@ -126,10 +126,68 @@ class RoomsController extends AppController {
         $this->set('rdurl', 'http://localhost/itjp-project/rooms/find/sort:' . $sort . '/direction:' . $direction . '/limit:');
         $this->set('limit', $limit);
         $this->set('list', $this->paginate('Room'));
-        if ($this->RequestHandler->isAjax()) {
-            $this->layout = 'ajax';
-            $this->render('list_rooms.ajax');
+//        if ($this->RequestHandler->isAjax()) {
+//            $this->layout = 'ajax';
+//            $this->render('list_rooms.ajax');
+//        }
+    }
+
+    function find_iframe() {
+        $this->layout = 'dhtmlx';
+        //debug($this->data);
+        $conditions = array();
+        if (isset($this->data['Room']['type']) && !empty($this->data['Room']['type'])) {
+            $conditions['Room.typeid'] = (int) $this->data['Room']['type'];
         }
+        if (isset($this->data['Room']['seat']) && !empty($this->data['Room']['seat'])) {
+            switch ((int) $this->data['Room']['seat']) {
+                case 1:
+                    $conditions['Room.quantity_seat <='] = 10;
+                    break;
+                case 2:
+                    $conditions['Room.quantity_seat BETWEEN ? AND ?'] = array(10, 20);
+                    break;
+                case 3:
+                    $conditions['Room.quantity_seat BETWEEN ? AND ?'] = array(20, 30);
+                    break;
+                case 4:
+                    $conditions['Room.quantity_seat BETWEEN ? AND ?'] = array(30, 50);
+                    break;
+                case 5:
+                    $conditions['Room.quantity_seat >='] = 50;
+                    break;
+                default:
+                    break;
+            }
+        }
+        //TODO : tim theo thoi gian
+        if (isset($this->data['Room']['ftime']) && !empty($this->data['Room']['ftime'])) {
+            
+        }
+        if (isset($this->data['Room']['ttime']) && !empty($this->data['Room']['ttime'])) {
+            
+        }
+        $limit = isset($this->params['named']['limit']) ? (int) $this->params['named']['limit'] : 10;
+        $sort = isset($this->params['named']['sort']) ? $this->params['named']['sort'] : 'Room.name';
+        $direction = isset($this->params['named']['direction']) ? $this->params['named']['direction'] : 'asc';
+        $page = isset($this->params['named']['page']) ? (int) $this->params['named']['page'] : 1;
+        //$fields = array('id', 'order_date', 'update_time', 'user_id', 'customer_name', 'tel', 'sum', 'status');
+        $this->paginate = array(
+            //'fields' => $fields,
+            'conditions' => $conditions,
+            'limit' => $limit,
+            'order' => array($sort => $direction),
+            'page' => $page,
+            'recursives' => 0
+        );
+        $this->set('listRoomTypes', $this->RoomType->find('list', array('fiels' => array('id', 'name'))));
+        $this->set('rdurl', 'http://localhost/itjp-project/rooms/find/sort:' . $sort . '/direction:' . $direction . '/limit:');
+        $this->set('limit', $limit);
+        $this->set('list', $this->paginate('Room'));
+//        if ($this->RequestHandler->isAjax()) {
+//            $this->layout = 'ajax';
+//            $this->render('list_rooms.ajax');
+//        }
     }
 
     //アドミンのインでクスページをセットする機能
