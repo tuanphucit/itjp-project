@@ -404,7 +404,13 @@ div#main {
 }
 .module_content {
     margin: 10px 20px;
-    color: #666;}
+    color: #666;    
+}
+.csv-export{
+	float: right;
+	position: relative;
+	top: -25px;
+}
 /* main module content*/
 
 #main .module_content h1 {

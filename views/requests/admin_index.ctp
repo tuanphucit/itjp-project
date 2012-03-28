@@ -22,8 +22,18 @@ $html->addCrumb(__('Booking Management', true), '/admin/requests');
         echo $form->input('fscustomer', array('label' => 'Customer:', 'type' => 'text', 'div' => false));
         echo $form->end(array('label' => 'Search', 'div' => false));
         ?>
+    <div class="csv-export">
+    	<?php echo $this->Form->button('CSV Export', array('type'=>'button', 'onclick'=>'gotoCSVExport();'));?>
     </div>
+    </div>
+    
 </div>
 <div class="module width_full" id="result_box">
     <?php echo $this->element('/../requests/list.ajax'); ?>
 </div>
+
+<script type="text/javascript">
+	function gotoCSVExport(){
+		location.href="./requests/csvexport";
+	}
+</script>
