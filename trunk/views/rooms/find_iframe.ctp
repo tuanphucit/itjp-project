@@ -2,7 +2,7 @@
     function init() {
 
         scheduler.locale.labels.timeline_tab = "Timeline";
-        scheduler.locale.labels.section_custom="Section";
+        scheduler.locale.labels.section_custom="Room";
         scheduler.config.details_on_create=true;
         scheduler.config.details_on_dblclick=true;
         scheduler.config.xml_date="%Y-%m-%d %H:%i";
@@ -13,19 +13,11 @@
         //===============	
 		
         elements = [ // original hierarhical array to display
-            {key:10, label:"Web Testing Dep.", open: true, children: [
-                    {key:20, label:"Elizabeth Taylor"},
-                    {key:30, label:"Managers",  children: [
-                            {key:40, label:"John Williams"},
-                            {key:50, label:"David Miller"}
-                        ]},
-                    {key:60, label:"Linda Brown"},
-                    {key:70, label:"George Lucas"}
-                ]},
-            {key:110, label:"Human Relations Dep.", open:true, children: [
-                    {key:80, label:"Kate Moss"},
-                    {key:90, label:"Dian Fossey"}
-                ]}
+<?php
+foreach ($listRooms as $roomId => $roomName) {
+    echo '{key:' . $roomId . ', label:"Room ' . $roomName . '"},';
+}
+?>
         ];
         scheduler.createTimelineView({
             section_autoheight: false,
@@ -50,8 +42,9 @@
             {name:"custom", height:23, type:"timeline", options:null , map_to:"section_id" }, //type should be the same as name of the tab
             {name:"time", height:72, type:"time", map_to:"auto"}
         ]
-        scheduler.init('scheduler_here',new Date(2009,5,30),"timeline");
+        scheduler.init('scheduler_here',new Date(),"timeline");
         scheduler.parse([
+            <?php  ?>
             { start_date: "2009-06-30 09:00", end_date: "2009-06-30 12:00", text:"Task A-12458", section_id:20},
             { start_date: "2009-06-30 10:00", end_date: "2009-06-30 16:00", text:"Task A-89411", section_id:20},
             { start_date: "2009-06-30 10:00", end_date: "2009-06-30 14:00", text:"Task A-64168", section_id:20},
