@@ -162,7 +162,7 @@ class RoomsController extends AppController {
         }
         //TODO : tim theo thoi gian
         if (isset($this->data['Room']['ftime']) && !empty($this->data['Room']['ftime'])) {
-            
+            //$conditions['RequestDetail']['']
         }
         if (isset($this->data['Room']['ttime']) && !empty($this->data['Room']['ttime'])) {
             
@@ -180,7 +180,7 @@ class RoomsController extends AppController {
             'page' => $page,
             'recursives' => 0
         );
-        $this->set('listRoomTypes', $this->RoomType->find('list', array('fiels' => array('id', 'name'))));
+        $this->set('listRooms', $this->Room->find('list', array('fiels' => array('id', 'name'))));
         $this->set('rdurl', 'http://localhost/itjp-project/rooms/find/sort:' . $sort . '/direction:' . $direction . '/limit:');
         $this->set('limit', $limit);
         $this->set('list', $this->paginate('Room'));

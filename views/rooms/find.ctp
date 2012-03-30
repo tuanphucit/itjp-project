@@ -3,7 +3,7 @@
 /* @var $html HtmlHelper */
 /* @var $js JsHelper */
 ?>
-<div id="about">
+<div id="about" style="padding-bottom: 0px;">
     <h2><?php __('Find free rooms'); ?></h2>
     <div id="search_box">
         <?php
@@ -43,5 +43,5 @@
             });
         });    
     </script>
-    <iframe name="find_iframe" src="<?php echo $html->url(array('action' => 'find_iframe')); ?>" style="width: 100%;height: 500px"></iframe>
+    <iframe name="find_iframe" src="<?php echo $html->url(array('action' => 'find_iframe')); ?>" style="width: 100%;height: 600px"></iframe>
 </div>
