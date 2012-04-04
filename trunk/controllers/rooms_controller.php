@@ -197,7 +197,7 @@ class RoomsController extends AppController {
         $conditions = array();
         //TODO : xu ly data submit
         if (isset($this->data['Room']['name']) && !empty($this->data['Room']['name'])) {
-            $conditions['Room.name LIKE'] = $this->data['Room']['name'] . '%';
+            $conditions['Room.name LIKE'] = '%' . $this->data['Room']['name'] . '%';
         }
         if (isset($this->data['Room']['type']) && !empty($this->data['Room']['type'])) {
             $conditions['Room.typeid'] = (int) $this->data['Room']['type'];
@@ -263,6 +263,9 @@ class RoomsController extends AppController {
             $this->redirect(array('action' => 'index'));
         }
         if (!empty($this->data)) {
+            if (!isset($this->data['Room']['id']) || empty($this->data['Room']['id'])) {
+                $this->data['Room']['id'] = (int) $id;
+            }
             if ($this->Room->save($this->data)) {
                 $this->Session->setFlash(__('The room has been saved', true));
                 $this->redirect(array('action' => 'index'));

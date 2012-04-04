@@ -18,7 +18,7 @@ $html->addCrumb(__('Edit Room Type', true), '/admin/room_types/edit');
     <div id="search_box" class="module_content">
         <?php
         //TODO : make style cho form admin edit room type
-        echo $form->create('RoomType');
+        echo $form->create('RoomType', array('url' => array('controller' => 'RoomTypes', 'action' => 'admin_edit')));
         echo $form->input('name', array('type' => 'text'));
         echo $form->input('description', array('type' => 'textarea'));
         echo $form->end(__('Submit', true));
