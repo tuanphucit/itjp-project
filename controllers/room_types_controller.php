@@ -1,5 +1,6 @@
 <?php
- //このコントーラは会議室タイプの操作を管理する物です。
+
+//このコントーラは会議室タイプの操作を管理する物です。
 class RoomTypesController extends AppController {
 
     var $name = 'RoomTypes';
@@ -15,12 +16,12 @@ class RoomTypesController extends AppController {
      * @var RequestHandlerComponent
      */
     var $RequestHandler;
-    
-    function beforeFilter(){
-    	parent::beforeFilter();
+
+    function beforeFilter() {
+        parent::beforeFilter();
     }
-    
- //会議室タイプのインでクスページをセットする機能
+
+    //会議室タイプのインでクスページをセットする機能
     function admin_index() {
         //debug($this->params);
         $conditions = array();
@@ -49,41 +50,47 @@ class RoomTypesController extends AppController {
             $this->layout = 'admin';
         }
     }
- //会議室タイプの追加ぺーじをセットする機能
+
+    //会議室タイプの追加ぺーじをセットする機能
     function admin_add() {
         $this->layout = "admin";
         $this->set('title_for_layout', __('Room Types Management', true));
         if (!empty($this->data)) {
             $this->RoomType->create();
             if ($this->RoomType->save($this->data)) {
-                $this->Session->setFlash(__('The room type has been saved', true),'default',array('class'=>CLASS_SUCCESS_ALERT));
+                $this->Session->setFlash(__('The room type has been saved', true), 'default', array('class' => CLASS_SUCCESS_ALERT));
                 $this->redirect(array('action' => 'index'));
             } else {
-                $this->Session->setFlash(__('The room type could not be saved. Please, try again.', true),'default',array('class'=>CLASS_ERROR_ALERT));
+                $this->Session->setFlash(__('The room type could not be saved. Please, try again.', true), 'default', array('class' => CLASS_ERROR_ALERT));
             }
         }
     }
- //会議室タイプの編集ページをセットする機能
+
+    //会議室タイプの編集ページをセットする機能
     function admin_edit($id = null) {
         $this->layout = "admin";
         $this->set('title_for_layout', __('Room Types Management', true));
         if (!$id && empty($this->data)) {
-            $this->Session->setFlash(__('Invalid room type', true),'default',array('class'=>CLASS_ERROR_ALERT));
+            $this->Session->setFlash(__('Invalid room type', true), 'default', array('class' => CLASS_ERROR_ALERT));
             $this->redirect(array('action' => 'index'));
         }
         if (!empty($this->data)) {
+            if (!isset($this->data['RoomType']['id']) || empty($this->data['RoomType']['id'])) {
+                $this->data['RoomType']['id'] = (int) $id;
+            }
             if ($this->RoomType->save($this->data)) {
-                $this->Session->setFlash(__('The room type has been saved', true),'default',array('class'=>CLASS_SUCCESS_ALERT));
+                $this->Session->setFlash(__('The room type has been saved', true), 'default', array('class' => CLASS_SUCCESS_ALERT));
                 $this->redirect(array('action' => 'index'));
             } else {
-                $this->Session->setFlash(__('The room type could not be saved. Please, try again.', true),'default',array('class'=>CLASS_ERROR_ALERT));
+                $this->Session->setFlash(__('The room type could not be saved. Please, try again.', true), 'default', array('class' => CLASS_ERROR_ALERT));
             }
         }
         if (empty($this->data)) {
             $this->data = $this->RoomType->read(null, $id);
         }
     }
- //会議室タイプを削除する機能
+
+    //会議室タイプを削除する機能
     function admin_delete($id = null) {
         //$this->uses = array('Room', 'RoomType');
         if (!$id) {

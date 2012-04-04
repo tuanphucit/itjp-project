@@ -22,7 +22,7 @@ $html->addCrumb(__('Edit Room', true), '/admin/rooms/edit');
     <div id="search_box" class="module_content">
         <?php
         //TODO : make style cho form admin edit room
-        echo $form->create('Room');
+        echo $form->create('Room',array('url' => array('controller'=>'rooms','action' => 'admin_edit')));
         echo $form->input('name', array('label' => __('Room Name', true), 'type' => 'text'));
         echo $form->input('typeid', array('label' => __('Room Type', true), 'type' => 'select', 'options' => $listRoomTypes));
         echo $form->input('quantity_seat', array('label' => __('Quantity Seat', true), 'type' => 'text'));
