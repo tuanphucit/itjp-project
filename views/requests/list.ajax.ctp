@@ -92,7 +92,7 @@ function makeupStatus($statusid) {
                         <?php
                         echo $html->image('admin_layout/icn_aprove.gif', array('url' => array('action' => 'admin_view', $item['Request']['id']), 'title' => __('View # ' . $stt, true), 'alt' => 'view'));
                         //echo $html->image('admin_layout/icn_edit.png', array('url' => array('action' => 'admin_edit', $item['Request']['id']), 'title' => __('Edit # ' . $stt, true), 'alt' => 'edit'));
-                        echo $html->image('admin_layout/icn_trash.png', array('url' => array('action' => 'admin_delete', $item['Request']['id']), 'title' => __('Delete # ' . $stt, true), 'alt' => 'delete'));
+                        echo $html->image('admin_layout/icn_trash.png', array('url' => array('action' => 'admin_delete', $item['Request']['id']), 'title' => __('Delete # ' . $stt, true), 'alt' => 'delete', 'onclick' => "return confirm('" . __('Are you sure to delete?', true) . "')"));
                         ?>
                     </td>
                 </tr>
