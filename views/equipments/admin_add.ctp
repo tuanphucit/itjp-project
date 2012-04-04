@@ -21,7 +21,7 @@ $html->addCrumb(__('Add New Equipments', true), '/admin/equipments/add');
     <div id="search_box" class="module_content">
         <?php
         //TODO : make style cho form admin add new equipment
-        echo $form->create('Equipment');
+        echo $form->create('Equipment', array('url' => array('controller'=>'equipments','action' => 'admin_add')));
         echo $form->input('code', array('label' => __('Code', true), 'type' => 'text'));
         echo $form->input('name', array('label' => __('Name', true), 'type' => 'text'));
         echo $form->input('description', array('label' => __('Description', true), 'type' => 'textarea'));
