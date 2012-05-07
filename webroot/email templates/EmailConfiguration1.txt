@@ -1,5 +1,0 @@
-ssl://smtp.gmail.com
-nguyentoan1212@gmail.com
-280812121989
-465
-30
