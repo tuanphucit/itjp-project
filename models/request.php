@@ -1,8 +1,14 @@
 <?php
+
 //このモデルはデータベースのREQUESTSテーブルに参照しています。
 class Request extends AppModel {
 
     var $name = 'Request';
+    var $virtualFields = array(
+        'date' => 'DATE(Request.begin_time)',
+        'time' => 'TIMEDIFF(Request.end_time, Request.begin_time)',
+        'total_expense' => '(Request.request_expense + Request.detroy_expense + Request.punish_expense + Request.rent_expense)'
+    );
     //REQUETSテーブルのフィルドのフォーマトをチェックするために、$validate　を使います。
     var $validate = array(
         'roomid' => array(
