@@ -26,7 +26,7 @@ class UsersController extends AppController {
         if (!empty($this->data)) {
             //TODO : Chinh lai thong bao bang tieng nhat
             if (!Validation::email($this->data ['User'] ['email'])) {
-                $this->Session->setFlash(__('Email ko hop le', true), 'default', array('class' => CLASS_ERROR_ALERT));
+                $this->Session->setFlash(__('メールの形式が合っていません。', true), 'default', array('class' => CLASS_ERROR_ALERT));
                 return;
             }
             if ($this->Auth->login($this->data)) {

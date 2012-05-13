@@ -305,12 +305,12 @@ class RequestsController extends AppController {
 	
 	function admin_csvexport() {
 		$this->layout = 'ajax';
-		$fields = array ('Request.*', 'Requester.fullname', 'Requester.usercode', 'Requester.email', 'Requester.phone', 'Updater.fullname', 'Room.name', 'TIMEDIFF(Request.end_time,Request.begin_time) AS time', '(Request.request_expense+Request.detroy_expense+Request.rent_expense+Request.punish_expense) AS total_price' );
+		$fields = array ('Request.*', 'Requester.fullname', 'Requester.bank_account', 'Requester.address', 'Requester.phone', 'Updater.fullname', 'Room.name', 'TIMEDIFF(Request.end_time,Request.begin_time) AS time', '(Request.request_expense+Request.detroy_expense+Request.rent_expense+Request.punish_expense) AS total_price' );
 		//$conditions = array ('Request.update_time >' => date ( 'Y' ) . '-' . date ( 'm' ) - 1, 'Request.update_time <' => date ( 'Y-m' ) );
 		$conditions = array ();
 		$this->set ( 'rs', $this->Request->find ( 'all', array ('fields' => $fields, 'conditions' => $conditions ) ) );
 		$userid = $this->Session->read ( 'Auth.User.id' );
-		$this->set ( 'admin', $this->User->read ( array ('usercode', 'fullname' ), $userid ) );
+		$this->set ( 'admin', $this->User->read ( array ('bank_account', 'fullname' ), $userid ) );
 	
 	}
 	function admin_finish($id = null) {
