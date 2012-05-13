@@ -1,14 +1,14 @@
 <?php
 	date_default_timezone_get('Asia/Saigon');
-	$line = array('CSY-RVR-GWK52M78', date('Y'), date('m')-1, date('Y'), date('m'), date('d'), date('H'), date('i'), date('s'),$admin['User']['usercode'] , $admin['User']['fullname']);
+	$line = array('CSY-RVR-GWK52M78', date('Y'), date('m')-1, date('Y'), date('m'), date('d'), date('H'), date('i'), date('s'),$admin['User']['bank_account'] , $admin['User']['fullname']);
 	$this->Csv->addRow($line);
 	//echo $this->element('sql_dump');
 	//debug($rs);
 	//debug($admin);
 	foreach ($rs as $rq){
-		if(strpos($rq['Request']['date'], date('m')-1))
-			continue;
-		$usercode=$rq['Requester']['usercode'];		
+//		if(strpos($rq['Request']['date'], date('m')-1))
+//			continue;
+		$usercode=$rq['Requester']['bank_account'];		
 		$name= $rq['Requester']['fullname'];
 		$money = $rq[0]['total_price'];
 		$address = $rq['Requester']['email'];
