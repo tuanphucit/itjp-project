@@ -17,6 +17,7 @@ $stsOptions = array(
 ?>
 <div id="about">
     <h2><?php __('List Booking'); ?></h2>
+    <?php echo $this->Session->flash(); ?>
     <div id="search_box">
         <?php
         echo $form->create();
@@ -75,12 +76,12 @@ $stsOptions = array(
                     <tr>
                         <th style="width: 5%" class="tableheader"><?php __("#"); ?></th>
                         <th style="width: 5%" class="tableheader"><?php echo $form->checkbox('SelectAll', array('title' => __('Select all', true), 'class' => 'cb_allItem')); ?></th>
-                        <th style="width: 10%" class="tableheader"><?php echo $this->Paginator->sort(__('Room', true), 'Room.name'); ?></th>
-                        <th style="width: 15%" class="tableheader"><?php echo $this->Paginator->sort(__('Date', true), 'Request.date'); ?></th>
-                        <th style="width: 15%" class="tableheader"><?php echo $this->Paginator->sort(__('Begin Time', true), 'Request.begin_time'); ?></th>
-                        <th style="width: 15%" class="tableheader"><?php echo $this->Paginator->sort(__('End Time', true), 'Request.end_time'); ?></th>
-                        <th style="width: 15%" class="tableheader"><?php echo $this->Paginator->sort(__('Time', true), 'time'); ?></th>
-                        <th style="width: 10%" class="tableheader"><?php echo $this->Paginator->sort(__('Total Expense', true), 'total_price'); ?></th>
+                        <th style="width: 5%" class="tableheader"><?php echo $this->Paginator->sort(__('Room', true), 'Room.name'); ?></th>
+                        <th style="width: 10%" class="tableheader"><?php echo $this->Paginator->sort(__('Date', true), 'Request.date'); ?></th>
+                        <th style="width: 20%" class="tableheader"><?php echo $this->Paginator->sort(__('Begin Time', true), 'Request.begin_time'); ?></th>
+                        <th style="width: 20%" class="tableheader"><?php echo $this->Paginator->sort(__('End Time', true), 'Request.end_time'); ?></th>
+                        <th style="width: 10%" class="tableheader"><?php echo $this->Paginator->sort(__('Time', true), 'time'); ?></th>
+                        <th style="width: 15%" class="tableheader"><?php echo $this->Paginator->sort(__('Total Expense', true), 'total_price'); ?></th>
                         <th style="width: 10%" class="tableheader"><?php echo $this->Paginator->sort(__('Status', true), 'Request.status'); ?></th>
                         <th style="width: 10%" class="tableheader"><?php __('Actions'); ?></th>
                     </tr>
@@ -106,8 +107,8 @@ $stsOptions = array(
                             <td align="left"><?php echo $item['Request']['date']; ?>&nbsp;</td>
                             <td align="center"><?php echo $item['Request']['begin_time']; ?>&nbsp;</td>
                             <td align="left"><?php echo $item['Request']['end_time']; ?>&nbsp;</td>
-                            <td align="center"><?php echo $item['0']['time']; ?>&nbsp;</td>
-                            <td align="center"><?php echo $item['0']['total_price']; ?>&nbsp;</td>
+                            <td align="center"><?php echo $item['Request']['time']; ?>&nbsp;</td>
+                            <td align="center"><?php echo $item['Request']['total_expense']; ?>&nbsp;</td>
                             <td align="center"><?php echo makeupStatus($item['Request']['status']); ?>&nbsp;</td>
                             <td style="padding: 5px 5px" align="center">
                                 <?php

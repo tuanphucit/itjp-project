@@ -56,11 +56,6 @@ function makeupStatus($statusid) {
             <td><?php echo makeupStatus($Request['Request']['status']); ?></td>
         </tr>
         <tr>
-            <td style="font-weight: bold; width: 30%;text-align: right"><?php __('Date'); ?></td>
-            <td>:</td>
-            <td><?php echo $Request['Request']['date']; ?></td>
-        </tr>
-        <tr>
             <td style="font-weight: bold; width: 30%;text-align: right"><?php __('Begin Time'); ?></td>
             <td>:</td>
             <td><?php echo $Request['Request']['begin_time']; ?></td>
@@ -73,7 +68,7 @@ function makeupStatus($statusid) {
         <tr>
             <td style="font-weight: bold; width: 30%;text-align: right"><?php __('Time'); ?></td>
             <td>:</td>
-            <td><?php echo $Request['0']['time']; ?></td>
+            <td><?php echo $Request['Request']['time']; ?></td>
         </tr>
         <tr>
             <td style="font-weight: bold; width: 30%;text-align: right"><?php __('Customer'); ?></td>
@@ -83,7 +78,7 @@ function makeupStatus($statusid) {
         <tr>
             <td style="font-weight: bold; width: 30%;text-align: right"><?php __('Total Expense'); ?></td>
             <td>:</td>
-            <td><?php echo $Request['0']['total_price']; ?></td>
+            <td><?php echo $Request['Request']['total_expense']; ?></td>
         </tr>
         <tr>
             <td style="font-weight: bold; width: 30%;text-align: right"><?php __('Rent Expense'); ?></td>
@@ -104,6 +99,16 @@ function makeupStatus($statusid) {
             <td style="font-weight: bold; width: 30%;text-align: right"><?php __('Punish Expense'); ?></td>
             <td>:</td>
             <td><?php echo $Request['Request']['punish_expense']; ?></td>
+        </tr>
+        <tr>
+            <td style="font-weight: bold; width: 30%;text-align: right"><?php __('Paid'); ?></td>
+            <td>:</td>
+            <td><?php echo $Request['Request']['paid']; ?></td>
+        </tr>
+        <tr>
+            <td style="font-weight: bold; width: 30%;text-align: right"><?php __('Can thanh toan'); ?></td>
+            <td>:</td>
+            <td><?php echo $Request['Request']['canthanhtoan']; ?></td>
         </tr>
         <tr>
             <td style="font-weight: bold; width: 30%;text-align: right"><?php __('Note'); ?></td>
@@ -134,6 +139,6 @@ function makeupStatus($statusid) {
 </div>
 <script type="text/javascript">
     function doDetroyRequest(){
-        alert(111);
+        window.location = '<?php echo $html->url(array('action'=>'delete',$Request['Request']['id'])); ?>';
     }
 </script>

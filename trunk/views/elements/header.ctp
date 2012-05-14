@@ -8,7 +8,7 @@
     <?php if ($session->check('Auth.User.id')): ?>
         <li>
             <?php
-            __('ようこそ ');
+            __('歓迎 ');
             echo $html->link($session->read('Auth.User.fullname'), array('controller' => 'users', 'action' => 'view', $session->read('Auth.User.id')), array('class' => 'userlink'));
             echo ' ( ' . $html->link(__('ログアウト', true), array('controller' => 'users', 'action' => 'logout'), array('class' => 'userlink')) . ' )';
             ?>

@@ -75,8 +75,8 @@ function makeupDetailStatus($statusid) {
                 <td align="center"><?php echo $item['Request']['date']; ?>&nbsp;</td>
                 <td align="center"><?php echo $item['Request']['begin_time']; ?>&nbsp;</td>
                 <td align="center"><?php echo $item['Request']['end_time']; ?>&nbsp;</td>
-                <td align="center"><?php echo $item['0']['time']; ?>&nbsp;</td>
-                <td align="right"><?php echo $item['0']['total_price']; ?>&nbsp;</td>
+                <td align="center"><?php echo $item['Request']['time']; ?>&nbsp;</td>
+                <td align="right"><?php echo $item['Request']['total_expense']; ?>&nbsp;</td>
                 <td align="center"><?php echo makeupDetailStatus($item['Request']['status']); ?>&nbsp;</td>
                 <td align="center">
                     <?php

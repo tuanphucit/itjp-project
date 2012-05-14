@@ -4,7 +4,7 @@
 class RoomsController extends AppController {
 
     var $name = 'Rooms';
-    var $helpers = array('Ajax', 'Js','Html','Form');
+    var $helpers = array('Ajax', 'Js', 'Html', 'Form');
     var $components = array('RequestHandler');
     var $uses = array('Room', 'RoomType', 'Request');
 
@@ -32,13 +32,21 @@ class RoomsController extends AppController {
         parent::beforeFilter();
         $this->Auth->allow('index');
     }
- 
+
     //会議室インでクスページをセットする機能
     // liet ke tat ca cac phong
     function index() {
-		$this->Room->recursive = 0;
-		$this->set ( 'rooms', $this->paginate () );
-		
+        $conditions = array();
+        //debug($this->params);
+        if (isset($this->params['url']['rt'])) {
+            $conditions['typeid'] = intval($this->params['url']['rt']);
+        }
+        $this->paginate = array(
+            'conditions' => $conditions,
+            'recursives' => 0
+        );
+        $this->set('rooms', $this->paginate('Room'));
+
 //        $conditions = array();
 //        $limit = isset($this->params['named']['limit']) ? (int) $this->params['named']['limit'] : 10;
 //        $sort = isset($this->params['named']['sort']) ? $this->params['named']['sort'] : 'Room.name';
@@ -280,7 +288,7 @@ class RoomsController extends AppController {
         $this->set('title_for_layout', __('会議室管理', true));
         $this->layout = "admin";
         if (!empty($this->data)) {
-              $this->Room->create();
+            $this->Room->create();
             if ($this->Room->save($this->data)) {
                 $this->Session->setFlash(__('会議室が保存されます。', true), 'default', array('class' => CLASS_SUCCESS_ALERT));
                 $this->redirect(array('action' => 'index'));
@@ -300,8 +308,8 @@ class RoomsController extends AppController {
             $this->redirect(array('action' => 'index'));
         }
         if (!empty($this->data)) {
-       	
-        		if (empty($this->data['Room']['id']) || !isset($this->data['Room']['id'])) {
+
+            if (empty($this->data['Room']['id']) || !isset($this->data['Room']['id'])) {
                 $this->data['Room']['id'] = (int) $id;
             }
             if ($this->Room->save($this->data)) {

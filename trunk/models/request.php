@@ -7,7 +7,8 @@ class Request extends AppModel {
     var $virtualFields = array(
         'date' => 'DATE(Request.begin_time)',
         'time' => 'TIMEDIFF(Request.end_time, Request.begin_time)',
-        'total_expense' => '(Request.request_expense + Request.detroy_expense + Request.punish_expense + Request.rent_expense)'
+        'total_expense' => '(Request.request_expense + Request.detroy_expense + Request.punish_expense + Request.rent_expense)',
+        'canthanhtoan' => 'Request.request_expense + Request.detroy_expense + Request.punish_expense + Request.rent_expense - Request.paid'
     );
     //REQUETSテーブルのフィルドのフォーマトをチェックするために、$validate　を使います。
     var $validate = array(
