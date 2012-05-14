@@ -41,7 +41,7 @@
                 <?php if ($session->check('Auth.User.id')): ?>
                     <li>
                         <?php
-                        __('歓迎');
+                        __('歓迎 ');
                         echo $html->link($session->read('Auth.User.fullname'), array('controller' => 'users', 'action' => 'view', $session->read('Auth.User.id')),array('class'=>'userlink'));
                         echo ' ( ' . $html->link(__('ログアウト', true), array('controller' => 'users', 'action' => 'logout'),array('class'=>'userlink')) . ' )';
                         ?>
@@ -69,13 +69,13 @@
                             </div>
                         </li>
                         <li>
-                            <?php echo $html->link(__('ホット会議室', true), array('controller' => 'rooms', 'action' => 'index')); ?>
+                            <?php echo $html->link(__('ホット会議室', true), array('controller' => 'rooms', 'action' => 'index','?rt=1')); ?>
                             <div>
                                 <a href="deals.html"><img src="images/riverside.jpg" alt=""/></a>
                            </div>
                         </li>
                         <li>
-                            <?php echo $html->link(__('会議室一覧', true), array('controller' => 'rooms', 'action' => 'index')); ?>
+                            <?php echo $html->link(__('会議室一覧', true), array('controller' => 'rooms', 'action' => 'index','?rt=2')); ?>
                             <div>
                                 <a href="offers.html"><img src="images/mountains.jpg" alt=""/></a>
                                
