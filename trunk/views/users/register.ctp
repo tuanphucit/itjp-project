@@ -53,6 +53,11 @@
                 <td>:</td>
                 <td><?php echo $form->text('local_phone', array('div' => false, 'style' => 'width: 200px','error'=>true)); ?></td>
             </tr>
+             <tr>
+                <td class="head" style="padding: 5px 2px;"><?php __('住所'); ?></td>
+                <td>:</td>
+                <td><?php echo $form->text('address', array('div' => false, 'style' => 'width: 200px','error'=>true)); ?></td>
+            </tr>
             <tr >
                 <td colspan="3" style="text-align: center; padding-top: 30px">
                     <?php echo $form->button(__('登録', true), array('div' => false, 'type' => 'submit')); ?>

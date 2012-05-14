@@ -35,9 +35,10 @@ class RequestsController extends AppController {
 		//$page = isset($this->params['named']['page']) ? (int) $this->params['named']['page'] : 1;
 		$fields = array ('Request.*', 'Requester.fullname', 'Updater.fullname', 'Room.name', 'TIMEDIFF(Request.end_time,Request.begin_time) AS time', '(Request.request_expense+Request.detroy_expense+Request.punish_expense) AS total_price' );
 		$this->paginate = array ('fields' => $fields, 'conditions' => $conditions, //'limit' => $limit,
-'order' => array ($sort => $direction ) );//'page' => $page,
-//'recursives' => 0
+'order' => array ($sort => $direction ) ); //'page' => $page,
+		//'recursives' => 0
 		
+
 		$this->set ( 'page', 'Booking' );
 		$this->set ( 'list', $this->paginate () );
 		if ($this->RequestHandler->isAjax ()) {
@@ -137,24 +138,24 @@ class RequestsController extends AppController {
 			$this->Session->setFlash ( __ ( '要求のため、ＩＤが正しくないです。', true ) );
 			$this->redirect ( array ('action' => 'index' ) );
 		}
-		$date = date ( 'Y-m-d-H-i-s' );
+		$date = date ( 'Y-m-d H:i:s' );
 		
-		$now = explode ( '-', $date );
-		$d1 = mktime ( $now [3], $now [4], $now [5], $now [1], $now [2], $now [0] );
-		
-		$request = $this->Request->read ( array ('begin_time', 'date' ), $id );
-		$d = explode ( '-', $request ['Request'] ['date'] );
-		$t = explode ( ':', $request ['Request'] ['begin_time'] );
-		
-		$d2 = mktime ( $t [0], $t [1], $t [2], $d [1], $d [2], $d [0] );
-		//$this->log($d1 - $d2, 'test');
-		if (abs ( $d1 - $d2 ) >= 60 * 60 * 2) {
-			$this->Request->id = $id;
-			$this->Request->saveField ( 'status', REQUEST_STATUS_CANCELED );
-			$this->Session->setFlash ( __ ( '予約がキャンセルしました', true ), 'default', array ('class' => CLASS_SUCCESS_ALERT ) );
-			$this->redirect ( array ('action' => 'index' ) );
+		$request = $this->Request->read ( array ('begin_time', 'status' ), $id );
+		if ($request ['Request'] ['status'] != REQUEST_STATUS_CANCELED && $request ['Request'] ['status'] != REQUEST_STATUS_FINISH) {
+			$now = strtotime ( $date );
+			$begin = strtotime ( $request ['Request'] ['begin_time'] );
+			//$this->log(abs ( $now - $begin ), 'toan');
+			if (abs ( $now - $begin ) >= 60 * 60 * 24 * 2) {
+				$this->Request->id = $id;
+				$this->Request->saveField ( 'status', REQUEST_STATUS_CANCELED );
+				$this->Session->setFlash ( __ ( '予約がキャンセルしました', true ), 'default', array ('class' => CLASS_SUCCESS_ALERT ) );
+				$this->redirect ( array ('action' => 'index' ) );
+			} else {
+				$this->Session->setFlash ( __ ( 'キャンセルできません。', true ), 'default', array ('class' => CLASS_ERROR_ALERT ) );
+				$this->redirect ( array ('action' => 'index' ) );
+			}
 		} else {
-			$this->Session->setFlash ( __ ( '要求が削除されません。', true ), 'default', array ('class' => CLASS_ERROR_ALERT ) );
+			$this->Session->setFlash ( __ ( 'もうキャンセルしましたまたは終了しました。', true ), 'default', array ('class' => CLASS_ERROR_ALERT ) );
 			$this->redirect ( array ('action' => 'index' ) );
 		}
 	}
@@ -278,39 +279,38 @@ class RequestsController extends AppController {
 			$this->Session->setFlash ( __ ( '要求のため、ＩＤが正しくないです。', true ) );
 			$this->redirect ( array ('action' => 'index' ) );
 		}
-		$date = date ( 'Y-m-d-H-i-s' );
-		
-		$now = explode ( '-', $date );
-		$d1 = mktime ( $now [3], $now [4], $now [5], $now [1], $now [2], $now [0] );
-		
-		$request = $this->Request->read ( array ('begin_time', 'date' ), $id );
-		$d = explode ( '-', $request ['Request'] ['date'] );
-		$t = explode ( ':', $request ['Request'] ['begin_time'] );
-		
-		$d2 = mktime ( $t [0], $t [1], $t [2], $d [1], $d [2], $d [0] );
-		//$this->log($d1 - $d2, 'test');
-		if (abs ( $d1 - $d2 ) >= 60 * 60) {
-			$this->Request->id = $id;
-			$this->Request->saveField ( 'status', REQUEST_STATUS_CANCELED );
-			$hi = $this->WebConfig->read ( 'detroy_expense', 1 );
-			$this->Request->saveField ( 'detroy_expense', $hi ['WebConfig'] ['detroy_expense'] );
-			
-			$this->Session->setFlash ( __ ( '予約がキャンセルしました', true ), 'default', array ('class' => CLASS_SUCCESS_ALERT ) );
-			$this->redirect ( array ('action' => 'index' ) );
+		$date = date ( 'Y-m-d H:i:s' );
+		$request = $this->Request->read ( array ('begin_time', 'status' ), $id );
+		if ($request ['Request'] ['status'] != REQUEST_STATUS_CANCELED && $request ['Request'] ['status'] != REQUEST_STATUS_FINISH) {
+			$now = strtotime ( $date );
+			$begin = strtotime ( $request ['Request'] ['begin_time'] );
+			//$this->log(abs ( $now - $begin )/60/60, 'toan');
+			if (abs ( $now - $begin ) >= 60 * 60 * 24) {
+				$this->Request->id = $id;
+				$this->Request->saveField ( 'status', REQUEST_STATUS_CANCELED );
+				$hi = $this->WebConfig->read ( 'detroy_expense', 1 );
+				$this->Request->saveField ( 'detroy_expense', $hi ['WebConfig'] ['detroy_expense'] );
+				
+				$this->Session->setFlash ( __ ( '予約がキャンセルしました', true ), 'default', array ('class' => CLASS_SUCCESS_ALERT ) );
+				$this->redirect ( array ('action' => 'index' ) );
+			} else {
+				$this->Session->setFlash ( __ ( 'キャンセルできません。', true ), 'default', array ('class' => CLASS_ERROR_ALERT ) );
+				$this->redirect ( array ('action' => 'index' ) );
+			}
 		} else {
-			$this->Session->setFlash ( __ ( '要求が削除されません。', true ), 'default', array ('class' => CLASS_ERROR_ALERT ) );
+			$this->Session->setFlash ( __ ( 'もうキャンセルしましたまたは終了しました。', true ), 'default', array ('class' => CLASS_ERROR_ALERT ) );
 			$this->redirect ( array ('action' => 'index' ) );
 		}
 	}
 	
 	function admin_csvexport() {
 		$this->layout = 'ajax';
-		$fields = array ('Request.*', 'Requester.fullname', 'Requester.bank_account', 'Requester.address', 'Requester.phone', 'Updater.fullname', 'Room.name', 'TIMEDIFF(Request.end_time,Request.begin_time) AS time', '(Request.request_expense+Request.detroy_expense+Request.rent_expense+Request.punish_expense) AS total_price' );
+		$fields = array ('Request.*', 'Requester.fullname', 'Requester.usercode', 'Requester.address', 'Requester.phone', 'Updater.fullname', 'Room.name', 'TIMEDIFF(Request.end_time,Request.begin_time) AS time', '(Request.request_expense+Request.detroy_expense+Request.rent_expense+Request.punish_expense) AS total_price' );
 		//$conditions = array ('Request.update_time >' => date ( 'Y' ) . '-' . date ( 'm' ) - 1, 'Request.update_time <' => date ( 'Y-m' ) );
 		$conditions = array ();
 		$this->set ( 'rs', $this->Request->find ( 'all', array ('fields' => $fields, 'conditions' => $conditions ) ) );
 		$userid = $this->Session->read ( 'Auth.User.id' );
-		$this->set ( 'admin', $this->User->read ( array ('bank_account', 'fullname' ), $userid ) );
+		$this->set ( 'admin', $this->User->read ( array ('usercode', 'fullname' ), $userid ) );
 	
 	}
 	function admin_finish($id = null) {
@@ -319,24 +319,22 @@ class RequestsController extends AppController {
 		
 		}
 		$this->Request->id = $id;
-		$this->Request->saveField ( 'status', REQUEST_STATUS_FINISH );
-		
-		$rs = $this->Request->read ( array ('roomid', 'begin_time', 'end_time', 'date' ), $id );
+		$rs = $this->Request->read ( array ('roomid', 'begin_time', 'end_time', 'status' ), $id );
 		$room = $this->Room->read ( 'renting_fee', $rs ['Request'] ['roomid'] );
 		
-		$d = explode ( '-', $rs ['Request'] ['date'] );
-		$t = explode ( ':', $rs ['Request'] ['begin_time'] );
-		$t2 = explode ( ':', $rs ['Request'] ['end_time'] );
-		
-		$d1 = mktime ( $t [0], $t [1], $t [2], $d [1], $d [2], $d [0] );
-		$d2 = mktime ( $t2 [0], $t2 [1], $t2 [2], $d [1], $d [2], $d [0] );
-		//$hi = $this->WebConfig->read ( 'detroy_expense', 1 );
-		$begin = strtotime ( $rs ['Request'] ['date'] + ' ' + $rs ['Request'] ['begin_time'] );
-		$end = strtotime ( $rs ['Request'] ['date'] + ' ' + $rs ['Request'] ['end_time'] );
-		$rent = ($d2 - $d1) / 3600 * $room ['Room'] ['renting_fee'];
-		//$this->log(($d2 - $d1)/3600,'test');
-		$this->Request->saveField ( 'rent_expense', $rent );
-		$this->redirect ( array ('action' => 'index' ) );
+		if ($rs ['Request'] ['status'] != REQUEST_STATUS_FINISH && $rs ['Request'] ['status'] != REQUEST_STATUS_CANCELED) {
+			$this->Request->saveField ( 'status', REQUEST_STATUS_FINISH );
+			$begin = strtotime ( $rs ['Request'] ['begin_time'] );
+			$end = strtotime ( $rs ['Request'] ['end_time'] );
+			$rent = ($end - $begin) / (3600) * $room ['Room'] ['renting_fee'];
+			//$this->log(($d2 - $d1)/3600,'test');
+			$this->Request->saveField ( 'rent_expense', $rent );
+			$this->Session->setFlash ( __ ( '終了しました。', true ), 'default', array ('class' => CLASS_SUCCESS_ALERT ) );
+			$this->redirect ( array ('action' => 'index' ) );
+		} else {
+			$this->Session->setFlash ( __ ( 'もうキャンセルしましたまたは終了しました。', true ), 'default', array ('class' => CLASS_ERROR_ALERT ) );
+			$this->redirect ( array ('action' => 'index' ) );
+		}
 	}
 	function admin_bakking($id = null) {
 		if (! $id && empty ( $this->data )) {
