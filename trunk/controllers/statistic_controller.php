@@ -18,7 +18,13 @@ class StatisticController extends AppController {
     }
 
     function admin_chart() {
-        
+        $fields = array (
+        	'Request.*', 
+        	'Requester.fullname', 
+        	'(Request.request_expense+Request.detroy_expense+Request.punish_expense) AS total_price'
+        );
+        $this->paginate = array('fields'=>$fields);
+        $this->set('rqs', $this->paginate('Request'));
     }
 
     function admin_export_file() {

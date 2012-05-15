@@ -4,5 +4,7 @@
 /* @var $html HtmlHelper */
 /* @var $js JsHelper */
 $html->addCrumb(__('管理者サイト', true), '/admin');
-$html->addCrumb(__('統計チャット', true), '/admin/statistic/chart');
+$html->addCrumb(__('統計', true), '/admin/statistic/chart');
+debug($rqs);
+
 ?>
