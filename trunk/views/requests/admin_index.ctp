@@ -15,15 +15,13 @@ $html->addCrumb(__('予約管理', true), '/admin/requests');
     <div id="search_box" class="module_content">
         <?php
         $stsOptions= array(
-        	REQUEST_STATUS_INIT => '確認待ち状態',
         	REQUEST_STATUS_APROVED => '使用待ち状態',
-        	REQUEST_STATUS_DENIED => '不可能',
         	REQUEST_STATUS_FINISH => '終了',
         	REQUEST_STATUS_CANCELED => 'キャンセル',
         );
         //TODO : chinh form admin search request
         echo $form->create();
-        echo $form->input('fsstatus', array('label' => 'ステータス:', 'type' => 'select', 'options' => $stsOptions, 'div' => false, 'empty' => '--全て--'));
+        echo $form->input('fsstatus', array('label' => '状態:', 'type' => 'select', 'options' => $stsOptions, 'div' => false, 'empty' => '--全て--'));
         echo $form->input('fsformtime', array('label' => 'から:', 'type' => 'text', 'div' => false));
         echo $form->input('fstotime', array('label' => 'まで:', 'type' => 'text', 'div' => false));
         echo $form->input('fscustomer', array('label' => '顧客:', 'type' => 'text', 'div' => false));
@@ -40,4 +38,5 @@ $html->addCrumb(__('予約管理', true), '/admin/requests');
 	function gotoCSVExport(){
 		location.href="./requests/csvexport";
 	}
+	
 </script>
