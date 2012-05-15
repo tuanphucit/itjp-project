@@ -31,7 +31,7 @@
     ?>
 </h3>
 <ul class="toggle">
-    <li class="icn_statistic"><?php echo $html->link(__('統計チャート', true), array('controller' => 'statistic', 'action' => 'chart')); ?></li>
+    <li class="icn_statistic"><?php echo $html->link(__('課金実績統計', true), array('controller' => 'statistic', 'action' => 'chart')); ?></li>
     <li class="icn_exprot"><?php echo $html->link(__('CSV輸出', true), array('controller' => 'statistic', 'action' => 'export_file')); ?></li>
 </ul>
 <!-- Admin -->
