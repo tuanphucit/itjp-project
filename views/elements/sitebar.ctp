@@ -26,7 +26,7 @@
 <!-- Statistic  -->
 <h3>
     <?php
-    __('統計');
+    __('課金実績管理');
     echo $html->link('非表示', '', array('class' => 'toggleLink'));
     ?>
 </h3>

@@ -39,12 +39,16 @@ function makeupStatus($statusid) {
     }
 }
 ?>
-<form name="form1" action="" method="post">
+<form name="form1" action="requests/action" method="post">
     <div class="module_header">
         <div class="header_action">
             <?php
-            echo $form->select('itemaction', array(), null, array('empty' => '--Select--'));
-            echo $form->button('Submit', array('type' => 'button'));
+            $options = array(
+            	1 => '終了',
+            	2 => 'キャンセル'
+            );
+            echo $form->select('itemaction', $options, null, array('empty' => '--Select--'));
+            echo $form->button('Submit', array('type' => 'submit'));
             ?>
             <ul class="tabs">
                 <li class="mod_hea_bt"><?php echo $html->link(__('Add Request', true), array('action' => 'admin_add'), array('title' => __('Add', true))); ?></li>
@@ -58,7 +62,7 @@ function makeupStatus($statusid) {
         <thead>
             <tr>
                 <th style="width: 5%" class="tableheader"><?php __("#"); ?></th>
-                <th style="width: 5%" class="tableheader"><?php echo $form->checkbox('SelectAll', array('title' => __('Select all', true), 'class' => 'cb_allItem')); ?></th>
+                <th style="width: 5%" class="tableheader"><?php echo $form->checkbox('allbox', array('title' => __('Select all', true), 'class' => 'cb_allItem', 'onclick' => 'checkAll()')); ?></th>
                 <th style="width: 10%" class="tableheader"><?php echo $this->Paginator->sort(__('Room', true), 'Room.name'); ?></th>
                 <th style="width: 15%" class="tableheader"><?php echo $this->Paginator->sort(__('Customer', true), 'Reqester.fullname'); ?></th>
                 <th style="width: 15%" class="tableheader"><?php echo $this->Paginator->sort(__('Created Time', true), 'create_time'); ?></th>
@@ -132,3 +136,15 @@ $js->get("#rd")->event('change', "$('#result_box').load('" . $rdurl . "'+this.va
 $js->get("a[href*=/sort:], a[href*=/page:]")->event('click', "$('#result_box').load($(this).attr('href'));");
 echo $js->writeBuffer();
 ?>
+<script type="text/javascript">
+function checkAll(){
+	for (var i=0;i<document.form1.elements.length;i++)
+	{
+		var e=document.form1.elements[i];
+		if ((e.name != 'allbox') && (e.type=='checkbox'))
+		{
+			e.checked=document.form1.allbox.checked;
+		}
+	}
+}
+</script>
