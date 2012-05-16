@@ -21,13 +21,13 @@ $html->addCrumb(__('テナント見る', true), '/admin/users/view');
         <h3 style="width: 40%"><?php __('プロファイル見る') ?></h3>
         <div class="header_action">
             <ul class="tabs">
-                <li><?php echo $html->link(__('変更', true), array('action' => 'admin_edit', $user['User']['id']), array('title' => __('変更', true))); ?></li>
+                <li><?php echo $html->link(__('プロファイル変更', true), array('action' => 'admin_edit', $user['User']['id']), array('title' => __('変更', true))); ?></li>
+            </ul>
+            <ul class="tabs" style="margin-right: 5px">
+                <li><?php echo $html->link(__('パスワード変更', true), array('action' => 'changepwd', 'admin' => false), array('title' => __('Change Paswword', true), 'onclick' => 'doChangePassword();return false;')); ?></li>
             </ul>
             <ul class="tabs" style="margin-right: 5px">
                 <li><?php echo $html->link(__('リストページへ戻る', true), array('action' => 'admin_index'), array('title' => __('リストページへ戻る', true))); ?></li>
-            </ul>
-            <ul class="tabs" style="margin-right: 5px">
-                <li><?php echo $html->link(__('Change Password', true), array('action' => 'changepwd', 'admin' => false), array('title' => __('Change Paswword', true), 'onclick' => 'doChangePassword();return false;')); ?></li>
             </ul>
         </div>
     </div>
