@@ -31,7 +31,7 @@
         </td>
     </tr>
     <tr>
-        <td><?php echo $form->label('ノート', __('note', true)); ?></td>
+        <td><?php echo $form->label('note', __('ノート', true)); ?></td>
         <td colspan="3"><?php echo $form->textarea('note', array('id' => 'noteInput')); ?></td>
     </tr>
     <tr>
@@ -84,6 +84,15 @@
         $('#flashMessage').html('');
     });
     function doCheckForm(){
+        if($("select.list").val()==null){
+            alert("室タイプを選択して欲しいです。");
+            return false;
+        }
+        if($("select.list").val()==""){
+        	alert("室を選びなさい");
+            return false;
+        }
+        
         $.ajax({
             url:'<?php echo $html->url(array('action' => 'check')); ?>',
             data: $('select,input').serializeArray(),
@@ -104,7 +113,7 @@
     }
 <?php if (@$isOk): ?>
         window.close();
-        window.opener.alert('Add request successful!');
-        window.opener.location.reload();
+        window.opener.alert('予約が成功しました');
+        window.opener.location.href="http://localhost/itjp-project/requests";
 <?php endif; ?>
 </script>

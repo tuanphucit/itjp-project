@@ -90,11 +90,11 @@ class RequestsController extends AppController {
 			$end_time = DateTime::createFromFormat ( 'Y-m-d h:i:s', $this->data ['Request'] ['enddate'] . ' ' . $this->data ['Request'] ['endtime'] );
 			if ($begin_time >= $end_time) {
 				// Error Bat dau su ket thuc
-				$this->Session->setFlash ( __ ( 'Booking not success', true ), 'default', array ('class' => CLASS_WARNING_ALERT ) );
+				$this->Session->setFlash ( __ ( '予約が成功しません', true ), 'default', array ('class' => CLASS_WARNING_ALERT ) );
 			}
 			$noRows = $this->_check ( $this->data ['Request'] ['roomid'], $begin_time, $end_time );
 			if ($noRows > 0) {
-				$this->Session->setFlash ( __ ( 'Booking time not invaild', true ), 'default', array ('class' => CLASS_WARNING_ALERT ) );
+				$this->Session->setFlash ( __ ( '予約時間が合っていません', true ), 'default', array ('class' => CLASS_WARNING_ALERT ) );
 				return;
 			}
 			$now = date ( 'Y-m-d H:i:s' );
@@ -117,7 +117,7 @@ class RequestsController extends AppController {
 				$this->set ( 'isOk', true );
 				//$this->Session->setFlash(__('Booking Success', true), 'default', array('class' => CLASS_SUCCESS_ALERT));
 			} else {
-				$this->Session->setFlash ( __ ( 'Booking not success', true ), 'default', array ('class' => CLASS_WARNING_ALERT ) );
+				$this->Session->setFlash ( __ ( '予約が成功しません', true ), 'default', array ('class' => CLASS_WARNING_ALERT ) );
 			}
 		} else {
 			$this->data ['Request'] ['roomid'] = $id;
@@ -160,6 +160,8 @@ class RequestsController extends AppController {
 				//TODO : thay doi phi theo status
 				$this->Request->saveField ( 'status', REQUEST_STATUS_CANCELED );
 				$this->Request->saveField ( 'update_time', date('Y-m-d H:i:s') );
+				$hi = $this->WebConfig->read ( 'detroy_expense', 1 );
+				$this->Request->saveField ( 'detroy_expense', $hi ['WebConfig'] ['detroy_expense'] );
 				$this->Session->setFlash ( __ ( '予約がキャンセルしました', true ), 'default', array ('class' => CLASS_SUCCESS_ALERT ) );
 				$this->redirect ( array ('action' => 'index' ) );
 			} else {
@@ -175,14 +177,14 @@ class RequestsController extends AppController {
 	function check() {
 		$this->layout = 'ajax';
 		if (empty ( $this->data )) {
-			echo json_encode ( array ('code' => '1', 'msg' => __ ( 'Du lieu nhap vao khong hop le', true ) ) );
+			echo json_encode ( array ('code' => '1', 'msg' => __ ( 'データが合っていません', true ) ) );
 			return;
 		}
 		$begin_time = DateTime::createFromFormat ( 'Y-m-d H:i:s', $this->data ['Request'] ['begindate'] . ' ' . $this->data ['Request'] ['begintime'] );
 		$end_time = DateTime::createFromFormat ( 'Y-m-d H:i:s', $this->data ['Request'] ['enddate'] . ' ' . $this->data ['Request'] ['endtime'] );
 		if ($begin_time >= $end_time) {
 			// Error Bat dau su ket thuc
-			echo json_encode ( array ('code' => '2', 'msg' => __ ( 'Thoi gian bat dau phai nho hon thoi gian ket thuc', true ) ) );
+			echo json_encode ( array ('code' => '2', 'msg' => __ ( '始まる時間は終わる時間より遅いです。', true ) ) );
 			return;
 		}
 		$re = $this->_check ( $this->data ['Request'] ['roomid'], $begin_time, $end_time );
@@ -190,7 +192,7 @@ class RequestsController extends AppController {
 			echo json_encode ( array ('code' => '0', 'msg' => __ ( 'OK', true ) ) );
 			return;
 		} else {
-			echo json_encode ( array ('code' => '3', 'msg' => __ ( 'Khong the dat phong trong khoang thoi gian nay', true ) ) );
+			echo json_encode ( array ('code' => '3', 'msg' => __ ( 'この時間は誰かが予約しました。', true ) ) );
 			return;
 		}
 	}
@@ -251,8 +253,15 @@ class RequestsController extends AppController {
 		$listUsers = $this->User->find ( 'all', array ('fields' => array ('id', 'fullname' ), 'recursive' => 0 ) );
 		usort ( $listUsers, "cmp" );
 		$this->set ( 'listUsers', $listUsers );
+		//debug($this->data);
 		if (! empty ( $this->data )) {
-			$noRows = $this->_check ( $this->data ['Request'] ['roomid'], $this->data ['Request'] ['date'], $this->data ['Request'] ['begin_time'], $this->data ['Request'] ['end_time'] );
+			$begin_time = DateTime::createFromFormat ( 'Y-m-d h:i:s', $this->data ['Request'] ['begindate'] . ' ' . $this->data ['Request'] ['begintime'] );
+			$end_time = DateTime::createFromFormat ( 'Y-m-d h:i:s', $this->data ['Request'] ['enddate'] . ' ' . $this->data ['Request'] ['endtime'] );
+			if ($begin_time >= $end_time) {
+				// Error Bat dau su ket thuc
+				$this->Session->setFlash ( __ ( 'Booking not success', true ), 'default', array ('class' => CLASS_WARNING_ALERT ) );
+			}
+			$noRows = $this->_check ( $this->data ['Request'] ['roomid'], $begin_time, $end_time );
 			if ($noRows > 0) {
 				$this->Session->setFlash ( __ ( '時間が合っていません', true ), 'default', array ('class' => CLASS_WARNING_ALERT ) );
 				return;
@@ -264,6 +273,8 @@ class RequestsController extends AppController {
 			//$room = $this->Room->read('renting_fee', $this->data ['Request']['roomid']);
 			$this->data ['Request'] ['status'] = REQUEST_STATUS_APROVED;
 			$hi = $this->WebConfig->read ( 'request_expense', 1 );
+			$this->data ['Request'] ['begin_time'] = $begin_time->format ( 'Y-m-d H:i:s' );
+			$this->data ['Request'] ['end_time'] = $end_time->format ( 'Y-m-d H:i:s' );
 			$this->data ['Request'] ['request_expense'] = $hi ['WebConfig'] ['request_expense'];
 			$this->data ['Request'] ['total_price'] = $this->data ['Request'] ['request_expense'];
 			$this->data ['Request'] ['paid'] = 0;
@@ -375,7 +386,7 @@ class RequestsController extends AppController {
 		$this->redirect ( array ('action' => 'index' ) );
 	}
 	function admin_action() {
-		debug ( $this->data ['Request'] ['SelectItem'] [0] );
+		//debug ( $this->data ['Request'] ['SelectItem'] [0] );
 		if ($this->data ['itemaction'] == 1) {
 			for($i = 0; $i < count ( $this->data ['Request'] ['SelectItem'] ); $i ++) {
 				$id = ($this->data ['Request'] ['SelectItem'] [$i]);
@@ -446,5 +457,26 @@ class RequestsController extends AppController {
 		$re = $this->Request->find ( 'count', array ('conditions' => $conditions, 'recursive' => - 1 ) );
 		return $re;
 	}
-
+	function action() {
+		if ($this->data ['itemaction'] == 1) {
+			for($i = 0; $i < count ( $this->data ['Request'] ['SelectItem'] ); $i ++) {
+				$id = ($this->data ['Request'] ['SelectItem'] [$i]);
+				$date = date ( 'Y-m-d H:i:s' );
+				$request = $this->Request->read ( array ('begin_time', 'status' ), $id );
+				if ($request ['Request'] ['status'] != REQUEST_STATUS_CANCELED && $request ['Request'] ['status'] != REQUEST_STATUS_FINISH) {
+					$now = strtotime ( $date );
+					$begin = strtotime ( $request ['Request'] ['begin_time'] );
+					//$this->log(abs ( $now - $begin )/60/60, 'toan');
+					if (abs ( $now - $begin ) >= 60 * 60 * 24) {
+						$this->Request->id = $id;
+						$this->Request->saveField ( 'status', REQUEST_STATUS_CANCELED );
+						$hi = $this->WebConfig->read ( 'detroy_expense', 1 );
+						$this->Request->saveField ( 'detroy_expense', $hi ['WebConfig'] ['detroy_expense'] );
+					}
+				}
+			}
+			$this->Session->setFlash ( __ ( '予約がキャンセルしました', true ), 'default', array ('class' => CLASS_SUCCESS_ALERT ) );
+			$this->redirect ( array ('action' => 'index' ) );
+		}
+	}
 }
