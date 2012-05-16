@@ -32,7 +32,7 @@ $rdurl = $html->url(array('action' => 'chart', $rdurl));
         <thead>
             <tr>
                 <th style="width: 5%" class="tableheader"><?php __("#"); ?></th>
-                !--th style="width: 5%" class="tableheader"><?php echo $form->checkbox('allbox', array('title' => __('Select all', true), 'class' => 'cb_allItem', 'onclick' => 'checkAll()')); ?></th-->
+                <!--th style="width: 5%" class="tableheader"><?php echo $form->checkbox('allbox', array('title' => __('Select all', true), 'class' => 'cb_allItem', 'onclick' => 'checkAll()')); ?></th-->
                 <th style="width: 20%" class="tableheader"><?php echo $this->Paginator->sort(__('Customer', true), 'User.fullname'); ?></th>
                 <!--th style="width: 10%" class="tableheader"><?php __('Total Time'); ?></th-->
                 <th style="width: 10%" class="tableheader"><?php __('Total Expense'); ?></th>
