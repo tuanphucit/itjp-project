@@ -15,7 +15,12 @@
 		}
 		$money = 0;
 		foreach ($rq['Request'] as $rs){
-			$money += $rs['total_expense'];
+			if ($rs['status']!=REQUEST_STATUS_APROVED)
+				$money += $rs['total_expense'];
+			else {
+				$money += $rs['request_expense'];
+				$money += $rs['punish_expense'];
+			}
 		}
 		$usercode=$rq['User']['usercode'];		
 		$name= $rq['User']['fullname'];
