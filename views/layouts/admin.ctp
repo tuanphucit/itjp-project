@@ -33,7 +33,7 @@
             </h1>
             <h2 class="section_title"><?php echo $title_for_layout; ?></h2>
             <div class="btn_view_site">
-                <?php echo $html->link(__('サイトビュー', true), $html->url('/')); ?>
+                <?php echo $html->link(__('サイトビュー', true), array('controller' => 'pages', 'action' => 'display', 'admin' => false, 'home')); ?>
             </div>
         </div>
         <div id="secondary_bar">
