@@ -44,10 +44,10 @@ function makeupStatus($statusid) {
             echo $form->button('Submit', array('type' => 'submit'));
             ?>
             <ul class="tabs">
-                <li class="mod_hea_bt"><?php echo $html->link(__('Add Request', true), array('action' => 'admin_add'), array('title' => __('Add', true))); ?></li>
+                <li class="mod_hea_bt"><?php echo $html->link(__('予約追加', true), array('action' => 'admin_add'), array('title' => __('予約', true))); ?></li>
             </ul>
             <ul class="tabs" style="margin-right: 5px">
-                <li class="mod_hea_bt"><?php echo $html->link(__('Export CSV', true), array('action' => 'admin_csvexport'), array('title' => __('Export CSV', true),'onclick'=>'gotoCSVExport();return false;')); ?></li>
+                <li class="mod_hea_bt"><?php echo $html->link(__('CSV輸出', true), array('action' => 'admin_csvexport'), array('title' => __('CSV輸出', true),'onclick'=>'gotoCSVExport();return false;')); ?></li>
             </ul>
         </div>
     </div>
@@ -62,7 +62,7 @@ function makeupStatus($statusid) {
                 <th style="width: 15%" class="tableheader"><?php echo $this->Paginator->sort(__('終わり', true), 'end_time'); ?></th>
                 <th style="width: 15%" class="tableheader"><?php echo $this->Paginator->sort(__('更新時', true), 'update_time'); ?></th>
                 <th style="width: 10%" class="tableheader"><?php echo $this->Paginator->sort(__('状態', true), 'status'); ?></th>
-                <th style="width: 10%" class="tableheader"><?php __('Actions'); ?></th>
+                <th style="width: 10%" class="tableheader"><?php __('アクション'); ?></th>
             </tr>
         </thead>
         <?php if (count($list) == 0): ?>

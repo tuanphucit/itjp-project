@@ -97,7 +97,7 @@ function makeupStatus($statusid) {
                 </td>
             </tr>
             <tr>
-                <td style="font-weight: bold; width: 30%;text-align: right"><?php __('観客'); ?></td>
+                <td style="font-weight: bold; width: 30%;text-align: right"><?php __('テナントさん'); ?></td>
                 <td>:</td>
                 <td><?php echo $html->link($Request['Requester']['fullname'], array('controller' => 'users', 'action' => 'admin_view', $Request['Request']['create_by'])); ?></td>
             </tr>
@@ -107,12 +107,12 @@ function makeupStatus($statusid) {
                 <td><?php echo $Request['0']['total_price']; ?></td>
             </tr>
             <tr>
-                <td style="font-weight: bold; width: 30%;text-align: right"><?php __('借り費用'); ?></td>
+                <td style="font-weight: bold; width: 30%;text-align: right"><?php __('使用料'); ?></td>
                 <td>:</td>
                 <td><?php echo $Request['Request']['rent_expense']; ?></td>
             </tr>
             <tr>
-                <td style="font-weight: bold; width: 30%;text-align: right"><?php __('要求費用'); ?></td>
+                <td style="font-weight: bold; width: 30%;text-align: right"><?php __('手数料'); ?></td>
                 <td>:</td>
                 <td><?php echo $Request['Request']['request_expense']; ?></td>
             </tr>
@@ -127,7 +127,7 @@ function makeupStatus($statusid) {
                 <td><?php echo $Request['Request']['punish_expense']; ?></td>
             </tr>
             <tr>
-                <td style="font-weight: bold; width: 30%;text-align: right"><?php __('ノット'); ?></td>
+                <td style="font-weight: bold; width: 30%;text-align: right"><?php __('ノート'); ?></td>
                 <td>:</td>
                 <td><?php echo $Request['Request']['note']; ?></td>
             </tr>
