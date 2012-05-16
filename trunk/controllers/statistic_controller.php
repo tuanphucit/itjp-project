@@ -62,7 +62,7 @@ class StatisticController extends AppController {
             $this->data ['User'] ['mouth'] = date('Y-m');
         }
         if (isset($this->data ['User'] ['cust']) && !empty($this->data ['User'] ['cust'])) {
-            $conditions ['User.fullnane LIKE'] = '%' . trim($this->data ['User'] ['cust']) . '%';
+            $conditions ['User.fullname LIKE'] = '%' . trim($this->data ['User'] ['cust']) . '%';
         }
         $endMouth = date('Y-m-t', strtotime($beginMouth));
         $this->User->hasMany = array(

@@ -13,8 +13,8 @@ $html->addCrumb(__('統計', true), '/admin/statistic/chart');
     <div id="search_box" class="module_content">
         <?php
         echo $form->create('User', array('url' => array('controller' => 'statistic', 'action' => 'chart')));
-        echo $form->input('cust', array('label' => __('Custommer', true)));
-        echo $form->input('mouth', array('label' => __('Time', true)));
+        echo $form->input('cust', array('label' => __('テナントさん', true)));
+        echo $form->input('mouth', array('label' => __('月', true)));
         //echo $form->end();
         echo $form->end(array('label' => '検索', 'div' => false));
         ?>

@@ -17,8 +17,8 @@ $rdurl = $html->url(array('action' => 'chart', $rdurl));
             1 => '終了',
             2 => 'キャンセル'
         );
-        echo $form->select('itemaction', $options, null, array('empty' => '--Select--'));
-        echo $form->button('Submit', array('type' => 'submit'));
+        echo $form->select('itemaction', $options, null, array('empty' => '--選択--'));
+        echo $form->button('サブミット', array('type' => 'submit'));
         ?>
         <!--ul class="tabs">
             <li class="mod_hea_bt"><?php echo $html->link(__('Add Request', true), array('action' => 'admin_add'), array('title' => __('Add', true))); ?></li>
@@ -33,12 +33,12 @@ $rdurl = $html->url(array('action' => 'chart', $rdurl));
             <tr>
                 <th style="width: 5%" class="tableheader"><?php __("#"); ?></th>
                 <!--th style="width: 5%" class="tableheader"><?php echo $form->checkbox('allbox', array('title' => __('Select all', true), 'class' => 'cb_allItem', 'onclick' => 'checkAll()')); ?></th-->
-                <th style="width: 20%" class="tableheader"><?php echo $this->Paginator->sort(__('Customer', true), 'User.fullname'); ?></th>
+                <th style="width: 20%" class="tableheader"><?php echo $this->Paginator->sort(__('テナントさん', true), 'User.fullname'); ?></th>
                 <!--th style="width: 10%" class="tableheader"><?php __('Total Time'); ?></th-->
-                <th style="width: 10%" class="tableheader"><?php __('Total Expense'); ?></th>
-                <th style="width: 10%" class="tableheader"><?php __('Total Paid'); ?></th>
+                <th style="width: 10%" class="tableheader"><?php __('費用合計'); ?></th>
+                <!--<th style="width: 10%" class="tableheader"><?php __('Total Paid'); ?></th>
                 <th style="width: 10%" class="tableheader"><?php __('Total Can tra'); ?></th>
-                <!--th style="width: 10%" class="tableheader"><?php __('Actions'); ?></th-->
+                --><!--th style="width: 10%" class="tableheader"><?php __('Actions'); ?></th-->
             </tr>
         </thead>
         <?php if (count($list) == 0): ?>
@@ -78,9 +78,9 @@ $rdurl = $html->url(array('action' => 'chart', $rdurl));
                     <td align="left"><?php echo $item['User']['fullname']; ?>&nbsp;</td>
                     <!--td align="left"><?php echo @$item['total_time']; ?>&nbsp;</td-->
                     <td align="center"><?php echo $item['total_expense']; ?>&nbsp;</td>
-                    <td align="left"><?php echo $item['total_paid']; ?>&nbsp;</td>
+                    <!--<td align="left"><?php echo $item['total_paid']; ?>&nbsp;</td>
                     <td align="center"><?php echo $item['total_cantra']; ?>&nbsp;</td>
-                    <!--td style="padding: 5px 5px" align="center">
+                    --><!--td style="padding: 5px 5px" align="center">
                     <?php
                     //echo $html->image('admin_layout/icn_aprove.gif', array('url' => array('action' => 'view', $item['User']['id']), 'title' => __('View # ' . $stt, true), 'alt' => 'view'));
                     //echo $html->image('admin_layout/icn_edit.png', array('url' => array('action' => 'admin_edit', $item['Request']['id']), 'title' => __('Edit # ' . $stt, true), 'alt' => 'edit'));
