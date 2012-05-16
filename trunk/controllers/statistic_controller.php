@@ -124,6 +124,7 @@ class StatisticController extends AppController {
                     'begin_work_time' => $this->data['WebConfig']['begin']['hour'] . ':' . $this->data['WebConfig']['begin']['min'] . ':00',
                     'end_work_time' => $this->data['WebConfig']['end']['hour'] . ':' . $this->data['WebConfig']['end']['min'] . ':00',
                     'time_unit' => $this->data['WebConfig']['unit'],
+                    'limit_time'=> $this->data['WebConfig']['limit_time'],
                     'request_expense' => $this->data['WebConfig']['request'],
                     'detroy_expense' => $this->data['WebConfig']['detroy'],
                     'punish_expense' => $this->data['WebConfig']['punish'],
@@ -148,6 +149,7 @@ class StatisticController extends AppController {
             $this->data['WebConfig']['end']['min'] = $end['1'];
             //debug($begin);
             $this->data['WebConfig']['unit'] = $config['WebConfig']['time_unit'];
+            $this->data['WebConfig']['limit_time'] = $config['WebConfig']['limit_time'];
             $this->data['WebConfig']['request'] = $config['WebConfig']['request_expense'];
             $this->data['WebConfig']['detroy'] = $config['WebConfig']['detroy_expense'];
             $this->data['WebConfig']['punish'] = $config['WebConfig']['punish_expense'];
