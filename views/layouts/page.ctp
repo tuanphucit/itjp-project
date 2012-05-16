@@ -130,6 +130,7 @@
             $(function() {
                 var dates = $("#fTimeInput, #tTimeInput").datepicker({
                     dateFormat: 'yy-mm-dd',
+                    minDate: '-2Y',
                     changeMonth: true,
                     numberOfMonths: 1,
                     onSelect: function(selectedDate) {
