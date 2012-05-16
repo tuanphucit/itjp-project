@@ -22,7 +22,7 @@ $html->addCrumb(__('会議室管理', true), '/admin/room_types');
         $ele1 = $form->label('quanity_seat', __('座席数量 : ', true));
         $ele2 = $form->input('fromqs', array('label' => __('から', true), 'type' => 'text', 'div' => false));
         echo $form->input('toqs', array('label' => __('まで', true), 'type' => 'text', 'before' => $ele1 . $ele2));
-        $ele3 = $form->label('renting_fee', __('家賃 : ', true));
+        $ele3 = $form->label('renting_fee', __('使用料 : ', true));
         $ele4 = $form->input('fromrf', array('label' => __('から', true), 'type' => 'text', 'div' => false));
         echo $form->input('torf', array('label' => __('まで', true), 'type' => 'text', 'before' => $ele3 . $ele4));
         echo $form->button(__('サブミット', true), array('type' => 'submit', 'id' => 'bt_submit'));
