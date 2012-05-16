@@ -65,7 +65,7 @@ class AppController extends Controller {
             $this->Auth->loginRedirect = array('controller' => 'statistic', 'action' => 'admin_chart');
             $this->Auth->logoutRedirect = array('controller' => 'users', 'action' => 'admin_login');
             if (!in_array($this->action, $this->Auth->allowedActions) && $this->Session->read('Auth.User.role') != USER_ROLE_ADMIN) {
-                $this->Session->setFlash('Ban phai dang nhap voi quyen admin', 'default', array('class' => CLASS_ERROR_ALERT));
+                $this->Session->setFlash('あなたは管理者ではありません', 'default', array('class' => CLASS_ERROR_ALERT));
                 $this->redirect(array('controller' => 'users', 'action' => 'admin_login'));
             }
         } else {
