@@ -11,7 +11,7 @@ class RequestsController extends AppController {
 	var $name = 'Requests';
 	var $helpers = array ('Ajax', 'Js', 'Csv' );
 	var $components = array ('RequestHandler' );
-	var $uses = array ('Request', 'WebConfig', 'Room', 'User' );
+	var $uses = array ('Request', 'WebConfig', 'Room', 'User', 'RoomType' );
 	
 	function beforeFilter() {
 		parent::beforeFilter ();
@@ -82,7 +82,7 @@ class RequestsController extends AppController {
 	
 	function add($id = null) {
 		$this->layout = 'popup';
-		$this->set ( 'listRooms', $this->Room->find ( 'list', array ('fields' => array ('id', 'name' ) ) ) );
+		$this->set ( 'listRoomTypes', $this->RoomType->find ( 'list', array ('fields' => array ('id', 'name' ) ) ) );
 		$this->set ( 'listTimes', $this->WebConfig->getTimeList () );
 		$this->set ( 'title_for_layout', '予約会議室' );
 		if (! empty ( $this->data )) {
@@ -155,7 +155,7 @@ class RequestsController extends AppController {
 			$begin = strtotime ( $request ['Request'] ['begin_time'] );
 			//$this->log(abs ( $now - $begin ), 'toan');
 			//Xem lai cho nay :((
-			if (abs ( $now - $begin ) >= 60 * 60 * 24 * 2) {
+			if (abs ( $now - $begin ) >= 60 * 60 * 2) {
 				$this->Request->id = $id;
 				//TODO : thay doi phi theo status
 				$this->Request->saveField ( 'status', REQUEST_STATUS_CANCELED );
@@ -245,7 +245,7 @@ class RequestsController extends AppController {
 	function admin_add() {
 		$this->layout = 'admin';
 		$this->set ( 'title_for_layout', __ ( '予約管理', true ) );
-		$this->set ( 'listRooms', $this->Room->find ( 'list', array ('fields' => array ('id', 'name' ) ) ) );
+		$this->set ( 'listRoomType', $this->RoomType->find ( 'list', array ('fields' => array ('id', 'name' ) ) ) );
 		$this->set ( 'listTimes', $this->WebConfig->getTimeList () );
 		$listUsers = $this->User->find ( 'all', array ('fields' => array ('id', 'fullname' ), 'recursive' => 0 ) );
 		usort ( $listUsers, "cmp" );
@@ -309,7 +309,7 @@ class RequestsController extends AppController {
 			$now = strtotime ( $date );
 			$begin = strtotime ( $request ['Request'] ['begin_time'] );
 			//$this->log(abs ( $now - $begin )/60/60, 'toan');
-			if (abs ( $now - $begin ) >= 60 * 60 * 24) {
+			if (abs ( $now - $begin ) >= 60 * 60) {
 				$this->Request->id = $id;
 				$this->Request->saveField ( 'status', REQUEST_STATUS_CANCELED );
 				$hi = $this->WebConfig->read ( 'detroy_expense', 1 );
