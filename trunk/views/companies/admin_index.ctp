@@ -13,12 +13,12 @@ $html->addCrumb(__('会社管理', true), '/admin/companies');
         <h3><?php __('会社管理') ?></h3>
     </div>
     <div id="search_box" class="module_content">
-        <?php 
-        echo $form->create('会社');
-        echo $form->input('code', array('label'=>__('会社コード',true),'type'=>'text','div'=>false));
-        echo $form->input('name', array('lable'=>__('会社名',true),'type'=>'text','div'=>false));
-        echo $form->button('検索', array('type'=>'submit'));
-        echo $form->button('リセット', array('type'=>'reset'));
+        <?php
+        echo $form->create('Company');
+        echo $form->input('code', array('label' => __('会社コード', true), 'type' => 'text', 'div' => false));
+        echo $form->input('name', array('label' => __('会社名', true), 'type' => 'text', 'div' => false));
+        echo $form->button('検索', array('type' => 'submit'));
+        echo $form->button('リセット', array('type' => 'reset'));
         echo $form->end();
         ?>
     </div>

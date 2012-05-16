@@ -37,7 +37,7 @@ class RequestsController extends AppController {
         $this->paginate = array('fields' => $fields, 'conditions' => $conditions, //'limit' => $limit,
             'order' => array($sort => $direction)); //'page' => $page,
         //'recursive' => 0
-		
+
 
         $this->set('title_for_layout', __('予約管理', true));
         $this->set('page', 'Booking');
@@ -87,11 +87,16 @@ class RequestsController extends AppController {
         $this->set('listTimes', $this->WebConfig->getTimeList());
         $this->set('title_for_layout', '予約会議室');
         if (!empty($this->data)) {
-            $begin_time = DateTime::createFromFormat('Y-m-d h:i:s', $this->data ['Request'] ['begindate'] . ' ' . $this->data ['Request'] ['begintime']);
-            $end_time = DateTime::createFromFormat('Y-m-d h:i:s', $this->data ['Request'] ['enddate'] . ' ' . $this->data ['Request'] ['endtime']);
+            $begin_time = strtotime($this->data ['Request'] ['begindate'] . ' ' . $this->data ['Request'] ['begintime']);
+            $end_time = strtotime($this->data ['Request'] ['enddate'] . ' ' . $this->data ['Request'] ['endtime']);
             if ($begin_time >= $end_time) {
                 // Error Bat dau su ket thuc
-                $this->Session->setFlash(__('予約が成功しません', true), 'default', array('class' => CLASS_WARNING_ALERT));
+                $this->Session->setFlash(__('始まる時間は終わる時間より遅いです', true), 'default', array('class' => CLASS_WARNING_ALERT));
+                return;
+            }
+            if ($begin_time >= $end_time) {
+                $this->Session->setFlash(__('始まる時間は今より早いです', true), 'default', array('class' => CLASS_WARNING_ALERT));
+                return;
             }
             $noRows = $this->_check($this->data ['Request'] ['roomid'], $begin_time, $end_time);
             if ($noRows > 0) {
@@ -101,19 +106,19 @@ class RequestsController extends AppController {
             $now = date('Y-m-d H:i:s');
             $code = $this->_genCode();
             $myId = $this->Auth->user('id');
-            $this->data ['Request'] ['begin_time'] = $begin_time->format('Y-m-d H:i:s');
-            $this->data ['Request'] ['end_time'] = $end_time->format('Y-m-d H:i:s');
+            $this->data ['Request'] ['begin_time'] = date('Y-m-d H:i:s', $begin_time);
+            $this->data ['Request'] ['end_time'] = date('Y-m-d H:i:s', $end_time);
             $this->data ['Request'] ['create_by'] = $myId;
             $this->data ['Request'] ['create_time'] = $now;
             $this->data ['Request'] ['update_by'] = $myId;
             $this->data ['Request'] ['update_time'] = $now;
             $this->data ['Request'] ['code'] = $code;
             $this->data ['Request'] ['status'] = REQUEST_STATUS_APROVED;
-                  	
-        	$room = $this->Room->read('renting_fee', $this->data ['Request'] ['roomid']);
+
+            $room = $this->Room->read('renting_fee', $this->data ['Request'] ['roomid']);
             $time = get_time_diff($this->data['Request']['begin_time'], $this->data['Request']['end_time']);
-            $blocks = $time['D']*48 + $time['H']*2 + $time['I']/30;
-            $this->data ['Request'] ['rent_expense'] = $blocks*$room['Room']['renting_fee'];
+            $blocks = $time['D'] * 48 + $time['H'] * 2 + $time['I'] / 30;
+            $this->data ['Request'] ['rent_expense'] = $blocks * $room['Room']['renting_fee'];
             $this->data ['Request'] ['request_expense'] = $this->WebConfig->field('request_expense', array('id' => 1));
             $this->data ['Request'] ['detroy_expense'] = 0;
             $this->data ['Request'] ['punish_expense'] = 0;
@@ -186,16 +191,14 @@ class RequestsController extends AppController {
             echo json_encode(array('code' => '1', 'msg' => __('データが合っていません', true)));
             return;
         }
-        $begin_time = DateTime::createFromFormat('Y-m-d H:i:s', $this->data ['Request'] ['begindate'] . ' ' . $this->data ['Request'] ['begintime']);
-        $end_time = DateTime::createFromFormat('Y-m-d H:i:s', $this->data ['Request'] ['enddate'] . ' ' . $this->data ['Request'] ['endtime']);
-        $now = new DateTime();
-        if ($begin_time < $now){
-            echo json_encode(array('code' => '3', 'msg' => __('この時間は誰かが予約しました。', true)));
+        $begin_time = strtotime($this->data ['Request'] ['begindate'] . ' ' . $this->data ['Request'] ['begintime']);
+        $end_time = strtotime($this->data ['Request'] ['enddate'] . ' ' . $this->data ['Request'] ['endtime']);
+        if ($begin_time >= $end_time) {
+            echo json_encode(array('code' => '2', 'msg' => __('始まる時間は終わる時間より遅いです。', true)));
             return;
         }
-        if ($begin_time >= $end_time) {
-            // Error Bat dau su ket thuc
-            echo json_encode(array('code' => '2', 'msg' => __('始まる時間は終わる時間より遅いです。', true)));
+        if ($begin_time < time()) {
+            echo json_encode(array('code' => '4', 'msg' => __('始まる時間は今より早いです。', true)));
             return;
         }
         $re = $this->_check($this->data ['Request'] ['roomid'], $begin_time, $end_time);
@@ -211,7 +214,19 @@ class RequestsController extends AppController {
     function admin_index() {
         $conditions = array();
         //TODO : lay dk tim kiem
-        $limit_time = (string) $this->WebConfig->field('limit_time', array('WebConfig.id'=>1));
+        if (isset($this->data ['Request'] ['fsfromtime']) && !empty($this->data ['Request'] ['fsfromtime'])) {
+            $conditions ['Request.date >='] = $this->data ['Request'] ['fsfromtime'];
+        }
+        if (isset($this->data ['Request'] ['fstotime']) && !empty($this->data ['Request'] ['fstotime'])) {
+            $conditions ['Request.date <='] = $this->data ['Request'] ['fstotime'];
+        }
+        if (isset($this->data ['Request'] ['fsstatus']) && !empty($this->data ['Request'] ['fsstatus'])) {
+            $conditions ['Request.status'] = $this->data ['Request'] ['fsstatus'];
+        }
+        if (isset($this->data ['Request'] ['fscustomer']) && !empty($this->data ['Request'] ['fscustomer'])) {
+            $conditions ['Requester.fullname LIKE'] = '%' . trim($this->data ['Request'] ['fscustomer']) . '%';
+        }
+        $limit_time = (string) $this->WebConfig->field('limit_time', array('WebConfig.id' => 1));
         $toDay = new DateTime();
         $conditions['Request.update_time >='] = $toDay->sub(new DateInterval($limit_time))->format('Y-m-d');
         $limit = isset($this->params ['named'] ['limit']) && !empty($this->params ['named'] ['limit']) ? (int) $this->params ['named'] ['limit'] : 10;
@@ -246,7 +261,7 @@ class RequestsController extends AppController {
         $fields = array('Request.*', 'Requester.fullname', 'Updater.fullname', 'Room.name', 'TIMEDIFF(Request.end_time,Request.begin_time) AS time', '(Request.request_expense+Request.detroy_expense+Request.punish_expense) AS total_price');
         $request = $this->Request->read($fields, $id);
         $conditions = array('Request.code' => $request ['Request'] ['code']);
-        $limit_time = (string) $this->WebConfig->field('limit_time', array('WebConfig.id'=>1));
+        $limit_time = (string) $this->WebConfig->field('limit_time', array('WebConfig.id' => 1));
         $toDay = new DateTime();
         $conditions['Request.update_time >='] = $toDay->sub(new DateInterval($limit_time))->format('Y-m-d');
         $this->paginate = array('fields' => $fields, 'conditions' => $conditions, 'limit' => $limit, 'order' => array($sort => $direction), 'page' => $page, 'recursives' => 0);
@@ -264,7 +279,7 @@ class RequestsController extends AppController {
     }
 
     function admin_add() {
-        $this->layout = 'admin';
+        $this->layout = 'popup';
         $this->set('title_for_layout', __('予約管理', true));
         $this->set('listRoomType', $this->RoomType->find('list', array('fields' => array('id', 'name'))));
         $this->set('listTimes', $this->WebConfig->getTimeList());
@@ -273,15 +288,20 @@ class RequestsController extends AppController {
         $this->set('listUsers', $listUsers);
         //debug($this->data);
         if (!empty($this->data)) {
-            $begin_time = DateTime::createFromFormat('Y-m-d h:i:s', $this->data ['Request'] ['begindate'] . ' ' . $this->data ['Request'] ['begintime']);
-            $end_time = DateTime::createFromFormat('Y-m-d h:i:s', $this->data ['Request'] ['enddate'] . ' ' . $this->data ['Request'] ['endtime']);
+            $begin_time = strtotime($this->data ['Request'] ['begindate'] . ' ' . $this->data ['Request'] ['begintime']);
+            $end_time = strtotime($this->data ['Request'] ['enddate'] . ' ' . $this->data ['Request'] ['endtime']);
             if ($begin_time >= $end_time) {
                 // Error Bat dau su ket thuc
-                $this->Session->setFlash(__('Booking not success', true), 'default', array('class' => CLASS_WARNING_ALERT));
+                $this->Session->setFlash(__('始まる時間は終わる時間より遅いです', true), 'default', array('class' => CLASS_WARNING_ALERT));
+                return;
+            }
+            if ($begin_time >= $end_time) {
+                $this->Session->setFlash(__('始まる時間は今より早いです', true), 'default', array('class' => CLASS_WARNING_ALERT));
+                return;
             }
             $noRows = $this->_check($this->data ['Request'] ['roomid'], $begin_time, $end_time);
             if ($noRows > 0) {
-                $this->Session->setFlash(__('時間が合っていません', true), 'default', array('class' => CLASS_WARNING_ALERT));
+                $this->Session->setFlash(__('予約時間が合っていません', true), 'default', array('class' => CLASS_WARNING_ALERT));
                 return;
             }
             $now = date('Y-m-d H:i:s');
@@ -291,15 +311,14 @@ class RequestsController extends AppController {
             //$room = $this->Room->read('renting_fee', $this->data ['Request']['roomid']);
             $this->data ['Request'] ['status'] = REQUEST_STATUS_APROVED;
             $hi = $this->WebConfig->read('request_expense', 1);
-            $this->data ['Request'] ['begin_time'] = $begin_time->format('Y-m-d H:i:s');
-            $this->data ['Request'] ['end_time'] = $end_time->format('Y-m-d H:i:s');
-            
+            $this->data ['Request'] ['begin_time'] = date('Y-m-d H:i:s', $begin_time);
+            $this->data ['Request'] ['end_time'] = date('Y-m-d H:i:s', $end_time);
             $room = $this->Room->read('renting_fee', $this->data ['Request'] ['roomid']);
             $time = get_time_diff($this->data['Request']['begin_time'], $this->data['Request']['end_time']);
-            $blocks = $time['D']*48 + $time['H']*2 + $time['I']/30;
+            $blocks = $time['D'] * 48 + $time['H'] * 2 + $time['I'] / 30;
             //debug($time);
-            $this->data ['Request'] ['rent_expense'] = $blocks*$room['Room']['renting_fee'];
-            
+            $this->data ['Request'] ['rent_expense'] = $blocks * $room['Room']['renting_fee'];
+
             $this->data ['Request'] ['request_expense'] = $hi ['WebConfig'] ['request_expense'];
             $this->data ['Request'] ['total_price'] = $this->data ['Request'] ['request_expense'];
             $this->data ['Request'] ['paid'] = 0;
@@ -309,8 +328,9 @@ class RequestsController extends AppController {
             $this->data ['Request'] ['update_time'] = $now;
             //debug($this->data);die();
             if ($this->Request->save($this->data)) {
-                $this->Session->setFlash(__('要求が保存されます。', true), 'default', array('class' => CLASS_SUCCESS_ALERT));
-                $this->redirect('index');
+                //$this->Session->setFlash(__('要求が保存されます。', true), 'default', array('class' => CLASS_SUCCESS_ALERT));
+                //$this->redirect('index');
+                $this->set('isOk', true);
             } else {
                 $this->Session->setFlash(__('要求が保存されできません。もう一度、お願いします。', true), 'default', array('class' => CLASS_ERROR_ALERT));
             }
@@ -426,7 +446,7 @@ class RequestsController extends AppController {
             $this->Request->saveField('update_time', date('Y-m-d H:i:s'));
             $begin = strtotime($rs ['Request'] ['begin_time']);
             $end = strtotime($rs ['Request'] ['end_time']);
-            $rent = ($end - $begin) / (3600*2) * $room ['Room'] ['renting_fee'];
+            $rent = ($end - $begin) / (3600 * 2) * $room ['Room'] ['renting_fee'];
             //$this->log(($d2 - $d1)/3600,'test');
             $this->Request->saveField('rent_expense', $rent);
             $this->Session->setFlash(__('終了しました。', true), 'default', array('class' => CLASS_SUCCESS_ALERT));
@@ -463,11 +483,11 @@ class RequestsController extends AppController {
                     $rent = ($end - $begin) / (3600) * $room ['Room'] ['renting_fee'];
                     //$this->log(($d2 - $d1)/3600,'test');
                     $this->Request->saveField('rent_expense', $rent);
-                    //$this->Session->setFlash ( __ ( '終了しました。', true ), 'default', array ('class' => CLASS_SUCCESS_ALERT ) );
-                    //$this->redirect ( array ('action' => 'index' ) );
+//                    $this->Session->setFlash ( __ ( 'その予約が実施されました。', true ), 'default', array ('class' => CLASS_SUCCESS_ALERT ) );
+//                    $this->redirect ( array ('action' => 'index' ) );
                 }
             }
-            $this->Session->setFlash(__('終了しました。', true), 'default', array('class' => CLASS_SUCCESS_ALERT));
+            $this->Session->setFlash(__('その予約が実施されました。', true), 'default', array('class' => CLASS_SUCCESS_ALERT));
             $this->redirect(array('action' => 'index'));
         } elseif ($this->data ['itemaction'] == 2) {
             for ($i = 0; $i < count($this->data ['Request'] ['SelectItem']); $i++) {
@@ -510,13 +530,23 @@ class RequestsController extends AppController {
     /**
      * Check time request
      * @param $roomid int
-     * @param $begin DateTime
-     * @param $end DateTime
+     * @param $begin int
+     * @param $end int
      * @return int number of request between $begin and $end
      */
     private function _check($roomid, $begin, $end) {
         $conditions = array('Request.roomid' => (int) $roomid, //TODO : dk status
-            'OR' => array(array('Request.begin_time >=' => $begin->format('Y-m-d H:i:s'), 'Request.begin_time <' => $end->format('Y-m-d H:i:s')), array('Request.end_time >' => $begin->format('Y-m-d H:i:s'), 'Request.end_time <=' => $end->format('Y-m-d H:i:s'))));
+            'OR' => array(
+                array(
+                    'Request.begin_time >=' => date('Y-m-d H:i:s', $begin),
+                    'Request.begin_time <' => date('Y-m-d H:i:s', $end)
+                ),
+                array(
+                    'Request.end_time >' => date('Y-m-d H:i:s', $begin),
+                    'Request.end_time <=' => date('Y-m-d H:i:s', $end)
+                )
+            )
+        );
         $re = $this->Request->find('count', array('conditions' => $conditions, 'recursive' => - 1));
         return $re;
     }

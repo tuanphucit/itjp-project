@@ -5,15 +5,16 @@
 /* @var $listRooms array */
 /* @var $listTimes array */
 ?>
+<div id="flashMessage"></div>
 <?php echo $form->create('Request', array('action' => 'add')); ?>
 <table>
     <tr>
         <td><?php echo $form->label('roomtype', __('室タイプ', true)); ?></td>
-        <td><?php echo $form->select('roomid', $listRoomTypes, null, array('empty' => '--選択--', 'id' => 'list-room', 'class'=>'list-room-types')); ?></td>
+        <td><?php echo $form->select('roomid', $listRoomTypes, null, array('empty' => '--選択--', 'id' => 'list-room', 'class' => 'list-room-types')); ?></td>
     </tr>
     <tr>
-    	<td class="rooms-appear" style="display: none;"><?php echo $form->label('room', __('室', true)); ?></td>
-    	<td><span class="list-rooms"></span></td>
+        <td class="rooms-appear" style="display: none;"><?php echo $form->label('room', __('室', true)); ?></td>
+        <td><span class="list-rooms"></span></td>
     </tr>
     <tr>
         <td><?php echo $form->label('begindate', __('始まり', true)); ?></td>
@@ -44,27 +45,26 @@
         </td>
     </tr>
 </table>
-<div id="flashMessage"></div>
 <?php echo $form->end(); ?>
 <script type="text/javascript">
-	$(document).ready(function(){
-		$("select.list-room-types").change(function(){
-			if($(this).val()){
-			var url = '<?php echo $this->Html->url(array('controller' => 'rooms','action' => 'list_rooms'))?>' + "/" + $(this).val();
-			$.ajax({
-				url : url,
-				success : function(data){
-					$(".rooms-appear").show();
-					$("span.list-rooms").html(data);
-				}
-			});
-			}else{
-				$("span.list-rooms").html("");
-			}
-		});
-	});
+    $(document).ready(function(){
+        $("select.list-room-types").change(function(){
+            if($(this).val()){
+                var url = '<?php echo $this->Html->url(array('controller' => 'rooms', 'action' => 'list_rooms')) ?>' + "/" + $(this).val();
+                $.ajax({
+                    url : url,
+                    success : function(data){
+                        $(".rooms-appear").show();
+                        $("span.list-rooms").html(data);
+                    }
+                });
+            }else{
+                $("span.list-rooms").html("");
+            }
+        });
+    });
 
-    var okchua = false;
+    //var okchua = false;
     $(function() {
         var dates = $("#beginDateInput, #endDateInput").datepicker({
             dateFormat: 'yy-mm-dd',
@@ -89,7 +89,7 @@
             return false;
         }
         if($("select.list").val()==""){
-        	alert("室を選びなさい");
+            alert("室を選びなさい");
             return false;
         }
         
@@ -98,6 +98,7 @@
             data: $('select,input').serializeArray(),
             type: 'POST',
             success: function(data){
+                //alert(data);exit();
                 var  redata = $.parseJSON(data);
                 if(parseInt(redata.code) == 0){
                     $('form').submit();
@@ -114,6 +115,6 @@
 <?php if (@$isOk): ?>
         window.close();
         window.opener.alert('予約が成功しました');
-        window.opener.location.href="http://localhost/itjp-project/requests";
+        window.opener.location.href="<?php echo $html->url(array('controller' => 'requests', 'action' => 'index')); ?>";
 <?php endif; ?>
 </script>
