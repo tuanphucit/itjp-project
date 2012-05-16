@@ -15,6 +15,18 @@ class RequestsController extends AppController {
 
     function beforeFilter() {
         parent::beforeFilter();
+        
+        $now = date('Y-m-d H:i:s');
+        $conditions = array(
+        	'Request.status' => REQUEST_STATUS_APROVED,
+        	'Request.begin_time <=' => $now
+        );
+        $fields = array('id', 'begin_time');
+        $rq = $this->Request->find('all', array('conditions'=>$conditions, 'fields' => $fields));
+        foreach ($rq as $rs){
+        	$this->Request->id = $rs['Request']['id'];
+        	$this->Request->saveField('status', REQUEST_STATUS_FINISH);
+        }
     }
 
     function index() {

@@ -37,7 +37,7 @@ function makeupStatus($statusid) {
         <div class="header_action">
             <?php
             $options = array(
-                1 => '終了',
+                //1 => '終了',
                 2 => 'キャンセル'
             );
             echo $form->select('itemaction', $options, null, array('empty' => '--Select--'));

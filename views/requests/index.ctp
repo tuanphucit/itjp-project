@@ -56,7 +56,7 @@ $total = 0;
             }
         }
         ?>
-        <form name="form1" action="requests/action" method="post">
+        <form name="form1" action="<?php echo $html->url(array('controller'=>'requests', 'action'=>'action'));?>" method="post">
             <div class="module_header">
                 <div class="header_action">
                     <ul class="tabs">
