@@ -30,29 +30,37 @@ $rdurl = $html->url(array('action' => 'view', $rdurl));
             <th style="width: 10%" class="tableheader"><?php __('行動'); ?></th>
         </tr>
     </thead>
-    <?php foreach ($list as $item) : ?>
-        <?php
-        $class = null;
-        if ($stt++ % 2 == 0) {
-            $class = ' class="altrow"';
-        }
-        ?>
-        <tr<?php echo $class; ?>>
-            <td align="center"><?php echo $stt; ?>&nbsp;</td>
-            <td align="left"><?php echo $item['Room']['name']; ?>&nbsp;</td>
-            <td align="left"><?php echo $item['Requester']['fullname']; ?>&nbsp;</td>
-            <td align="center"><?php echo $item['Request']['create_time']; ?>&nbsp;</td>
-            <td align="left"><?php echo $item['Updater']['fullname']; ?>&nbsp;</td>
-            <td align="center"><?php echo $item['Request']['update_time']; ?>&nbsp;</td>
-            <td align="center"><?php echo $item['Request']['status']; ?>&nbsp;</td>
-            <td align="center">
-                <?php
-                echo $html->image('admin_layout/icn_edit.png', array('url' => array('action' => 'admin_edit', $item['Request']['id']), 'title' => __('編集 # ' . $stt, true), 'alt' => 'edit'));
-                echo $html->image('admin_layout/icn_trash.png', array('url' => array('action' => 'admin_delete', $item['Request']['id']), 'title' => __('削除 # ' . $stt, true), 'alt' => 'delete'));
-                ?>
+    <?php if (count($list) == 0): ?>
+        <tr>
+            <td colspan="11" align="center" style="height: 100px">
+                <strong><?php __('Not found any records'); ?></strong>
             </td>
         </tr>
-    <?php endforeach; ?>
+    <?php else: ?>
+        <?php foreach ($list as $item) : ?>
+            <?php
+            $class = null;
+            if ($stt++ % 2 == 0) {
+                $class = ' class="altrow"';
+            }
+            ?>
+            <tr<?php echo $class; ?>>
+                <td align="center"><?php echo $stt; ?>&nbsp;</td>
+                <td align="left"><?php echo $item['Room']['name']; ?>&nbsp;</td>
+                <td align="left"><?php echo $item['Requester']['fullname']; ?>&nbsp;</td>
+                <td align="center"><?php echo $item['Request']['create_time']; ?>&nbsp;</td>
+                <td align="left"><?php echo $item['Updater']['fullname']; ?>&nbsp;</td>
+                <td align="center"><?php echo $item['Request']['update_time']; ?>&nbsp;</td>
+                <td align="center"><?php echo $item['Request']['status']; ?>&nbsp;</td>
+                <td align="center">
+                    <?php
+                    echo $html->image('admin_layout/icn_edit.png', array('url' => array('action' => 'admin_edit', $item['Request']['id']), 'title' => __('編集 # ' . $stt, true), 'alt' => 'edit'));
+                    echo $html->image('admin_layout/icn_trash.png', array('url' => array('action' => 'admin_delete', $item['Request']['id']), 'title' => __('削除 # ' . $stt, true), 'alt' => 'delete'));
+                    ?>
+                </td>
+            </tr>
+        <?php endforeach; ?>
+    <?php endif; ?>
 </table>
 <div class="module_footer">
     <div id="limit">
