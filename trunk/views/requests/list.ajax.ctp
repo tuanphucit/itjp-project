@@ -14,28 +14,21 @@ $rdurl = $html->url(array('action' => 'index', $rdurl));
  * @return String
  */
 function makeupStatus($statusid) {
-    switch ($statusid) {
-        case REQUEST_STATUS_INIT:
-            return __('Initial', true);
-            break;
+    switch ($statusid) {        
         case REQUEST_STATUS_APROVED:
-            return __('Aproved', true);
+            return __('予約した', true);
             break;
-        case REQUEST_STATUS_DENIED:
-            return __('Denied', true);
-            break;
-        case REQUEST_STATUS_HAS_UPDATED:
-            return __('Has Updated', true);
-            break;
+        
         case REQUEST_STATUS_CANCELED:
-            return __('Cancelled', true);
+            return __('キャンセル', true);
             break;
         case REQUEST_STATUS_FINISH:
-            return __('Finished', true);
+            return __('使用した', true);
             break;
         default:
-            return __('Unknow', true);
+            return __('知らない', true);
             break;
+    
     }
 }
 ?>
@@ -63,12 +56,12 @@ function makeupStatus($statusid) {
             <tr>
                 <th style="width: 5%" class="tableheader"><?php __("#"); ?></th>
                 <th style="width: 5%" class="tableheader"><?php echo $form->checkbox('allbox', array('title' => __('Select all', true), 'class' => 'cb_allItem', 'onclick' => 'checkAll()')); ?></th>
-                <th style="width: 10%" class="tableheader"><?php echo $this->Paginator->sort(__('Room', true), 'Room.name'); ?></th>
-                <th style="width: 15%" class="tableheader"><?php echo $this->Paginator->sort(__('Customer', true), 'Reqester.fullname'); ?></th>
-                <th style="width: 15%" class="tableheader"><?php echo $this->Paginator->sort(__('Created Time', true), 'create_time'); ?></th>
-                <th style="width: 15%" class="tableheader"><?php echo $this->Paginator->sort(__('Updated By', true), 'Updater.fullname'); ?></th>
-                <th style="width: 15%" class="tableheader"><?php echo $this->Paginator->sort(__('Updated Time', true), 'update_time'); ?></th>
-                <th style="width: 10%" class="tableheader"><?php echo $this->Paginator->sort(__('Status', true), 'status'); ?></th>
+                <th style="width: 10%" class="tableheader"><?php echo $this->Paginator->sort(__('室', true), 'Room.name'); ?></th>
+                <th style="width: 15%" class="tableheader"><?php echo $this->Paginator->sort(__('テナント', true), 'Reqester.fullname'); ?></th>
+                <th style="width: 15%" class="tableheader"><?php echo $this->Paginator->sort(__('始まり', true), 'begin_time'); ?></th>
+                <th style="width: 15%" class="tableheader"><?php echo $this->Paginator->sort(__('終わり', true), 'end_time'); ?></th>
+                <th style="width: 15%" class="tableheader"><?php echo $this->Paginator->sort(__('更新時', true), 'update_time'); ?></th>
+                <th style="width: 10%" class="tableheader"><?php echo $this->Paginator->sort(__('状態', true), 'status'); ?></th>
                 <th style="width: 10%" class="tableheader"><?php __('Actions'); ?></th>
             </tr>
         </thead>
@@ -91,8 +84,8 @@ function makeupStatus($statusid) {
                     <td align="center"><?php echo $form->checkbox('Request.SelectItem.' . ($stt - 1), array('value' => $item['Request']['id'], 'title' => __('Select # ' . $stt, true), 'class' => 'cb_item')); ?></td>
                     <td align="left"><?php echo $item['Room']['name']; ?>&nbsp;</td>
                     <td align="left"><?php echo $item['Requester']['fullname']; ?>&nbsp;</td>
-                    <td align="center"><?php echo $item['Request']['create_time']; ?>&nbsp;</td>
-                    <td align="left"><?php echo $item['Updater']['fullname']; ?>&nbsp;</td>
+                    <td align="center"><?php echo $item['Request']['begin_time']; ?>&nbsp;</td>
+                    <td align="left"><?php echo $item['Request']['end_time']; ?>&nbsp;</td>
                     <td align="center"><?php echo $item['Request']['update_time']; ?>&nbsp;</td>
                     <td align="center"><?php echo makeupStatus($item['Request']['status']); ?>&nbsp;</td>
                     <td style="padding: 5px 5px" align="center">

@@ -15,8 +15,8 @@ $html->addCrumb(__('予約管理', true), '/admin/requests');
     <div id="search_box" class="module_content">
         <?php
         $stsOptions= array(
-        	REQUEST_STATUS_APROVED => '使用待ち状態',
-        	REQUEST_STATUS_FINISH => '終了',
+        	REQUEST_STATUS_APROVED => '予約した',
+        	REQUEST_STATUS_FINISH => '使用した',
         	REQUEST_STATUS_CANCELED => 'キャンセル',
         );
         //TODO : chinh form admin search request

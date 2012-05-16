@@ -18,23 +18,14 @@ $html->addCrumb(__('予約表示', true), '/admin/requests/view');
 //echo $this->element('sql_dump');
 function makeupStatus($statusid) {
     switch ($statusid) {
-        case REQUEST_STATUS_INIT:
-            return __('初期', true);
-            break;
         case REQUEST_STATUS_APROVED:
-            return __('承認', true);
-            break;
-        case REQUEST_STATUS_DENIED:
-            return __('拒否', true);
-            break;
-        case REQUEST_STATUS_HAS_UPDATED:
-            return __('更新した', true);
+            return __('予約した', true);
             break;
         case REQUEST_STATUS_CANCELED:
             return __('キャンセル', true);
             break;
         case REQUEST_STATUS_FINISH:
-            return __('完了', true);
+            return __('使用した', true);
             break;
         default:
             return __('知らない', true);
@@ -50,7 +41,7 @@ function makeupStatus($statusid) {
                 <li><?php echo $html->link(__('キャンセル', true), array('action' => 'admin_delete', $Request['Request']['id']), array('title' => __('予約をキャンセルする', true))); ?></li>
             </ul>
             <ul class="tabs" style="margin-right: 5px">
-                <li><?php echo $html->link(__('終了', true), array('action' => 'admin_finish', $Request['Request']['id']), array('title' => __('終了する', true))); ?></li>
+                <li><?php echo $html->link(__('使用した', true), array('action' => 'admin_finish', $Request['Request']['id']), array('title' => __('終了する', true))); ?></li>
             </ul>
              <ul class="tabs" style="margin-right: 5px">
                 <li><?php echo $html->link(__('罰金', true), array('action' => 'admin_bakking', $Request['Request']['id']), array('title' => __('bakking', true))); ?></li>

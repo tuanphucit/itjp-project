@@ -9,9 +9,9 @@ $html->script(array('jquery-1.5.1.min', 'jquery-ui.min.js'), array('inline' => f
 $html->link(array('aristo/jquery-ui'), array('inline' => false));
 $stt = 0;
 $stsOptions = array(
-    REQUEST_STATUS_APROVED => '予約',
-    REQUEST_STATUS_CANCELED => 'キャンセル',
-    REQUEST_STATUS_FINISH => '終了'
+    REQUEST_STATUS_APROVED => '予約した',
+   	REQUEST_STATUS_FINISH => '使用した',
+   	REQUEST_STATUS_CANCELED => 'キャンセル',
 );
 $total = 0;
 ?>
