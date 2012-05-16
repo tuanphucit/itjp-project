@@ -104,7 +104,7 @@ function makeupStatus($statusid) {
             <tr>
                 <td style="font-weight: bold; width: 30%;text-align: right"><?php __('費用合計'); ?></td>
                 <td>:</td>
-                <td><?php echo $Request['0']['total_price']; ?></td>
+                <td><?php echo $Request['Request']['total_expense']; ?></td>
             </tr>
             <tr>
                 <td style="font-weight: bold; width: 30%;text-align: right"><?php __('使用料'); ?></td>
