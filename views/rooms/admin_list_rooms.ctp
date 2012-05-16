@@ -6,6 +6,6 @@
 		}
 	}
 	if(! empty($option)){
-		echo '室： '.$this->Form->select('Request.roomid',$option,null,array('empty' => __('--選択--',true),'style' => 'width:170px','div' => false));
+		echo '室： '.$this->Form->select('Request.roomid',$option,null,array('empty' => __('--選択--',true),'class'=>'list', 'style' => 'width:170px','div' => false));
 	}
 ?>

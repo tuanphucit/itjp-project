@@ -9,22 +9,21 @@ $html->script(array('jquery-1.5.1.min', 'jquery-ui.min.js'), array('inline' => f
 $html->link(array('aristo/jquery-ui'), array('inline' => false));
 $stt = 0;
 $stsOptions = array(
-    REQUEST_STATUS_INIT => 'Khoi tao',
-    REQUEST_STATUS_APROVED => 'Da dc phe duyet',
-    REQUEST_STATUS_CANCELED => 'Da huy',
-    REQUEST_STATUS_FINISH => 'Ket thuc'
+    REQUEST_STATUS_APROVED => '予約',
+    REQUEST_STATUS_CANCELED => 'キャンセル',
+    REQUEST_STATUS_FINISH => '終了'
 );
 ?>
 <div id="about">
-    <h2><?php __('List Booking'); ?></h2>
+    <h2><?php __('予約履歴'); ?></h2>
     <?php echo $this->Session->flash(); ?>
     <div id="search_box">
         <?php
         echo $form->create();
-        echo $form->input('fsstatus', array('label' => 'Status:', 'type' => 'select', 'options' => $stsOptions, 'div' => false, 'empty' => '--All--'));
-        echo $form->input('fsfromtime', array('type' => 'text', 'id' => 'fTimeInput', 'label' => 'から :', 'div' => false));
-        echo $form->input('fstotime', array('type' => 'text', 'id' => 'tTimeInput', 'label' => 'まで :', 'div' => false));
-        echo $form->end(array('label' => 'Search', 'div' => false));
+        echo $form->input('fsstatus', array('label' => '状態:', 'type' => 'select', 'options' => $stsOptions, 'div' => false, 'empty' => '--選択--'));
+        echo $form->input('fsfromtime', array('type' => 'text', 'id' => 'fTimeInput', 'label' => '始まり :', 'div' => false));
+        echo $form->input('fstotime', array('type' => 'text', 'id' => 'tTimeInput', 'label' => '終わり:', 'div' => false));
+        echo $form->end(array('label' => '検索', 'div' => false));
         ?>
     </div>
     <div id="result_box">
@@ -36,7 +35,7 @@ $stsOptions = array(
                     return __('Initial', true);
                     break;
                 case REQUEST_STATUS_APROVED:
-                    return __('Aproved', true);
+                    return __('予約', true);
                     break;
                 case REQUEST_STATUS_DENIED:
                     return __('Denied', true);
@@ -45,10 +44,10 @@ $stsOptions = array(
                     return __('Has Updated', true);
                     break;
                 case REQUEST_STATUS_CANCELED:
-                    return __('Cancelled', true);
+                    return __('キャンセル', true);
                     break;
                 case REQUEST_STATUS_FINISH:
-                    return __('Finished', true);
+                    return __('終了', true);
                     break;
                 default:
                     return __('Unknow', true);
@@ -56,18 +55,21 @@ $stsOptions = array(
             }
         }
         ?>
-        <form name="form1" action="" method="post">
+        <form name="form1" action="requests/action" method="post">
             <div class="module_header">
                 <div class="header_action">
                     <ul class="tabs">
-                        <li class="mod_hea_bt"><?php echo $html->link(__('Add Request', true), array('action' => 'admin_add'), array('title' => __('Add', true),'onclick'=>'doAddRequest();return false;')); ?></li>
+                        <li class="mod_hea_bt"><?php echo $html->link(__('予約追加', true), array('action' => 'admin_add'), array('title' => __('Add', true),'onclick'=>'doAddRequest();return false;')); ?></li>
                     </ul>
-                    <ul class="tabs" style="margin-right: 5px">
+                    <!--<ul class="tabs" style="margin-right: 5px">
                         <li class="mod_hea_bt"><?php echo $html->link(__('Export CSV', true), array('action' => 'admin_csvexport'), array('title' => __('Export CSV', true), 'onclick' => 'gotoCSVExport();return false;')); ?></li>
                     </ul>
-                    <?php
-                    echo $form->select('itemaction', array(), null, array('empty' => '--Select--'));
-                    echo $form->button('Submit', array('type' => 'button'));
+                    --><?php
+                    $options = array(
+		            	1 => 'キャンセル'
+            		);
+                    echo $form->select('itemaction', $options, null, array('empty' => '--選択--'));
+                    echo $form->button('サブミット', array('type' => 'submit'));
                     ?>
                 </div>
             </div>
@@ -75,21 +77,21 @@ $stsOptions = array(
                 <thead>
                     <tr>
                         <th style="width: 5%" class="tableheader"><?php __("#"); ?></th>
-                        <th style="width: 5%" class="tableheader"><?php echo $form->checkbox('SelectAll', array('title' => __('Select all', true), 'class' => 'cb_allItem')); ?></th>
-                        <th style="width: 5%" class="tableheader"><?php echo $this->Paginator->sort(__('Room', true), 'Room.name'); ?></th>
-                        <th style="width: 10%" class="tableheader"><?php echo $this->Paginator->sort(__('Date', true), 'Request.date'); ?></th>
-                        <th style="width: 20%" class="tableheader"><?php echo $this->Paginator->sort(__('Begin Time', true), 'Request.begin_time'); ?></th>
-                        <th style="width: 20%" class="tableheader"><?php echo $this->Paginator->sort(__('End Time', true), 'Request.end_time'); ?></th>
-                        <th style="width: 10%" class="tableheader"><?php echo $this->Paginator->sort(__('Time', true), 'time'); ?></th>
-                        <th style="width: 15%" class="tableheader"><?php echo $this->Paginator->sort(__('Total Expense', true), 'total_price'); ?></th>
-                        <th style="width: 10%" class="tableheader"><?php echo $this->Paginator->sort(__('Status', true), 'Request.status'); ?></th>
-                        <th style="width: 10%" class="tableheader"><?php __('Actions'); ?></th>
+                        <th style="width: 5%" class="tableheader"><?php echo $form->checkbox('allbox', array('title' => __('全て選択', true), 'class' => 'cb_allItem', 'onclick' => 'checkAll()')); ?></th>
+                        <th style="width: 5%" class="tableheader"><?php echo $this->Paginator->sort(__('室', true), 'Room.name'); ?></th>
+<!--                        <th style="width: 10%" class="tableheader"><?php echo $this->Paginator->sort(__('Date', true), 'Request.date'); ?></th>-->
+                        <th style="width: 20%" class="tableheader"><?php echo $this->Paginator->sort(__('始まり', true), 'Request.begin_time'); ?></th>
+                        <th style="width: 20%" class="tableheader"><?php echo $this->Paginator->sort(__('終わり', true), 'Request.end_time'); ?></th>
+                        <th style="width: 10%" class="tableheader"><?php echo $this->Paginator->sort(__('時間', true), 'time'); ?></th>
+                        <th style="width: 15%" class="tableheader"><?php echo $this->Paginator->sort(__('費の合計', true), 'total_price'); ?></th>
+                        <th style="width: 10%" class="tableheader"><?php echo $this->Paginator->sort(__('状態', true), 'Request.status'); ?></th>
+                        <th style="width: 10%" class="tableheader"></th>
                     </tr>
                 </thead>
                 <?php if (count($list) == 0): ?>
                     <tr>
                         <td colspan="11" align="center" style="height: 100px">
-                            <strong><?php __('Not found any records'); ?></strong>
+                            <strong><?php __('何の結果もありません'); ?></strong>
                         </td>
                     </tr>
                 <?php else: ?>
@@ -104,8 +106,8 @@ $stsOptions = array(
                             <td align="center"><?php echo $stt; ?>&nbsp;</td>
                             <td align="center"><?php echo $form->checkbox('Request.SelectItem.' . ($stt - 1), array('value' => $item['Request']['id'], 'title' => __('Select # ' . $stt, true), 'class' => 'cb_item')); ?></td>
                             <td align="left"><?php echo $item['Room']['name']; ?>&nbsp;</td>
-                            <td align="left"><?php echo $item['Request']['date']; ?>&nbsp;</td>
-                            <td align="center"><?php echo $item['Request']['begin_time']; ?>&nbsp;</td>
+                            <!--<td align="left"><?php echo $item['Request']['date']; ?>&nbsp;</td>
+                            --><td align="center"><?php echo $item['Request']['begin_time']; ?>&nbsp;</td>
                             <td align="left"><?php echo $item['Request']['end_time']; ?>&nbsp;</td>
                             <td align="center"><?php echo $item['Request']['time']; ?>&nbsp;</td>
                             <td align="center"><?php echo $item['Request']['total_expense']; ?>&nbsp;</td>
@@ -144,5 +146,15 @@ $stsOptions = array(
     function doAddRequest(){
         mywin = window.open ("<?php echo $html->url(array('controller' => 'requests', 'action' => 'add', 'admin' => false)); ?>","addRequest","status=1,width=400,height=300");
         mywin.focus();
+    }
+    function checkAll(){
+    	for (var i=0;i<document.form1.elements.length;i++)
+    	{
+    		var e=document.form1.elements[i];
+    		if ((e.name != 'allbox') && (e.type=='checkbox'))
+    		{
+    			e.checked=document.form1.allbox.checked;
+    		}
+    	}
     }
 </script>
