@@ -159,6 +159,7 @@ class RequestsController extends AppController {
 				$this->Request->id = $id;
 				//TODO : thay doi phi theo status
 				$this->Request->saveField ( 'status', REQUEST_STATUS_CANCELED );
+				$this->Request->saveField ( 'update_time', date('Y-m-d H:i:s') );
 				$this->Session->setFlash ( __ ( '予約がキャンセルしました', true ), 'default', array ('class' => CLASS_SUCCESS_ALERT ) );
 				$this->redirect ( array ('action' => 'index' ) );
 			} else {
@@ -312,6 +313,7 @@ class RequestsController extends AppController {
 			if (abs ( $now - $begin ) >= 60 * 60) {
 				$this->Request->id = $id;
 				$this->Request->saveField ( 'status', REQUEST_STATUS_CANCELED );
+				$this->Request->saveField ( 'update_time', date('Y-m-d H:i:s') );
 				$hi = $this->WebConfig->read ( 'detroy_expense', 1 );
 				$this->Request->saveField ( 'detroy_expense', $hi ['WebConfig'] ['detroy_expense'] );
 				
@@ -347,6 +349,7 @@ class RequestsController extends AppController {
 		
 		if ($rs ['Request'] ['status'] != REQUEST_STATUS_FINISH && $rs ['Request'] ['status'] != REQUEST_STATUS_CANCELED) {
 			$this->Request->saveField ( 'status', REQUEST_STATUS_FINISH );
+			$this->Request->saveField ( 'update_time', date('Y-m-d H:i:s') );
 			$begin = strtotime ( $rs ['Request'] ['begin_time'] );
 			$end = strtotime ( $rs ['Request'] ['end_time'] );
 			$rent = ($end - $begin) / (3600) * $room ['Room'] ['renting_fee'];

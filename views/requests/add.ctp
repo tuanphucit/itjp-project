@@ -8,11 +8,15 @@
 <?php echo $form->create('Request', array('action' => 'add')); ?>
 <table>
     <tr>
-        <td><?php echo $form->label('room', __('室タイプ', true)); ?></td>
-        <td><?php echo $form->select('roomid', $listRoomTypes, null, array('empty' => null, 'id' => 'list-room')); ?></td>
+        <td><?php echo $form->label('roomtype', __('室タイプ', true)); ?></td>
+        <td><?php echo $form->select('roomid', $listRoomTypes, null, array('empty' => '--選択--', 'id' => 'list-room', 'class'=>'list-room-types')); ?></td>
     </tr>
     <tr>
-        <td><?php echo $form->label('begindate', __('から', true)); ?></td>
+    	<td class="rooms-appear" style="display: none;"><?php echo $form->label('room', __('室', true)); ?></td>
+    	<td><span class="list-rooms"></span></td>
+    </tr>
+    <tr>
+        <td><?php echo $form->label('begindate', __('始まり', true)); ?></td>
         <td>
             <?php echo $form->text('begindate', array('id' => 'beginDateInput')); ?>
             <?php echo $form->select('begintime', $listTimes, null, array('empty' => false, 'id' => 'beginSelector')); ?>
@@ -20,14 +24,14 @@
 
     </tr>
     <tr>
-        <td><?php echo $form->label('enddate', __('from', true)); ?></td>
+        <td><?php echo $form->label('enddate', __('終わり', true)); ?></td>
         <td>
             <?php echo $form->text('enddate', array('id' => 'endDateInput')); ?>
             <?php echo $form->select('endtime', $listTimes, null, array('empty' => false, 'id' => 'endSelector')); ?>
         </td>
     </tr>
     <tr>
-        <td><?php echo $form->label('note', __('note', true)); ?></td>
+        <td><?php echo $form->label('ノート', __('note', true)); ?></td>
         <td colspan="3"><?php echo $form->textarea('note', array('id' => 'noteInput')); ?></td>
     </tr>
     <tr>
@@ -43,10 +47,28 @@
 <div id="flashMessage"></div>
 <?php echo $form->end(); ?>
 <script type="text/javascript">
+	$(document).ready(function(){
+		$("select.list-room-types").change(function(){
+			if($(this).val()){
+			var url = '<?php echo $this->Html->url(array('controller' => 'rooms','action' => 'list_rooms'))?>' + "/" + $(this).val();
+			$.ajax({
+				url : url,
+				success : function(data){
+					$(".rooms-appear").show();
+					$("span.list-rooms").html(data);
+				}
+			});
+			}else{
+				$("span.list-rooms").html("");
+			}
+		});
+	});
+
     var okchua = false;
     $(function() {
         var dates = $("#beginDateInput, #endDateInput").datepicker({
             dateFormat: 'yy-mm-dd',
+            minDate: 0,
             changeMonth: true,
             numberOfMonths: 1,
             onSelect: function(selectedDate) {

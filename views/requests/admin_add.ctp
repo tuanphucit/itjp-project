@@ -61,6 +61,7 @@ $html->script(array('jquery-1.5.1.min', 'jquery-ui.min'), array('inline' => fals
     $(function() {
         $('#datepicker').datepicker({
             dateFormat: 'yy-mm-dd',
+            minDate: 0,
             changeMonth: true,
             numberOfMonths: 1
         });
