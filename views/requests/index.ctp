@@ -139,6 +139,7 @@ $total = 0;
         var dates = $("#fTimeInput, #tTimeInput").datepicker({
             dateFormat: 'yy-mm-dd',
             changeMonth: true,
+            minDate: '-2Y',
             numberOfMonths: 1,
             onSelect: function(selectedDate) {
                 var option = this.id == "fTimeInput" ? "minDate" : "maxDate",
