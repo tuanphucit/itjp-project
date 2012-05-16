@@ -26,7 +26,7 @@ $html->script(array('jquery-1.5.1.min', 'jquery-ui.min'), array('inline' => fals
         	$userOptions[$user['User']['id']] = $user['User']['fullname'];
         }
         
-        
+        echo $html->div(null,'',array('id'=>'flashMessage'));
         echo $form->create('Request');
         echo $form->input('roomtypeid', array('label' => '室タイプ', 'type' => 'select', 'class' => 'list-room-type', 'options'=>$listRoomType, 'empty'=>'--選択--'));
         //echo $form->input('roomid', array('label' => __('会議室', true), 'type' => 'select', 'options' => $listRooms));
