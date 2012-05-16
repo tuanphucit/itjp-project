@@ -22,9 +22,9 @@ $html->addCrumb(__('予約管理', true), '/admin/requests');
         //TODO : chinh form admin search request
         echo $form->create();
         echo $form->input('fsstatus', array('label' => '状態:', 'type' => 'select', 'options' => $stsOptions, 'div' => false, 'empty' => '--全て--'));
-        echo $form->input('fsformtime', array('label' => 'から:', 'type' => 'text', 'div' => false));
-        echo $form->input('fstotime', array('label' => 'まで:', 'type' => 'text', 'div' => false));
-        echo $form->input('fscustomer', array('label' => '顧客:', 'type' => 'text', 'div' => false));
+        echo $form->input('fsformtime', array('label' => '始まり:', 'type' => 'text', 'div' => false));
+        echo $form->input('fstotime', array('label' => '終わり:', 'type' => 'text', 'div' => false));
+        echo $form->input('fscustomer', array('label' => 'テナントさん:', 'type' => 'text', 'div' => false));
         echo $form->end(array('label' => '検索', 'div' => false));
         ?>
     </div>
