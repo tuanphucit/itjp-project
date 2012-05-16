@@ -407,7 +407,7 @@ class RequestsController extends AppController {
             $this->Request->saveField('update_time', date('Y-m-d H:i:s'));
             $begin = strtotime($rs ['Request'] ['begin_time']);
             $end = strtotime($rs ['Request'] ['end_time']);
-            $rent = ($end - $begin) / (3600) * $room ['Room'] ['renting_fee'];
+            $rent = ($end - $begin) / (3600*2) * $room ['Room'] ['renting_fee'];
             //$this->log(($d2 - $d1)/3600,'test');
             $this->Request->saveField('rent_expense', $rent);
             $this->Session->setFlash(__('終了しました。', true), 'default', array('class' => CLASS_SUCCESS_ALERT));

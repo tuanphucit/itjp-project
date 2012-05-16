@@ -14,23 +14,16 @@ $rdurl = $html->url(array('action' => 'view', $rdurl));
  */
 function makeupDetailStatus($statusid) {
     switch ($statusid) {
-        case REQUEST_STATUS_INIT:
-            return __('初期', true);
-            break;
+        
         case REQUEST_STATUS_APROVED:
-            return __('承認', true);
+            return __('予約した', true);
             break;
-        case REQUEST_STATUS_DENIED:
-            return __('拒否', true);
-            break;
-        case REQUEST_STATUS_HAS_UPDATED:
-            return __('更新', true);
-            break;
+        
         case REQUEST_STATUS_CANCELED:
             return __('キャンセル', true);
             break;
         case REQUEST_STATUS_FINISH:
-            return __('完了', true);
+            return __('使用した', true);
             break;
         default:
             return __('知らない', true);
