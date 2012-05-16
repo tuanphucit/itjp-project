@@ -108,6 +108,7 @@ class StatisticController extends AppController {
     }
 
     function admin_config() {
+        $this->set('title_for_layout','オプション');
         if (!empty($this->data)) {
             //debug($this->data);
             if ($this->data['WebConfig']['begin']['hour'] == "")
