@@ -186,6 +186,11 @@ class RequestsController extends AppController {
         }
         $begin_time = DateTime::createFromFormat('Y-m-d H:i:s', $this->data ['Request'] ['begindate'] . ' ' . $this->data ['Request'] ['begintime']);
         $end_time = DateTime::createFromFormat('Y-m-d H:i:s', $this->data ['Request'] ['enddate'] . ' ' . $this->data ['Request'] ['endtime']);
+        $now = new DateTime();
+        if ($begin_time < $now){
+            echo json_encode(array('code' => '3', 'msg' => __('この時間は誰かが予約しました。', true)));
+            return;
+        }
         if ($begin_time >= $end_time) {
             // Error Bat dau su ket thuc
             echo json_encode(array('code' => '2', 'msg' => __('始まる時間は終わる時間より遅いです。', true)));
