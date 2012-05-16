@@ -7,28 +7,56 @@ class StatisticController extends AppController {
 
     var $name = "Statistic";
     var $helpers = array('Html');
-    var $uses = array('WebConfig', 'Request');
+    var $uses = array('WebConfig', 'Request', 'User');
     var $layout = 'admin';
+
     /**
-	 * @var Request
-	 */
-	var $Request;
+     * @var Request
+     */
+    var $Request;
+
     function beforeFilter() {
         parent::beforeFilter();
     }
 
     function admin_chart() {
-        $fields = array (
-        	'Request.*', 
-        	'Requester.fullname', 
-        	'(Request.request_expense+Request.detroy_expense+Request.punish_expense) AS total_price'
+        $conditions = array();
+        if (isset($this->data ['User'] ['mouth']) && !empty($this->data ['User'] ['mouth'])) {
+            $conditions ['Request.update_time BETWEEN ? AND ?'] = array('');
+        }
+        if (isset($this->data ['User'] ['cust']) && !empty($this->data ['User'] ['cust'])) {
+            $conditions ['User.fullnane LIKE'] = '%' . trim($this->data ['User'] ['cust']) . '%';
+        }
+        $limit = isset($this->params ['named'] ['limit']) && !empty($this->params ['named'] ['limit']) ? (int) $this->params ['named'] ['limit'] : 10;
+        $sort = isset($this->params ['named'] ['sort']) && !empty($this->params ['named'] ['sort']) ? $this->params ['named'] ['sort'] : 'update_time';
+        $direction = isset($this->params ['named'] ['direction']) && !empty($this->params ['named'] ['direction']) ? $this->params ['named'] ['direction'] : 'desc';
+        $page = isset($this->params ['named'] ['page']) && !empty($this->params ['named'] ['page']) ? (int) $this->params ['named'] ['page'] : 1;
+        $fields = array(
+            'User.*',
+            'Company.name',
         );
-        $this->paginate = array('fields'=>$fields);
-        $this->set('rqs', $this->paginate('Request'));
+        $this->paginate = array(
+            'fields' => $fields,
+            'conditions' => $conditions,
+            'limit' => $limit,
+            'sort' => array($sort => $direction),
+            'page' => $page,
+//            'recursive' => 1
+        );
+        $this->set('list', $this->paginate('User'));
+        $this->set('title_for_layout', __('予約管理', true));
+        $this->set('rdurl', $sort . '/direction:' . $direction . '/limit:');
+        $this->set('limit', $limit);
+        if ($this->RequestHandler->isAjax()) {
+            $this->layout = 'ajax';
+            $this->render('list.ajax');
+        } else {
+            $this->layout = 'admin';
+        }
     }
 
     function admin_export_file() {
-        $this->redirect(array('controller'=>'requests', 'action'=>'admin_csvexport'));
+        $this->redirect(array('controller' => 'requests', 'action' => 'admin_csvexport'));
     }
 
     function admin_config() {

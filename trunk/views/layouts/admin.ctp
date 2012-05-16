@@ -29,7 +29,7 @@
     <body>
         <div id="header">
             <h1 class="site_title">
-                <?php echo ('管理者サイト'); ?>
+                <?php __('管理者サイト'); ?>
             </h1>
             <h2 class="section_title"><?php echo $title_for_layout; ?></h2>
             <div class="btn_view_site">
