@@ -343,5 +343,22 @@ class RoomsController extends AppController {
         $this->Session->setFlash(__('会議室が削除されません。', true), 'default', array('class' => CLASS_ERROR_ALERT));
         $this->redirect(array('action' => 'index'));
     }
-
+    
+    
+	function admin_list_rooms($id = null){
+		$result=array();
+		if($id){
+			$rooms= $this->Room->find('all',array(
+				'recursive' => -1,
+				'fields' => array('Room.id','Room.name'),
+				'conditions' => array('Room.typeid' => $id)
+			));
+			
+			if(! empty($rooms)){
+				$this->set('rooms',$rooms);
+			}		
+		}
+		$this->layout = 'ajax';
+		
+	}
 }

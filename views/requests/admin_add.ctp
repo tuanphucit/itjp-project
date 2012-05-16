@@ -28,7 +28,9 @@ $html->script(array('jquery-1.5.1.min', 'jquery-ui.min'), array('inline' => fals
         
         
         echo $form->create('Request');
-        echo $form->input('roomid', array('label' => __('会議室', true), 'type' => 'select', 'options' => $listRooms));
+        echo $form->input('roomtypeid', array('label' => '室タイプ', 'type' => 'select', 'class' => 'list-room-type', 'options'=>$listRoomType));
+        //echo $form->input('roomid', array('label' => __('会議室', true), 'type' => 'select', 'options' => $listRooms));
+        echo '<span class = "list-rooms"></span>';
         echo $form->input('create_by', array('label' => __('テナントさん', true), 'type' => 'select', 'options' => $userOptions));
         echo $form->input('date', array('label' => __('日', true), 'type' => 'text', 'id' => 'datepicker'));
         echo $form->input('begin_time', array('label' => __('から', true), 'type' => 'select', 'options' => $listTimes));
@@ -39,6 +41,23 @@ $html->script(array('jquery-1.5.1.min', 'jquery-ui.min'), array('inline' => fals
     </div>
 </div>
 <script type="text/javascript">
+	$(document).ready(function(){
+		$("select.list-room-type").change(function(){
+			if($(this).val()){
+			var url = '<?php echo $this->Html->url(array('controller' => 'rooms','action' => 'list_rooms'))?>' + "/" + $(this).val();
+			$.ajax({
+				url : url,
+				success : function(data){
+					$("span.list-rooms").html(data);
+				}
+			});
+			}else{
+				$("span.list-rooms").html("");
+			}
+		});
+	});
+
+
     $(function() {
         $('#datepicker').datepicker({
             dateFormat: 'yy-mm-dd',
@@ -46,4 +65,7 @@ $html->script(array('jquery-1.5.1.min', 'jquery-ui.min'), array('inline' => fals
             numberOfMonths: 1
         });
     });
+   
+   
+   
 </script>

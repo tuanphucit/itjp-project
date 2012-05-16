@@ -8,8 +8,8 @@
 <?php echo $form->create('Request', array('action' => 'add')); ?>
 <table>
     <tr>
-        <td><?php echo $form->label('room', __('会議室', true)); ?></td>
-        <td><?php echo $form->select('roomid', $listRooms, null, array('empty' => null, 'id' => 'stsSelector')); ?></td>
+        <td><?php echo $form->label('room', __('室タイプ', true)); ?></td>
+        <td><?php echo $form->select('roomid', $listRoomTypes, null, array('empty' => null, 'id' => 'list-room')); ?></td>
     </tr>
     <tr>
         <td><?php echo $form->label('begindate', __('から', true)); ?></td>
