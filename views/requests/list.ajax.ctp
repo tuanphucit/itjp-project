@@ -8,17 +8,18 @@
 /* @var $stt int */
 $stt = ($this->Paginator->current() - 1 ) * $limit;
 $rdurl = $html->url(array('action' => 'index', $rdurl));
+
 /**
  * Make up Status of Request
  * @param int $statusid
  * @return String
  */
 function makeupStatus($statusid) {
-    switch ($statusid) {        
+    switch ($statusid) {
         case REQUEST_STATUS_APROVED:
             return __('予約した', true);
             break;
-        
+
         case REQUEST_STATUS_CANCELED:
             return __('キャンセル', true);
             break;
@@ -28,7 +29,6 @@ function makeupStatus($statusid) {
         default:
             return __('知らない', true);
             break;
-    
     }
 }
 ?>
@@ -37,17 +37,17 @@ function makeupStatus($statusid) {
         <div class="header_action">
             <?php
             $options = array(
-            	1 => '終了',
-            	2 => 'キャンセル'
+                1 => '終了',
+                2 => 'キャンセル'
             );
             echo $form->select('itemaction', $options, null, array('empty' => '--Select--'));
             echo $form->button('Submit', array('type' => 'submit'));
             ?>
             <ul class="tabs">
-                <li class="mod_hea_bt"><?php echo $html->link(__('予約追加', true), array('action' => 'admin_add'), array('title' => __('予約', true))); ?></li>
+                <li class="mod_hea_bt"><?php echo $html->link(__('予約追加', true), array('action' => 'admin_add'), array('title' => __('予約', true), 'onclick' => 'doAddRequest();return false;')); ?></li>
             </ul>
             <ul class="tabs" style="margin-right: 5px">
-                <li class="mod_hea_bt"><?php echo $html->link(__('CSV輸出', true), array('action' => 'admin_csvexport'), array('title' => __('CSV輸出', true),'onclick'=>'gotoCSVExport();return false;')); ?></li>
+                <li class="mod_hea_bt"><?php echo $html->link(__('CSV輸出', true), array('action' => 'admin_csvexport'), array('title' => __('CSV輸出', true), 'onclick' => 'gotoCSVExport();return false;')); ?></li>
             </ul>
         </div>
     </div>
@@ -130,14 +130,14 @@ $js->get("a[href*=/sort:], a[href*=/page:]")->event('click', "$('#result_box').l
 echo $js->writeBuffer();
 ?>
 <script type="text/javascript">
-function checkAll(){
-	for (var i=0;i<document.form1.elements.length;i++)
-	{
-		var e=document.form1.elements[i];
-		if ((e.name != 'allbox') && (e.type=='checkbox'))
-		{
-			e.checked=document.form1.allbox.checked;
-		}
-	}
-}
+    function checkAll(){
+        for (var i=0;i<document.form1.elements.length;i++)
+        {
+            var e=document.form1.elements[i];
+            if ((e.name != 'allbox') && (e.type=='checkbox'))
+            {
+                e.checked=document.form1.allbox.checked;
+            }
+        }
+    }
 </script>

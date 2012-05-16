@@ -3,7 +3,7 @@
 class CompaniesController extends AppController {
 
     var $name = "Companies";
-    var $helpers = array('Ajax', 'Js');
+    var $helpers = array('Ajax', 'Js', 'Form', 'Html');
     var $components = array('RequestHandler');
 
     /**

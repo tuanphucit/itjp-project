@@ -1,5 +1,5 @@
 <?php
-
+ob_start();
 date_default_timezone_set('Asia/Saigon');
 // User
 define('USER_ROLE_ADMIN', 1);

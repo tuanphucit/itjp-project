@@ -12,7 +12,7 @@ $html->addCrumb(__('テナント見る', true), '/admin/users/view');
 ?>
 <script>
     function doChangePassword(){
-        mywin = window.open ("<?php echo $html->url(array('controller' => 'users', 'action' => 'changepwd', 'admin' => false, $user['User']['id'])); ?>","changepwd","status=1,width=400,height=400");
+        mywin = window.open ("<?php echo $html->url(array('controller' => 'users', 'action' => 'changepwd', 'admin' => false, $user['User']['id'])); ?>","changepwd","status=1,width=300,height=200");
         mywin.focus();
     }
 </script>

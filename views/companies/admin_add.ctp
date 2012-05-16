@@ -20,7 +20,7 @@ $html->addCrumb(__('会社追加', true), '/admin/companies/add');
         //TODO : make style cho form admin add new company
         echo $form->create('Company');
         echo $form->input('code', array('type' => 'text','label' => 'コード'));
-        echo $form->input('name', array('type' => 'text','label' =>　'名'));
+        echo $form->input('name',array('type'=>'text','label'=>'名'));
         echo $form->end(__('サブミット', true));
         ?>
     </div>
