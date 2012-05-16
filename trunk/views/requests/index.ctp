@@ -104,6 +104,8 @@ $total = 0;
                             $class = ' class="altrow"';
                         }
                         $total += $item['Request']['total_expense'];
+                        //$time = 0;
+                        $time = get_time_diff($item['Request']['begin_time'], $item['Request']['end_time']);
                         ?>
                         <tr<?php echo $class; ?>>
                             <td align="center"><?php echo $stt; ?>&nbsp;</td>
@@ -112,7 +114,7 @@ $total = 0;
                             <!--<td align="left"><?php echo $item['Request']['date']; ?>&nbsp;</td>
                             --><td align="center"><?php echo $item['Request']['begin_time']; ?>&nbsp;</td>
                             <td align="left"><?php echo $item['Request']['end_time']; ?>&nbsp;</td>
-                            <td align="center"><?php echo $item['Request']['time']; ?>&nbsp;</td>
+                            <td align="center"><?php echo $time['D'].'日'.$time['H'].'時'.$time['I'].'分'; ?>&nbsp;</td>
                             <td align="center"><?php echo $item['Request']['total_expense']; ?>&nbsp;</td>
                             <td align="center"><?php echo makeupStatus($item['Request']['status']); ?>&nbsp;</td>
                             <td style="padding: 5px 5px" align="center">

@@ -37,11 +37,12 @@ class RequestsController extends AppController {
         $this->paginate = array('fields' => $fields, 'conditions' => $conditions, //'limit' => $limit,
             'order' => array($sort => $direction)); //'page' => $page,
         //'recursive' => 0
-
+		
 
         $this->set('title_for_layout', __('予約管理', true));
         $this->set('page', 'Booking');
         $this->set('list', $this->paginate());
+        //debug($this->paginate());die;
         if ($this->RequestHandler->isAjax()) {
             $this->layout = 'ajax';
             $this->render('list.ajax');
@@ -110,12 +111,13 @@ class RequestsController extends AppController {
             $this->data ['Request'] ['status'] = REQUEST_STATUS_APROVED;
                   	
         	$room = $this->Room->read('renting_fee', $this->data ['Request'] ['roomid']);
-            $time = get_time_diff($this->data['Request']['begin_time'], $this->data['Request']['begin_time']);
+            $time = get_time_diff($this->data['Request']['begin_time'], $this->data['Request']['end_time']);
             $blocks = $time['D']*48 + $time['H']*2 + $time['I']/30;
             $this->data ['Request'] ['rent_expense'] = $blocks*$room['Room']['renting_fee'];
             $this->data ['Request'] ['request_expense'] = $this->WebConfig->field('request_expense', array('id' => 1));
             $this->data ['Request'] ['detroy_expense'] = 0;
             $this->data ['Request'] ['punish_expense'] = 0;
+            //debug($this->data);die;
             $this->Request->create($this->data);
             if ($this->Request->save()) {
                 $this->set('isOk', true);

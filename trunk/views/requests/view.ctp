@@ -86,7 +86,8 @@ __ ( '予約リスト' );
 		?></td>
 		<td>:</td>
 		<td><?php
-		echo $Request ['Request'] ['time'];
+		 $time = get_time_diff($Request['Request']['begin_time'], $Request['Request']['end_time']);
+		echo $time['D'].'日'.$time['H'].'時'.$time['I'].'分';
 		?></td>
 	</tr>
 	<tr>
