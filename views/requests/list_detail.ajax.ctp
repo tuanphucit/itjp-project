@@ -7,6 +7,7 @@
 /* @var $rdurl String */
 $stt = ($this->Paginator->current() - 1 ) * $limit;
 $rdurl = $html->url(array('action' => 'view', $rdurl));
+
 /**
  * Make up Status of Request
  * @param int $statusid
@@ -42,8 +43,8 @@ function makeupDetailStatus($statusid) {
             <th style="width: 15%" class="tableheader"><?php echo $this->Paginator->sort(__('日', true), 'date'); ?></th>
             <th style="width: 10%" class="tableheader"><?php echo $this->Paginator->sort(__('開始', true), 'begin_time'); ?></th>
             <th style="width: 10%" class="tableheader"><?php echo $this->Paginator->sort(__('終了', true), 'end_time'); ?></th>
-            <th style="width: 10%" class="tableheader"><?php echo $this->Paginator->sort(__('時間', true), 'time'); ?></th>
-            <th style="width: 15%" class="tableheader"><?php echo $this->Paginator->sort(__('価格', true), 'price'); ?></th>
+            <th style="width: 15%" class="tableheader"><?php echo $this->Paginator->sort(__('時間', true), 'time'); ?></th>
+            <th style="width: 10%" class="tableheader"><?php echo $this->Paginator->sort(__('価格', true), 'price'); ?></th>
             <th style="width: 10%" class="tableheader"><?php echo $this->Paginator->sort(__('ステータス', true), 'status'); ?></th>
             <th style="width: 15%" class="tableheader"><?php __('アクション'); ?></th>
         </tr>
@@ -61,6 +62,8 @@ function makeupDetailStatus($statusid) {
             if ($stt++ % 2 == 0) {
                 $class = ' class="altrow"';
             }
+            $timediff = get_time_diff($item['Request']['begin_time'], $item['Request']['end_time']);
+            $item['Request']['time'] = $timediff['D'] . '日' . $timediff['H'] . '時' . $timediff['I'] . '分';
             ?>
             <tr<?php echo $class; ?>>
                 <td align="center"><?php echo $stt; ?>&nbsp;</td>
