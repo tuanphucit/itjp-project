@@ -2,6 +2,7 @@
 
 /**
  * @property WebConfig $WebConfig
+ * @property User $User
  */
 class StatisticController extends AppController {
 
@@ -20,13 +21,28 @@ class StatisticController extends AppController {
     }
 
     function admin_chart() {
+
         $conditions = array();
+        $beginMouth = date('Y-m') . '-01';
         if (isset($this->data ['User'] ['mouth']) && !empty($this->data ['User'] ['mouth'])) {
-            $conditions ['Request.update_time BETWEEN ? AND ?'] = array('');
+            $beginMouth = date('Y-m-d', strtotime($this->data ['User'] ['mouth'] . '-01'));
+        } else {
+            $this->data ['User'] ['mouth'] = date('Y-m');
         }
         if (isset($this->data ['User'] ['cust']) && !empty($this->data ['User'] ['cust'])) {
             $conditions ['User.fullnane LIKE'] = '%' . trim($this->data ['User'] ['cust']) . '%';
         }
+        $endMouth = date('Y-m-t', strtotime($beginMouth));
+        $this->User->hasMany = array(
+            'Request' => array(
+                'className' => 'Request',
+                'foreignKey' => 'create_by',
+                'dependent' => true,
+                'conditions' => array(
+                    'Request.update_time BETWEEN ? AND ?' => array($beginMouth, $endMouth)
+                ),
+            )
+        );
         $limit = isset($this->params ['named'] ['limit']) && !empty($this->params ['named'] ['limit']) ? (int) $this->params ['named'] ['limit'] : 10;
         $sort = isset($this->params ['named'] ['sort']) && !empty($this->params ['named'] ['sort']) ? $this->params ['named'] ['sort'] : 'update_time';
         $direction = isset($this->params ['named'] ['direction']) && !empty($this->params ['named'] ['direction']) ? $this->params ['named'] ['direction'] : 'desc';
