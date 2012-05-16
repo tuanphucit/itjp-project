@@ -82,9 +82,9 @@ $rdurl = $html->url(array('action' => 'chart', $rdurl));
                         $item['punish_expense'] += $itemreq['punish_expense'];
                     }
                 }
-                else{
-                	continue;
-                }
+//                else{
+//                	continue;
+//                }
                 $class = null;
                 if ($stt++ % 2 == 0) {
                     $class = ' class="altrow"';
