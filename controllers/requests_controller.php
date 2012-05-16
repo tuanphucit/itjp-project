@@ -108,7 +108,11 @@ class RequestsController extends AppController {
             $this->data ['Request'] ['update_time'] = $now;
             $this->data ['Request'] ['code'] = $code;
             $this->data ['Request'] ['status'] = REQUEST_STATUS_APROVED;
-            $this->data ['Request'] ['rent_expense'] = 0;
+                  	
+        	$room = $this->Room->read('renting_fee', $this->data ['Request'] ['roomid']);
+            $time = get_time_diff($this->data['Request']['begin_time'], $this->data['Request']['begin_time']);
+            $blocks = $time['D']*48 + $time['H']*2 + $time['I']/30;
+            $this->data ['Request'] ['rent_expense'] = $blocks*$room['Room']['renting_fee'];
             $this->data ['Request'] ['request_expense'] = $this->WebConfig->field('request_expense', array('id' => 1));
             $this->data ['Request'] ['detroy_expense'] = 0;
             $this->data ['Request'] ['punish_expense'] = 0;
@@ -240,6 +244,7 @@ class RequestsController extends AppController {
         $conditions['Request.update_time >='] = $toDay->sub(new DateInterval($limit_time))->format('Y-m-d');
         $this->paginate = array('fields' => $fields, 'conditions' => $conditions, 'limit' => $limit, 'order' => array($sort => $direction), 'page' => $page, 'recursives' => 0);
         $this->layout = 'admin';
+        //debug($request);die;
         $this->set('title_for_layout', __('予約管理', true));
         $this->set('rdurl', $id . '/sort:' . $sort . '/direction:' . $direction . '/limit:');
         $this->set('limit', $limit);
@@ -281,6 +286,13 @@ class RequestsController extends AppController {
             $hi = $this->WebConfig->read('request_expense', 1);
             $this->data ['Request'] ['begin_time'] = $begin_time->format('Y-m-d H:i:s');
             $this->data ['Request'] ['end_time'] = $end_time->format('Y-m-d H:i:s');
+            
+            $room = $this->Room->read('renting_fee', $this->data ['Request'] ['roomid']);
+            $time = get_time_diff($this->data['Request']['begin_time'], $this->data['Request']['end_time']);
+            $blocks = $time['D']*48 + $time['H']*2 + $time['I']/30;
+            //debug($time);
+            $this->data ['Request'] ['rent_expense'] = $blocks*$room['Room']['renting_fee'];
+            
             $this->data ['Request'] ['request_expense'] = $hi ['WebConfig'] ['request_expense'];
             $this->data ['Request'] ['total_price'] = $this->data ['Request'] ['request_expense'];
             $this->data ['Request'] ['paid'] = 0;
