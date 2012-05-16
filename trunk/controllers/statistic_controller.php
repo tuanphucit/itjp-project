@@ -20,6 +20,38 @@ class StatisticController extends AppController {
         parent::beforeFilter();
     }
 
+    function chart() {
+        $beginMonth = date('Y-m') . '-01';
+        if (isset($this->data ['User'] ['mouth']) && !empty($this->data ['User'] ['mouth'])) {
+            $endMonth = date('Y-m-d', strtotime($this->data ['User'] ['mouth'] . '-01'));
+        } else {
+            $this->data ['User'] ['mouth'] = date('Y-m');
+        }
+        $endMonth = date('Y-m-t', strtotime($beginMonth));
+        $conditions = array(
+            'Request.create_by' => $this->Auth->user('id'),
+            'Request.update_time BETWEEN ? AND ?' => array($beginMonth, $endMonth),
+        );
+
+        $fields = array(
+            'Request.*',
+            'Requester.fullname',
+            'Room.name'
+        );
+        $this->paginate = array(
+            'fields' => $fields,
+            'conditions' => $conditions,
+        );
+        $this->set('list', $this->paginate('Request'));
+        $this->set('title_for_layout', __('予約管理', true));
+        if ($this->RequestHandler->isAjax()) {
+            $this->layout = 'ajax';
+            $this->render('list.ajax_1');
+        } else {
+            $this->layout = 'default';
+        }
+    }
+
     function admin_chart() {
 
         $conditions = array();
