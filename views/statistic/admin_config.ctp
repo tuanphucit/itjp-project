@@ -2,17 +2,17 @@
 /* @var $form FormHelper */
 /* @var $html HtmlHelper */
 /* @var $js JsHelper */
-$html->addCrumb(__('Website Admin', true), '/admin');
-$html->addCrumb(__('Config', true), '/admin/statistic/config');
+$html->addCrumb(__('管理者サイト', true), '/admin');
+$html->addCrumb(__('オプション', true), '/admin/statistic/config');
 $unitTimeOptions = array(
-    'P0DT0H10M' =>'10',
-    'P0DT0H20M' =>'20',
-    'P0DT0H30M' =>'30',
-    'P0DT0H40M' =>'40',
-    'P0DT0H50M' =>'50',
-    'P0DT0H60M' =>'60',
-    'P0DT1H20M' =>'80',
-    'P0DT1H30M' =>'90'
+    'P0DT0H10M' =>'１０分',
+    'P0DT0H20M' =>'２０分',
+    'P0DT0H30M' =>'３０分',
+    'P0DT0H40M' =>'４０分',
+    'P0DT0H50M' =>'５０分',
+    'P0DT0H60M' =>'６０分',
+    'P0DT1H20M' =>'１時２０分',
+    'P0DT1H30M' =>'１時３０分'
 );
 $limitTimeOptions = array(
     'P5Y' =>'５年',
@@ -27,7 +27,7 @@ $limitTimeOptions = array(
 ?>
 <div class="module width_full">
     <div class="module_header">
-        <h3 style="width: 40%"><?php __('Config') ?></h3>
+        <h3 style="width: 40%"><?php __('オプション') ?></h3>
         <!--div class="header_action">
             <ul class="tabs">
                 <li><?php //echo $html->link(__('Back to List', true), array('action' => 'admin_index'), array('title' => __('Back to List', true)));  ?></li>
@@ -40,7 +40,7 @@ $limitTimeOptions = array(
         echo $form->create(null, array('action' => 'config'));
         echo $form->input('begin', array('type' => 'time', 'timeFormat' => '24','label'=>'開始'));
         echo $form->input('end', array('type' => 'time', 'timeFormat' => '24','label'=>'終了'));
-        echo $form->input('unit', array('type' => 'select', 'options' => $unitTimeOptions, 'after' => '分','label'=>'時間'));
+        echo $form->input('unit', array('type' => 'select', 'options' => $unitTimeOptions,'label'=>'時間'));
         echo $form->input('limit_time', array('type' => 'select', 'options' => $limitTimeOptions,'label'=>'時間限界'));
         echo $form->input('request', array('type' => 'text','label'=>'予約金'));
         echo $form->input('detroy', array('type' => 'text','label'=>'キャンセル金'));
