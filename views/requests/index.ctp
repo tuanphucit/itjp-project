@@ -13,6 +13,7 @@ $stsOptions = array(
     REQUEST_STATUS_CANCELED => 'キャンセル',
     REQUEST_STATUS_FINISH => '終了'
 );
+$total = 0;
 ?>
 <div id="about">
     <h2><?php __('予約履歴'); ?></h2>
@@ -59,21 +60,22 @@ $stsOptions = array(
             <div class="module_header">
                 <div class="header_action">
                     <ul class="tabs">
-                        <li class="mod_hea_bt"><?php echo $html->link(__('予約追加', true), array('action' => 'admin_add'), array('title' => __('Add', true),'onclick'=>'doAddRequest();return false;')); ?></li>
+                        <li class="mod_hea_bt"><?php echo $html->link(__('予約追加', true), array('action' => 'admin_add'), array('title' => __('Add', true), 'onclick' => 'doAddRequest();return false;')); ?></li>
                     </ul>
                     <!--<ul class="tabs" style="margin-right: 5px">
                         <li class="mod_hea_bt"><?php echo $html->link(__('Export CSV', true), array('action' => 'admin_csvexport'), array('title' => __('Export CSV', true), 'onclick' => 'gotoCSVExport();return false;')); ?></li>
                     </ul>
                     --><?php
-                    $options = array(
-		            	1 => 'キャンセル'
-            		);
-                    echo $form->select('itemaction', $options, null, array('empty' => '--選択--'));
-                    echo $form->button('サブミット', array('type' => 'submit'));
-                    ?>
+        $options = array(
+            1 => 'キャンセル'
+        );
+        echo $form->select('itemaction', $options, null, array('empty' => '--選択--'));
+        echo $form->button('サブミット', array('type' => 'submit'));
+        ?>
                 </div>
             </div>
-            <table class="tablesorter" cellpadding="0" cellspacing="0">
+            <hr />
+            <table class="tablesorter" cellpadding="0" cellspacing="0" width="100%">
                 <thead>
                     <tr>
                         <th style="width: 5%" class="tableheader"><?php __("#"); ?></th>
@@ -83,7 +85,7 @@ $stsOptions = array(
                         <th style="width: 20%" class="tableheader"><?php echo $this->Paginator->sort(__('始まり', true), 'Request.begin_time'); ?></th>
                         <th style="width: 20%" class="tableheader"><?php echo $this->Paginator->sort(__('終わり', true), 'Request.end_time'); ?></th>
                         <th style="width: 10%" class="tableheader"><?php echo $this->Paginator->sort(__('時間', true), 'time'); ?></th>
-                        <th style="width: 15%" class="tableheader"><?php echo $this->Paginator->sort(__('費の合計', true), 'total_price'); ?></th>
+                        <th style="width: 15%" class="tableheader"><?php echo $this->Paginator->sort(__('費の合計', true), 'total_expense'); ?></th>
                         <th style="width: 10%" class="tableheader"><?php echo $this->Paginator->sort(__('状態', true), 'Request.status'); ?></th>
                         <th style="width: 10%" class="tableheader"></th>
                     </tr>
@@ -101,6 +103,7 @@ $stsOptions = array(
                         if ($stt++ % 2 == 0) {
                             $class = ' class="altrow"';
                         }
+                        $total += $item['Request']['total_expense'];
                         ?>
                         <tr<?php echo $class; ?>>
                             <td align="center"><?php echo $stt; ?>&nbsp;</td>
@@ -124,6 +127,11 @@ $stsOptions = array(
                 <?php endif; ?>
             </table>
         </form>
+        <hr />
+        <?php
+        __('費の合計');
+        echo ': ' . $total;
+        ?>
     </div>
 </div>
 <script type="text/javascript">
@@ -148,13 +156,13 @@ $stsOptions = array(
         mywin.focus();
     }
     function checkAll(){
-    	for (var i=0;i<document.form1.elements.length;i++)
-    	{
-    		var e=document.form1.elements[i];
-    		if ((e.name != 'allbox') && (e.type=='checkbox'))
-    		{
-    			e.checked=document.form1.allbox.checked;
-    		}
-    	}
+        for (var i=0;i<document.form1.elements.length;i++)
+        {
+            var e=document.form1.elements[i];
+            if ((e.name != 'allbox') && (e.type=='checkbox'))
+            {
+                e.checked=document.form1.allbox.checked;
+            }
+        }
     }
 </script>
