@@ -35,6 +35,10 @@ $rdurl = $html->url(array('action' => 'chart', $rdurl));
                 <!--th style="width: 5%" class="tableheader"><?php echo $form->checkbox('allbox', array('title' => __('Select all', true), 'class' => 'cb_allItem', 'onclick' => 'checkAll()')); ?></th-->
                 <th style="width: 20%" class="tableheader"><?php echo $this->Paginator->sort(__('テナントさん', true), 'User.fullname'); ?></th>
                 <!--th style="width: 10%" class="tableheader"><?php __('Total Time'); ?></th-->
+                <th style="width: 10%" class="tableheader"><?php __('手数料合計'); ?></th>
+                <th style="width: 10%" class="tableheader"><?php __('使用料合計'); ?></th>
+                <th style="width: 10%" class="tableheader"><?php __('キャンセル費合計'); ?></th>
+                <th style="width: 10%" class="tableheader"><?php __('課徴金合計'); ?></th>
                 <th style="width: 10%" class="tableheader"><?php __('費用合計'); ?></th>
                 <!--<th style="width: 10%" class="tableheader"><?php __('Total Paid'); ?></th>
                 <th style="width: 10%" class="tableheader"><?php __('Total Can tra'); ?></th>
@@ -50,37 +54,52 @@ $rdurl = $html->url(array('action' => 'chart', $rdurl));
         <?php else: ?>
             <?php foreach ($list as $item) : ?>
                 <?php
-                $class = null;
-                if ($stt++ % 2 == 0) {
-                    $class = ' class="altrow"';
-                }
+                
                 $item['total_expense'] = 0;
                 $item['total_paid'] = 0;
                 $item['total_cantra'] = 0;
+                 $item['rent_expense'] = 0;
+                 $item['request_expense'] = 0;
+                  $item['detroy_expense'] = 0;
+                  $item['punish_expense'] = 0;
                 if (count($item['Request']) != 0) {
                     
                     foreach ($item['Request'] as $itemreq) {
                         $item['total_expense'] += $itemreq['total_expense'];
                     }
-                    
-                    foreach ($item['Request'] as $itemreq) {
-                        $item['total_paid'] += $itemreq['paid'];
+                	foreach ($item['Request'] as $itemreq) {
+                        $item['rent_expense'] += $itemreq['rent_expense'];
+                    }
+                	foreach ($item['Request'] as $itemreq) {
+                        $item['request_expense'] += $itemreq['request_expense'];
                     }
                     
                     foreach ($item['Request'] as $itemreq) {
-                        $item['total_cantra'] += $itemreq['canthanhtoan'];
+                        $item['detroy_expense'] += $itemreq['detroy_expense'];
                     }
+                    
+                    foreach ($item['Request'] as $itemreq) {
+                        $item['punish_expense'] += $itemreq['punish_expense'];
+                    }
+                }
+                else{
+                	continue;
+                }
+                $class = null;
+                if ($stt++ % 2 == 0) {
+                    $class = ' class="altrow"';
                 }
                 ?>
                 <tr<?php echo $class; ?>>
                     <td align="center"><?php echo $stt; ?>&nbsp;</td>
                     <!--td align="center"><?php echo $form->checkbox('Request.SelectItem.' . ($stt - 1), array('value' => $item['User']['id'], 'title' => __('Select # ' . $stt, true), 'class' => 'cb_item')); ?></td-->
                     <td align="left"><?php echo $item['User']['fullname']; ?>&nbsp;</td>
-                    <!--td align="left"><?php echo @$item['total_time']; ?>&nbsp;</td-->
+                    <td align="left"><?php echo  $item['request_expense']; ?>&nbsp;</td>
+                    <td align="center"><?php echo $item['rent_expense']; ?>&nbsp;</td>
+                    <td align="center"><?php echo $item['detroy_expense']; ?>&nbsp;</td>
+                    <td align="center"><?php echo $item['punish_expense']; ?>&nbsp;</td>
                     <td align="center"><?php echo $item['total_expense']; ?>&nbsp;</td>
-                    <!--<td align="left"><?php echo $item['total_paid']; ?>&nbsp;</td>
-                    <td align="center"><?php echo $item['total_cantra']; ?>&nbsp;</td>
-                    --><!--td style="padding: 5px 5px" align="center">
+                    <!--td style="padding: 5px 5px" align="center">
                     <?php
                     //echo $html->image('admin_layout/icn_aprove.gif', array('url' => array('action' => 'view', $item['User']['id']), 'title' => __('View # ' . $stt, true), 'alt' => 'view'));
                     //echo $html->image('admin_layout/icn_edit.png', array('url' => array('action' => 'admin_edit', $item['Request']['id']), 'title' => __('Edit # ' . $stt, true), 'alt' => 'edit'));
