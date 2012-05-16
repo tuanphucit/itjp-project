@@ -43,7 +43,7 @@ function makeupStatus($statusid) {
             <ul class="tabs" style="margin-right: 5px">
                 <li><?php echo $html->link(__('使用した', true), array('action' => 'admin_finish', $Request['Request']['id']), array('title' => __('終了する', true))); ?></li>
             </ul>
-             <ul class="tabs" style="margin-right: 5px">
+            <ul class="tabs" style="margin-right: 5px">
                 <li><?php echo $html->link(__('罰金', true), array('action' => 'admin_bakking', $Request['Request']['id']), array('title' => __('bakking', true))); ?></li>
             </ul>
             <ul class="tabs" style="margin-right: 5px">
@@ -87,10 +87,14 @@ function makeupStatus($statusid) {
                 <td>:</td>
                 <td><?php echo $Request['Request']['end_time']; ?></td>
             </tr>
-             <tr>
+            <tr>
                 <td style="font-weight: bold; width: 30%;text-align: right"><?php __('時間'); ?></td>
                 <td>:</td>
-                <td><?php echo $Request['0']['time']; ?></td>
+                <td><?php
+        $timediff = get_time_diff($Request['Request']['begin_time'], $Request['Request']['end_time']);
+        echo $timediff['D'] . '日' . $timediff['H'] . '時' . $timediff['I'] . '分';
+        ?>
+                </td>
             </tr>
             <tr>
                 <td style="font-weight: bold; width: 30%;text-align: right"><?php __('観客'); ?></td>
