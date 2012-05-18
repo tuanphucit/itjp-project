@@ -18,7 +18,7 @@ $html->addCrumb(__('ファイル輸出', true), '/admin/statistic/export_file');
     <div id="search_box" class="module_content">
         <?php
         echo $form->create(null, array('type' => 'get', 'url' => array('controller' => 'requests', 'action' => 'admin_csvexport')));
-        echo $form->input('month', array('label' => __('Month', true), 'type' => 'select', 'options' => $monthOptions, 'empty' => null, 'div' => false));
+        echo $form->input('month', array('label' => __('Month', true), 'type' => 'select', 'options' => $monthOptions, 'empty' => null, 'div' => false, 'selected' => date('Y-m')));
         echo $form->button(__('OK', true), array('type' => 'submit'));
         ?>
     </div>
