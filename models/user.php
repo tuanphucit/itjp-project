@@ -92,15 +92,20 @@ class User extends AppModel {
             'exclusive' => '',
             'finderQuery' => '',
             'counterQuery' => ''
+        ),
+        'Phat' => array(
+            'className' => 'Phat',
+            'foreignKey' => 'userid',
+            'dependent' => true,
         )
     );
     var $belongsTo = array(
         'Company' => array(
             'className' => 'Company',
             'foreignKey' => 'companyid',
-            'dependent' => true,
-            'conditions' => '',
-            'fields' => '',
+            //'dependent' => true,
+            //'conditions' => '',
+            //'fields' => '',
         )
     );
 

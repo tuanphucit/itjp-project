@@ -5,6 +5,8 @@
  * @property Company $Company
  * @property User $User
  * @property Request $Request
+ * @property Phat $Phat
+ * @property WebConfig $WebConfig
  * @property RequestHandlerComponent $RequestHndler
  * @property EmailComponent $Email
  */
@@ -12,7 +14,7 @@ class UsersController extends AppController {
 
     var $name = 'Users';
     var $helpers = array('Ajax', 'Js', 'Csv');
-    var $uses = array('Company', 'User', 'Request');
+    var $uses = array('Company', 'User', 'Request','Phat','WebConfig');
     var $components = array('RequestHandler', 'Email');
 
     function beforeFilter() {
@@ -628,6 +630,22 @@ class UsersController extends AppController {
                 return;
             }
         }
+    }
+
+    function admin_bakking($id = null) {
+        //debug($this->params);die();
+        if (!$id && empty($this->data)) {
+            $this->Session->setFlash(__('要求が正しくないです。', true));
+        }
+        $hi = $this->WebConfig->read('punish_expense', 1);
+        $this->Phat->create();
+        $this->Phat->save(array('Phat' => array(
+                'time' => date('Y-m-d H:i:s'),
+                'userid' => $id,
+                )));
+        //$this->Phat->saveField('punish_expense', $hi ['WebConfig'] ['punish_expense']);
+        $this->Session->setFlash('課徴金を登録しました', 'default', array('class' => CLASS_SUCCESS_ALERT));
+        $this->redirect(array('action' => 'index'));
     }
 
 }

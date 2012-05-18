@@ -109,6 +109,7 @@ function makeupType($typeid) {
                         echo $html->image('admin_layout/icn_aprove.gif', array('url' => array('action' => 'admin_view', $item['User']['id']), 'title' => __('View # ' . $stt, true), 'alt' => 'view'));
                         echo $html->image('admin_layout/icn_edit.png', array('url' => array('action' => 'admin_edit', $item['User']['id']), 'title' => __('Edit # ' . $stt, true), 'alt' => 'edit'));
                         echo $html->image('admin_layout/icn_trash.png', array('url' => array('action' => 'admin_delete', $item['User']['id']), 'title' => __('Delete # ' . $stt, true), 'alt' => 'delete', 'onclick' => "return confirm('" . __('Are you sure to delete?', true) . "')"));
+                        echo $html->image('admin_layout/icn_alert_warning.png', array('url' => array('action' => 'admin_bakking', $item['User']['id']), 'title' => __('Punish # ' . $stt, true), 'alt' => 'punish', 'onclick' => "return confirm('" . __('Are you sure to punish?', true) . "')"));
                         ?>
                     </td>
                 </tr>

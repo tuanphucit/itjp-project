@@ -23,7 +23,9 @@ $html->addCrumb(__('統計', true), '/admin/statistic/chart');
 <div class="module width_full" id="result_box">
     <?php echo $this->element('/../statistic/list.ajax'); ?>
 </div>
-<?php
-//debug($list);
-//echo $this->element('sql_dump');
-?>
+<script type="text/javascript">
+    function doAddRequest(ele){
+        mywin = window.open (ele.attr('href'),"addRequest","status=1,width=400,height=400");
+        mywin.focus();
+    }
+</script>

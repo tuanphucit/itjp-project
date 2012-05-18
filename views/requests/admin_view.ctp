@@ -44,7 +44,7 @@ function makeupStatus($statusid) {
                 <li><?php echo $html->link(__('使用した', true), array('action' => 'admin_finish', $Request['Request']['id']), array('title' => __('終了する', true))); ?></li>
             </ul>
             <ul class="tabs" style="margin-right: 5px">
-                <li><?php echo $html->link(__('罰金', true), array('action' => 'admin_bakking', $Request['Request']['id']), array('title' => __('bakking', true))); ?></li>
+                <li><?php echo $html->link(__('罰金', true), array('controller' => 'users', 'action' => 'admin_bakking', $Request['Request']['create_by']), array('title' => __('bakking', true))); ?></li>
             </ul>
             <ul class="tabs" style="margin-right: 5px">
                 <li><?php echo $html->link(__('戻る', true), array('action' => 'admin_index'), array('title' => __('一覧ページに戻る', true))); ?></li>

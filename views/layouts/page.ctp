@@ -12,6 +12,7 @@
         <title><?php __('T09'); ?><?php echo ' :: ' . $title_for_layout; ?></title>
         <?php
         echo $html->meta('icon');
+        echo $html->meta(array('http-equiv' => 'cache-control', 'content' => 'no-cache'));
         echo $html->css(array(
             'style',
             'aristo/jquery-ui',
