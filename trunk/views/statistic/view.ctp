@@ -24,7 +24,7 @@ if ($soDatP > 0) {
 }
 if ($soPhat > 0) {
     foreach ($list['Phat'] as $itemreq) {
-        $item['punish_expense'] += $punish_expense;
+        $item['punish_expense'] += $itemreq['tien'];
     }
 }
 $item['total_expense'] += $item['punish_expense'];

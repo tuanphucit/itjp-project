@@ -79,7 +79,7 @@ $rdurl = $html->url(array('action' => 'chart', $rdurl));
                 }
                 foreach ($item['Phat'] as $itemreq) {
                     //$item['punish_expense'] += $itemreq['punish_expense'];
-                    $item['punish_expense'] += $punish_expense;
+                    $item['punish_expense'] += $itemreq['tien'];
                 }
 //                else{
 //                	continue;
