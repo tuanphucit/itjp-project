@@ -521,6 +521,7 @@ class RequestsController extends AppController {
                     if (abs($now - $begin) >= 60 * 60) { //OanhNN sua
                         $this->Request->id = $id;
                         $this->Request->saveField('status', REQUEST_STATUS_CANCELED);
+                        $this->Request->saveField('rent_expense', 0);
                         $this->Request->saveField('update_time', $date);
                         $this->Request->saveField('update_by', $this->Auth->user('id'));
                         $hi = $this->WebConfig->read('detroy_expense', 1);
