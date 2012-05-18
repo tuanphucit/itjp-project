@@ -36,6 +36,6 @@
 	}
 	$line = array('END___END___END', date('Y'), date('m')-1);
 	$this->Csv->addRow($line);
-	$filename = 'RVR-'. date('Y').'-'.date('m');
+	$filename = 'RVR-'. date('Y-d',  strtotime($month123));
 	echo $this->Csv->render($filename); 
 ?>
