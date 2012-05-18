@@ -561,10 +561,11 @@ class RequestsController extends AppController {
     private function _check($roomid, $begin, $end) {
         $conditions = array(
             'Request.roomid' => (int) $roomid, //TODO : dk status
-            'OR' => array(
-                'Request.status <>' => REQUEST_STATUS_CANCELED,
-                'Request.status <>' => REQUEST_STATUS_FINISH,
-            ),
+            'Request.status' => REQUEST_STATUS_APROVED,
+//            'OR' => array(
+//                'Request.status <>' => REQUEST_STATUS_CANCELED,
+//                'Request.status <>' => REQUEST_STATUS_FINISH,
+//            ),
             'OR' => array(
                 array(
                     'Request.begin_time >=' => date('Y-m-d H:i:s', $begin),
