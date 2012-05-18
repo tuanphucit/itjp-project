@@ -62,18 +62,10 @@ $rdurl = $html->url(array('action' => 'chart', $rdurl));
                 $item['detroy_expense'] = 0;
                 $item['punish_expense'] = 0;
                 if (count($item['Request']) != 0) {
-
                     foreach ($item['Request'] as $itemreq) {
                         $item['total_expense'] += $itemreq['total_expense'];
-                    }
-                    foreach ($item['Request'] as $itemreq) {
                         $item['rent_expense'] += $itemreq['rent_expense'];
-                    }
-                    foreach ($item['Request'] as $itemreq) {
                         $item['request_expense'] += $itemreq['request_expense'];
-                    }
-
-                    foreach ($item['Request'] as $itemreq) {
                         $item['detroy_expense'] += $itemreq['detroy_expense'];
                     }
                 }
@@ -81,9 +73,7 @@ $rdurl = $html->url(array('action' => 'chart', $rdurl));
                     //$item['punish_expense'] += $itemreq['punish_expense'];
                     $item['punish_expense'] += $itemreq['tien'];
                 }
-//                else{
-//                	continue;
-//                }
+                $item['total_expense'] += $item['punish_expense'];
                 $class = null;
                 if ($stt++ % 2 == 0) {
                     $class = ' class="altrow"';
