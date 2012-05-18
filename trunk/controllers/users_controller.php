@@ -14,7 +14,7 @@ class UsersController extends AppController {
 
     var $name = 'Users';
     var $helpers = array('Ajax', 'Js', 'Csv');
-    var $uses = array('Company', 'User', 'Request','Phat','WebConfig');
+    var $uses = array('Company', 'User', 'Request', 'Phat', 'WebConfig');
     var $components = array('RequestHandler', 'Email');
 
     function beforeFilter() {
@@ -633,19 +633,32 @@ class UsersController extends AppController {
     }
 
     function admin_bakking($id = null) {
-        //debug($this->params);die();
+        //debug($this->data);
         if (!$id && empty($this->data)) {
             $this->Session->setFlash(__('要求が正しくないです。', true));
+            $this->redirect(array('action' => 'index'));
         }
-        $hi = $this->WebConfig->read('punish_expense', 1);
-        $this->Phat->create();
-        $this->Phat->save(array('Phat' => array(
-                'time' => date('Y-m-d H:i:s'),
-                'userid' => $id,
-                )));
-        //$this->Phat->saveField('punish_expense', $hi ['WebConfig'] ['punish_expense']);
-        $this->Session->setFlash('課徴金を登録しました', 'default', array('class' => CLASS_SUCCESS_ALERT));
-        $this->redirect(array('action' => 'index'));
+        if (!empty($this->data)) {
+            
+            if (!isset($this->data['User']['time']) || empty($this->data['User']['time'])) {
+                $this->data['User']['time'] = date('Y-m-d');
+            }
+            $this->Phat->create(array('Phat' => $this->data['User']));
+//            if (!isset($this->data['User']['id']) || empty($this->data['User']['id'])) {
+//                $this->data['User']['id'] = $id;
+//            }
+            if ($this->Phat->save()) {
+                $this->Session->setFlash('課徴金を登録しました', 'default', array('class' => CLASS_SUCCESS_ALERT));
+                $this->redirect(array('action' => 'index'));
+            } else {
+                $this->Session->setFlash('NOT SUCCESS', 'default', array('class' => CLASS_ERROR_ALERT));
+            }
+        }
+        $this->layout = 'admin';
+        $this->data = $this->User->read(null, $id);
+        $this->data['User']['time'] = date('Y-m-d');
+        $this->data['User']['userid'] = $id;
+        $this->set('title_for_layout', __('テナント管理', true));
     }
 
 }
