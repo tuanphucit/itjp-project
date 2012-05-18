@@ -36,6 +36,7 @@ $html->addCrumb(__('ユーザ編集', true), '/admin/users/edit');
         echo $form->input('phone', array('label' => __('携帯電話', true), 'type' => 'text'));
         echo $form->input('companyid', array('label' => __('会社', true), 'type' => 'select', 'options' => $listCompanies, 'empty' => __(' -- 選択 -- ', true)));
         echo $form->input('local_phone', array('label' => __('内線電話', true), 'type' => 'text'));
+        echo $form->input('address', array('label' => __('Address', true), 'type' => 'textarea'));
         echo $form->input('usercode', array('label' => 'テナントコード', 'type' => 'text', 'disabled' => true));
         //echo $form->input('role', array('label' => __('User Type', true), 'type' => 'radio', 'options' => $roleOptions, 'value' => '1'));
         //echo $form->input('password',array('label'=>__('pass',true),'type'=>'password'));
