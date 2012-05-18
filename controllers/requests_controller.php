@@ -401,11 +401,11 @@ class RequestsController extends AppController {
     function admin_csvexport() {
         $this->layout = 'ajax';
         $beginMouth = date('Y-m') . '-01';
-        if (isset($this->params ['named'] ['mouth']) && !empty($this->params ['named'] ['mouth'])) {
-            $beginMouth = date('Y-m-d', strtotime($this->params ['named'] ['mouth'] . '-01'));
+        if (isset($_GET['month']) && !empty($_GET['month'])) {
+            $beginMouth = date('Y-m-d', strtotime($_GET['month'] . '-01'));
         } 
         $endMouth = date('Y-m-t', strtotime($beginMouth));
-        $beginMouth = date('Y-m', strtotime('1 month ago')) . '-01';
+        //$beginMouth = date('Y-m', strtotime('1 month ago')) . '-01';
         $this->User->hasMany = array(
             'Request' => array(
                 'className' => 'Request',
@@ -442,7 +442,7 @@ class RequestsController extends AppController {
         );
         $this->set('punish_expense', $this->WebConfig->field('punish_expense', 1));
         $this->set('list', $this->paginate('User'));
-        //$this->set ( 'rs', $this->Request->find ( 'all', array ('fields' => $fields, 'conditions' => $conditions ) ) );
+        $this->set('month123', $beginMouth);
         $userid = $this->Session->read('Auth.User.id');
         $this->set('admin', $this->User->read(array('usercode', 'fullname'), $userid));
     }

@@ -104,6 +104,7 @@ $item['total_expense'] += $item['punish_expense'];
                             <tr>
                                 <th>STT</th>
                                 <th>Time</th>
+                                <th>Note</th>
                             </tr>
                             <?php
                             $i = 1;
@@ -112,6 +113,7 @@ $item['total_expense'] += $item['punish_expense'];
                                 <tr>
                                     <td><?php echo $i++; ?></td>
                                     <td><?php echo $phat['time']; ?></td>
+                                    <td><?php echo $phat['note']; ?></td>
                                 </tr>
                             <?php } ?>
                         </table>
