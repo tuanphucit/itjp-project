@@ -161,22 +161,15 @@ class StatisticController extends AppController {
     }
 
     function admin_export_file() {
-    	if (!empty($this->data)){
-    		$month = $this->data['Webconfig']['month'];
-    		$this->Session->write('month', $month);
-        	$this->redirect(array('controller' => 'requests', 'action' => 'admin_csvexport'));
-    	}
-    	else{
-    		$history = new DateTime();
-	        $history->sub(new DateInterval($this->WebConfig->field('limit_time', 1)));
-	        $period = new DatePeriod($history, new DateInterval('P1M'), new DateTime);
-	        $monthOps = array();
-	        foreach ($period as $dt) {
-	            $monthOps[$dt->format("Y-m")] = $dt->format("Y-m");
-	        }
-	        $monthOps[date('Y-m')]=date('Y-m');
-	        $this->set('monthOptions', $monthOps);
-    	}
+    	$history = new DateTime();
+        $history->sub(new DateInterval($this->WebConfig->field('limit_time', 1)));
+        $period = new DatePeriod($history, new DateInterval('P1M'), new DateTime);
+        $monthOps = array();
+        foreach ($period as $dt) {
+            $monthOps[$dt->format("Y-m")] = $dt->format("Y-m");
+        }
+        $monthOps[date('Y-m')] = date('Y-m');
+        $this->set('monthOptions', $monthOps);
     }
 
     function admin_config() {
