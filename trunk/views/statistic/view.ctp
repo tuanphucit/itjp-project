@@ -33,7 +33,7 @@ $item['total_expense'] += $item['punish_expense'];
     <div class="module_content">
         <table style="width: 100%">
             <tr>
-                <td style="font-weight: bold; width: 30%;text-align: right"><?php __('Name'); ?></td>
+                <td style="font-weight: bold; width: 30%;text-align: right"><?php __('氏名'); ?></td>
                 <td>:</td>
                 <td><?php echo $list['User']['fullname']; ?></td>
             </tr>
@@ -43,7 +43,7 @@ $item['total_expense'] += $item['punish_expense'];
                 <td><?php echo $list['User']['usercode']; ?></td>
             </tr>
             <tr>
-                <td style="font-weight: bold; width: 30%;text-align: right"><?php __('Company'); ?></td>
+                <td style="font-weight: bold; width: 30%;text-align: right"><?php __('会社'); ?></td>
                 <td>:</td>
                 <td><?php echo $list['Company']['name']; ?></td>
             </tr>
@@ -100,11 +100,13 @@ $item['total_expense'] += $item['punish_expense'];
                 </tr>
                 <tr>
                     <td colspan="3" align="center">
-                        <table border="1">
+                        <table border="1" style="width: 100%">
                             <tr>
-                                <th>STT</th>
-                                <th>Time</th>
-                                <th>Note</th>
+                                <th style="width: 10%"><?php __('#');?></th>
+                                <th><?php __('#');?></th>
+                                <th><?php __('時間');?></th>
+                                <th><?php __('金');?></th>
+                                <th><?php __('ノート');?></th>
                             </tr>
                             <?php
                             $i = 1;
@@ -113,6 +115,8 @@ $item['total_expense'] += $item['punish_expense'];
                                 <tr>
                                     <td><?php echo $i++; ?></td>
                                     <td><?php echo $phat['time']; ?></td>
+                                    <td><?php echo $phat['gio'].'時'.$phat['phut'].'分'; ?></td>
+                                    <td><?php echo $phat['tien']; ?></td>
                                     <td><?php echo $phat['note']; ?></td>
                                 </tr>
                             <?php } ?>

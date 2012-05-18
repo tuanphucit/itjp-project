@@ -639,14 +639,12 @@ class UsersController extends AppController {
             $this->redirect(array('action' => 'index'));
         }
         if (!empty($this->data)) {
-            
+
             if (!isset($this->data['User']['time']) || empty($this->data['User']['time'])) {
                 $this->data['User']['time'] = date('Y-m-d');
             }
+            $this->data['User']['tien'] = ($this->data['User']['gio'] * 2 + $this->data['User']['phut']) * $this->WebConfig->field('punish_expense', 1);
             $this->Phat->create(array('Phat' => $this->data['User']));
-//            if (!isset($this->data['User']['id']) || empty($this->data['User']['id'])) {
-//                $this->data['User']['id'] = $id;
-//            }
             if ($this->Phat->save()) {
                 $this->Session->setFlash('課徴金を登録しました', 'default', array('class' => CLASS_SUCCESS_ALERT));
                 $this->redirect(array('action' => 'index'));

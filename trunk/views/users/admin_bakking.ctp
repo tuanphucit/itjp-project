@@ -23,9 +23,11 @@ $html->script(array('jquery-1.5.1.min', 'jquery-ui.min'), array('inline' => fals
         <?php
         //TODO : make style cho form admin edit user
         echo $form->create('User', array('onsubmit' => "return confirm('" . __('That su ban co muon bakking user nay？', true) . "')"));
-        echo $form->input('userid', array('label' => null, 'style' => 'display:none'));
+        echo $form->text('userid', array('style' => 'display:none'));
         echo $form->input('fullname', array('label' => __('氏名', true), 'type' => 'text', 'disabled' => 'true'));
         echo $form->input('time', array('label' => __('Date', true), 'type' => 'text', 'id' => 'datepicker'));
+        echo $form->input('gio', array('label' => __('Hours', true), 'type' => 'text'));
+        echo $form->input('phut', array('label' => __('Minutes', true), 'type' => 'select', 'options' => array('0' => '00', '1' => '30')));
         echo $form->input('note', array('label' => __('Note', true), 'type' => 'textarea'));
         echo $form->button(__('サブミット', true), array('type' => 'submit'));
         echo $form->end();
