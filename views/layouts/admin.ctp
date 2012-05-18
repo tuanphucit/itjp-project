@@ -8,9 +8,20 @@
 <?php echo $html->docType(); ?>
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
+    	
+		<script type="text/javascript">
+		onload=function(){
+		var e=document.getElementById("refreshed");
+		if(e.value=="no")e.value="yes";
+		else{e.value="no";location.reload();}
+		}
+		</script>
         <?php echo $html->charset(); ?>
         <title><?php __('T09'); ?> <?php echo ' :: ' . $title_for_layout; ?>
         </title>
+        <meta http-equiv="Pragma" content="no-cache">
+		<META HTTP-EQUIV="CACHE-CONTROL" CONTENT="NO-CACHE">
+		<META HTTP-EQUIV="Expires" CONTENT="-1">
         <?php
         echo $html->meta('icon');
         echo $html->meta(array('http-equiv' => 'cache-control', 'content' => 'no-cache'));
@@ -28,6 +39,7 @@
         ?>
     </head>
     <body>
+    	<input type="hidden" id="refreshed" value="no">
         <div id="header">
             <h1 class="site_title">
                 <?php __('管理者サイト'); ?>
@@ -69,4 +81,5 @@
         </div>
         <?php //echo $this->element('sql_dump');  ?>
     </body>
+   
 </html>

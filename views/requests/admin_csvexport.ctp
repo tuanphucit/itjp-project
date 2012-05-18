@@ -22,7 +22,7 @@
 				//$money += $rs['punish_expense'];
 			}
 		}
-                $money += (count($rq['Phat']) * $punish_expense);
+        $money += (count($rq['Phat']) * $punish_expense);
 		$usercode=$rq['User']['usercode'];		
 		$name= $rq['User']['fullname'];
 		//$money = $rq[0]['total_price'];
