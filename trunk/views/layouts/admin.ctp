@@ -13,6 +13,7 @@
         </title>
         <?php
         echo $html->meta('icon');
+        echo $html->meta(array('http-equiv' => 'cache-control', 'content' => 'no-cache'));
         echo $html->css('aristo/jquery-ui');
         //echo $html->css('aristo/jquery-ui-timepicker-addon');
         echo $html->css('admin_layout');

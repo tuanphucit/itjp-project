@@ -25,7 +25,7 @@
 <?php
 echo $this->Html->meta('icon');
 //echo $this->Html->css('cake.generic');
-
+echo $html->meta(array('http-equiv' => 'cache-control', 'content' => 'no-cache'));
 echo $this->Html->css('login_style');
 echo $this->Html->css('default_style');
 

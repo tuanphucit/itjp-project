@@ -25,7 +25,7 @@
 </title>
 <?php
 //echo $this->Html->meta('icon');
-
+echo $html->meta(array('http-equiv' => 'cache-control', 'content' => 'no-cache'));
 //echo $this->Html->css('cake.generic');
 echo $this->Html->css('admin_style.css');
 echo $this->Html->css('alert_style.css');

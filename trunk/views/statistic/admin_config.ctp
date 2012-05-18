@@ -23,7 +23,17 @@ $limitTimeOptions = array(
     'P1Y6M' =>'１年６月',
     'P1Y' =>'１年',
     'P6M' =>'６月'
-)
+);
+$detroyTimeOptions = array(
+    'P0DT0H30M' =>'３０分',
+    'P0DT1H' =>'１時',
+    'P0DT1H30M' =>'１時３０分',
+    'P0DT2H' =>'２時',
+    'P0DT2H30M' =>'２時３０分',
+    'P0DT6H' =>'６時',
+    'P0DT12H' =>'１２時',
+    'P1D' =>'１日'
+);
 ?>
 <div class="module width_full">
     <div class="module_header">
@@ -42,6 +52,7 @@ $limitTimeOptions = array(
         echo $form->input('end', array('type' => 'time', 'timeFormat' => '24','label'=>'終了'));
         echo $form->input('unit', array('type' => 'select', 'options' => $unitTimeOptions,'label'=>'時間'));
         echo $form->input('limit_time', array('type' => 'select', 'options' => $limitTimeOptions,'label'=>'時間限界'));
+        echo $form->input('detroy_time', array('type'=>'select','options'=>$detroyTimeOptions,'label'=>'Limit Cancel'));
         echo $form->input('request', array('type' => 'text','label'=>'予約金'));
         echo $form->input('detroy', array('type' => 'text','label'=>'キャンセル金'));
         echo $form->input('punish', array('type' => 'text','label'=>'罰金'));

@@ -5,6 +5,7 @@
  * @property Request $Request
  * @property WebConfig $WebConfig
  * @property RequestHandlerComponent $RequestHandler
+ * @property Phat $Phat
  */
 class RequestsController extends AppController {
 
@@ -15,17 +16,17 @@ class RequestsController extends AppController {
 
     function beforeFilter() {
         parent::beforeFilter();
-        
+
         $now = date('Y-m-d H:i:s');
         $conditions = array(
-        	'Request.status' => REQUEST_STATUS_APROVED,
-        	'Request.begin_time <=' => $now
+            'Request.status' => REQUEST_STATUS_APROVED,
+            'Request.begin_time <=' => $now
         );
         $fields = array('id', 'begin_time');
-        $rq = $this->Request->find('all', array('conditions'=>$conditions, 'fields' => $fields));
-        foreach ($rq as $rs){
-        	$this->Request->id = $rs['Request']['id'];
-        	$this->Request->saveField('status', REQUEST_STATUS_FINISH);
+        $rq = $this->Request->find('all', array('conditions' => $conditions, 'fields' => $fields));
+        foreach ($rq as $rs) {
+            $this->Request->id = $rs['Request']['id'];
+            $this->Request->saveField('status', REQUEST_STATUS_FINISH);
         }
     }
 
@@ -170,15 +171,14 @@ class RequestsController extends AppController {
             $this->Session->setFlash(__('要求のため、ＩＤが正しくないです。', true));
             $this->redirect(array('action' => 'index'));
         }
-        $date = date('Y-m-d H:i:s');
-
+        $daOb = new DateTime();
+        $daOb->add(new DateInterval($this->WebConfig->field('detroy_time', array('id' => 1))));
+        //debug($daOb);die();
+        $cancelTime = strtotime($daOb->format('Y-m-d H:i:s'));
         $request = $this->Request->read(array('begin_time', 'status'), $id);
         if ($request ['Request'] ['status'] != REQUEST_STATUS_CANCELED && $request ['Request'] ['status'] != REQUEST_STATUS_FINISH) {
-            $now = strtotime($date);
             $begin = strtotime($request ['Request'] ['begin_time']);
-            //$this->log(abs ( $now - $begin ), 'toan');
-            //Xem lai cho nay :((
-            if (abs($now - $begin) >= 60 * 60 * 2) {
+            if ($begin >= $cancelTime) {
                 $this->Request->id = $id;
                 //TODO : thay doi phi theo status
                 $this->Request->saveField('status', REQUEST_STATUS_CANCELED);
@@ -296,7 +296,7 @@ class RequestsController extends AppController {
         $this->set('title_for_layout', __('予約管理', true));
         $this->set('listRoomType', $this->RoomType->find('list', array('fields' => array('id', 'name'))));
         $this->set('listTimes', $this->WebConfig->getTimeList());
-        $listUsers = $this->User->find('all', array('fields' => array('id', 'fullname'), 'recursive' => 0));
+        $listUsers = $this->User->find('all', array('fields' => array('id', 'fullname'), 'recursive' => 0,'conditions'=>array('User.status <>'=>USER_STATUS_DELETE)));
         usort($listUsers, "cmp");
         $this->set('listUsers', $listUsers);
         //debug($this->data);
@@ -385,7 +385,7 @@ class RequestsController extends AppController {
                 $this->Request->saveField('update_time', date('Y-m-d H:i:s'));
                 $hi = $this->WebConfig->read('detroy_expense', 1);
                 $this->Request->saveField('detroy_expense', $hi ['WebConfig'] ['detroy_expense']);
-$this->Request->saveField('rent_expense', 0);
+                $this->Request->saveField('rent_expense', 0);
                 $this->Session->setFlash(__('予約がキャンセルしました', true), 'default', array('class' => CLASS_SUCCESS_ALERT));
                 $this->redirect(array('action' => 'index'));
             } else {
@@ -400,19 +400,11 @@ $this->Request->saveField('rent_expense', 0);
 
     function admin_csvexport() {
         $this->layout = 'ajax';
-        $fields = array('Request.*', 'Requester.fullname', 'Requester.usercode', 'Requester.address', 'Requester.phone', 'Updater.fullname', 'Room.name', 'TIMEDIFF(Request.end_time,Request.begin_time) AS time', '(Request.request_expense+Request.detroy_expense+Request.rent_expense+Request.punish_expense) AS total_price');
-        //$conditions = array ('Request.update_time >' => date ( 'Y' ) . '-' . date ( 'm' ) - 1, 'Request.update_time <' => date ( 'Y-m' ) );
-        $conditions = array();
-
-        $endMouth = date('Y-m') . '-01';
-//        if (isset($this->data ['User'] ['mouth']) && !empty($this->data ['User'] ['mouth'])) {
-//            $beginMouth = date('Y-m-d', strtotime($this->data ['User'] ['mouth'] . '-01'));
-//        } else {
-//            $this->data ['User'] ['mouth'] = date('Y-m');
-//        }
-        if (isset($this->data ['User'] ['cust']) && !empty($this->data ['User'] ['cust'])) {
-            $conditions ['User.fullnane LIKE'] = '%' . trim($this->data ['User'] ['cust']) . '%';
-        }
+        $beginMouth = date('Y-m') . '-01';
+        if (isset($this->params ['named'] ['mouth']) && !empty($this->params ['named'] ['mouth'])) {
+            $beginMouth = date('Y-m-d', strtotime($this->params ['named'] ['mouth'] . '-01'));
+        } 
+        $endMouth = date('Y-m-t', strtotime($beginMouth));
         $beginMouth = date('Y-m', strtotime('1 month ago')) . '-01';
         $this->User->hasMany = array(
             'Request' => array(
@@ -422,24 +414,33 @@ $this->Request->saveField('rent_expense', 0);
                 'conditions' => array(
                     'Request.update_time BETWEEN ? AND ?' => array($beginMouth, $endMouth)
                 ),
+            ),
+            'Phat' => array(
+                'className' => 'Phat',
+                'foreignKey' => 'userid',
+                'dependent' => true,
+                'conditions' => array(
+                    'Phat.time BETWEEN ? AND ?' => array($beginMouth, $endMouth)
+                ),
             )
         );
-        $limit = isset($this->params ['named'] ['limit']) && !empty($this->params ['named'] ['limit']) ? (int) $this->params ['named'] ['limit'] : 10;
+        //$limit = isset($this->params ['named'] ['limit']) && !empty($this->params ['named'] ['limit']) ? (int) $this->params ['named'] ['limit'] : 10;
         $sort = isset($this->params ['named'] ['sort']) && !empty($this->params ['named'] ['sort']) ? $this->params ['named'] ['sort'] : 'update_time';
         $direction = isset($this->params ['named'] ['direction']) && !empty($this->params ['named'] ['direction']) ? $this->params ['named'] ['direction'] : 'desc';
-        $page = isset($this->params ['named'] ['page']) && !empty($this->params ['named'] ['page']) ? (int) $this->params ['named'] ['page'] : 1;
+        //$page = isset($this->params ['named'] ['page']) && !empty($this->params ['named'] ['page']) ? (int) $this->params ['named'] ['page'] : 1;
         $fields = array(
             'User.*',
             'Company.name',
         );
         $this->paginate = array(
             'fields' => $fields,
-            'conditions' => $conditions,
-            'limit' => $limit,
+            //'conditions' => $conditions,
+            //'limit' => $limit,
             'sort' => array($sort => $direction),
-            'page' => $page,
+            //'page' => $page,
 //            'recursive' => 1
         );
+        $this->set('punish_expense', $this->WebConfig->field('punish_expense', 1));
         $this->set('list', $this->paginate('User'));
         //$this->set ( 'rs', $this->Request->find ( 'all', array ('fields' => $fields, 'conditions' => $conditions ) ) );
         $userid = $this->Session->read('Auth.User.id');
@@ -470,18 +471,23 @@ $this->Request->saveField('rent_expense', 0);
         }
     }
 
-    function admin_bakking($id = null) {
-        if (!$id && empty($this->data)) {
-            $this->Session->setFlash(__('要求が正しくないです。', true));
-        }
-        $hi = $this->WebConfig->read('punish_expense', 1);
-        $this->Request->id = $id;
-        $this->Request->saveField('punish_expense', $hi ['WebConfig'] ['punish_expense']);
-        $this->Session->setFlash('課徴金を登録しました', 'default', array('class' => CLASS_SUCCESS_ALERT));
-        $this->redirect(array('action' => 'index'));
-    }
+//    function admin_bakking($id = null) {
+//        if (!$id && empty($this->data)) {
+//            $this->Session->setFlash(__('要求が正しくないです。', true));
+//        }
+//        $hi = $this->WebConfig->read('punish_expense', 1);
+//        $this->Phat->create();
+//        $this->Phat->save(array('Phat' => array(
+//                'time' => date('Y-m-d H:i:s'),
+//                'userid' => $id,
+//                )));
+//        //$this->Phat->saveField('punish_expense', $hi ['WebConfig'] ['punish_expense']);
+//        $this->Session->setFlash('課徴金を登録しました', 'default', array('class' => CLASS_SUCCESS_ALERT));
+//        $this->redirect(array('action' => 'index'));
+//    }
 
     function admin_action() {
+        $date = date('Y-m-d H:i:s');
         //debug ( $this->data ['Request'] ['SelectItem'] [0] );
         if ($this->data ['itemaction'] == 1) {
             for ($i = 0; $i < count($this->data ['Request'] ['SelectItem']); $i++) {
@@ -491,9 +497,11 @@ $this->Request->saveField('rent_expense', 0);
 
                 if ($rs ['Request'] ['status'] != REQUEST_STATUS_FINISH && $rs ['Request'] ['status'] != REQUEST_STATUS_CANCELED) {
                     $this->Request->saveField('status', REQUEST_STATUS_FINISH);
+                    $this->Request->saveField('update_time', $date);
+                    $this->Request->saveField('update_by', $this->Auth->user('id'));
                     $begin = strtotime($rs ['Request'] ['begin_time']);
                     $end = strtotime($rs ['Request'] ['end_time']);
-                    $rent = ($end - $begin) / (3600) * $room ['Room'] ['renting_fee'];
+                    $rent = ($end - $begin) / (3600) * 2 * $room ['Room'] ['renting_fee']; //OoanhNN sua
                     //$this->log(($d2 - $d1)/3600,'test');
                     $this->Request->saveField('rent_expense', $rent);
 //                    $this->Session->setFlash ( __ ( 'その予約が実施されました。', true ), 'default', array ('class' => CLASS_SUCCESS_ALERT ) );
@@ -505,15 +513,16 @@ $this->Request->saveField('rent_expense', 0);
         } elseif ($this->data ['itemaction'] == 2) {
             for ($i = 0; $i < count($this->data ['Request'] ['SelectItem']); $i++) {
                 $id = ($this->data ['Request'] ['SelectItem'] [$i]);
-                $date = date('Y-m-d H:i:s');
                 $request = $this->Request->read(array('begin_time', 'status'), $id);
                 if ($request ['Request'] ['status'] != REQUEST_STATUS_CANCELED && $request ['Request'] ['status'] != REQUEST_STATUS_FINISH) {
                     $now = strtotime($date);
                     $begin = strtotime($request ['Request'] ['begin_time']);
                     //$this->log(abs ( $now - $begin )/60/60, 'toan');
-                    if (abs($now - $begin) >= 60 * 60 * 24) {
+                    if (abs($now - $begin) >= 60 * 60) { //OanhNN sua
                         $this->Request->id = $id;
                         $this->Request->saveField('status', REQUEST_STATUS_CANCELED);
+                        $this->Request->saveField('update_time', $date);
+                        $this->Request->saveField('update_by', $this->Auth->user('id'));
                         $hi = $this->WebConfig->read('detroy_expense', 1);
                         $this->Request->saveField('detroy_expense', $hi ['WebConfig'] ['detroy_expense']);
                     }
@@ -549,11 +558,11 @@ $this->Request->saveField('rent_expense', 0);
      */
     private function _check($roomid, $begin, $end) {
         $conditions = array(
-        	'Request.roomid' => (int) $roomid, //TODO : dk status
-        	'OR' => array(
-		        'Request.status <>' => REQUEST_STATUS_CANCELED,
-		        'Request.status <>' => REQUEST_STATUS_FINISH,
-	        ),
+            'Request.roomid' => (int) $roomid, //TODO : dk status
+            'OR' => array(
+                'Request.status <>' => REQUEST_STATUS_CANCELED,
+                'Request.status <>' => REQUEST_STATUS_FINISH,
+            ),
             'OR' => array(
                 array(
                     'Request.begin_time >=' => date('Y-m-d H:i:s', $begin),
@@ -566,7 +575,7 @@ $this->Request->saveField('rent_expense', 0);
                 array(
                     'Request.end_time >=' => date('Y-m-d H:i:s', $begin),
                     'Request.end_time >=' => date('Y-m-d H:i:s', $end),
-                	'Request.begin_time <=' => date('Y-m-d H:i:s', $begin),
+                    'Request.begin_time <=' => date('Y-m-d H:i:s', $begin),
                     'Request.begin_time <=' => date('Y-m-d H:i:s', $end)
                 ),
             )
@@ -577,17 +586,22 @@ $this->Request->saveField('rent_expense', 0);
 
     function action() {
         if ($this->data ['itemaction'] == 1) {
+            $daOb = new DateTime();
+            $daOb->add(new DateInterval($this->WebConfig->field('detroy_time', array('id' => 1))));
+            $cancelTime = strtotime($daOb->format('Y-m-d H:i:s'));
             for ($i = 0; $i < count($this->data ['Request'] ['SelectItem']); $i++) {
                 $id = ($this->data ['Request'] ['SelectItem'] [$i]);
                 $date = date('Y-m-d H:i:s');
                 $request = $this->Request->read(array('begin_time', 'status'), $id);
                 if ($request ['Request'] ['status'] != REQUEST_STATUS_CANCELED && $request ['Request'] ['status'] != REQUEST_STATUS_FINISH) {
-                    $now = strtotime($date);
+                    //$now = strtotime($date);
                     $begin = strtotime($request ['Request'] ['begin_time']);
                     //$this->log(abs ( $now - $begin )/60/60, 'toan');
-                    if (abs($now - $begin) >= 60 * 60 * 24) {
+                    if ($begin > $cancelTime) {
                         $this->Request->id = $id;
                         $this->Request->saveField('status', REQUEST_STATUS_CANCELED);
+                        $this->Request->saveField('update_time', $date);
+                        $this->Request->saveField('update_by', $this->Auth->user('id'));
                         $hi = $this->WebConfig->read('detroy_expense', 1);
                         $this->Request->saveField('detroy_expense', $hi ['WebConfig'] ['detroy_expense']);
                     }

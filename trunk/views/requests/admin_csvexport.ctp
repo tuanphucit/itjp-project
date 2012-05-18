@@ -10,7 +10,7 @@
 	foreach ($list as $rq){
 //		if(strpos($rq['Request']['date'], date('m')-1))
 //			continue;
-		if (empty($rq['Request'])){
+		if (empty($rq['Request']) && empty($rq['Phat'])){
 			continue;
 		}
 		$money = 0;
@@ -19,9 +19,10 @@
 				$money += $rs['total_expense'];
 			else {
 				$money += $rs['request_expense'];
-				$money += $rs['punish_expense'];
+				//$money += $rs['punish_expense'];
 			}
 		}
+                $money += (count($rq['Phat']) * $punish_expense);
 		$usercode=$rq['User']['usercode'];		
 		$name= $rq['User']['fullname'];
 		//$money = $rq[0]['total_price'];
